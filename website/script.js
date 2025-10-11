@@ -219,7 +219,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // if (faqItems.length > 0) {
     //     faqItems[0].classList.add('active');
     // }
+
+    // 获取最新下载文件信息
+    fetchLatestFileInfo();
 });
+
+// 获取最新下载文件信息
+function fetchLatestFileInfo() {
+    fetch('download.php?info=1')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // 提取版本号（如果文件名包含版本号）
+                const versionMatch = data.filename.match(/(\d+\.\d+\.\d+)/);
+                const version = versionMatch ? 'v' + versionMatch[1] : 'v1.0.0';
+                
+                // 更新所有显示文件信息的元素
+                const versionElements = document.querySelectorAll('#file-version, #file-version-2');
+                versionElements.forEach(el => {
+                    if (el.id === 'file-version-2') {
+                        el.textContent = '版本 ' + version;
+                    } else {
+                        el.textContent = version;
+                    }
+                });
+                
+                const sizeElements = document.querySelectorAll('#file-size, #file-size-2');
+                sizeElements.forEach(el => {
+                    el.textContent = data.sizeFormatted;
+                });
+                
+                // 更新下载按钮的title提示
+                const downloadButtons = document.querySelectorAll('.download-btn');
+                downloadButtons.forEach(btn => {
+                    btn.title = `下载: ${data.filename} (${data.sizeFormatted})`;
+                });
+                
+                console.log('最新下载文件:', data.filename, data.sizeFormatted);
+            }
+        })
+        .catch(error => {
+            console.error('获取文件信息失败:', error);
+            // 如果获取失败，显示默认信息
+            const sizeElements = document.querySelectorAll('#file-size, #file-size-2');
+            sizeElements.forEach(el => {
+                el.textContent = '点击下载';
+            });
+        });
+}
 
 // 性能监控
 window.addEventListener('load', () => {
@@ -305,6 +352,70 @@ window.xintuxiangce = {
         }
     }
 };
+
+// 自动获取最新下载文件信息
+async function updateDownloadInfo() {
+    try {
+        // 获取dist目录下的文件列表
+        // 注意：纯静态网站无法直接列出目录，所以这里使用预定义的文件名模式
+        // 如果需要真正的动态获取，需要后端支持
+        
+        // 当前可用的下载文件（按优先级排序）
+        const downloadFiles = [
+            {
+                name: 'xtxc202510111614.zip',
+                displayName: '芯图相册 Windows版',
+                version: 'v1.0.0',
+                size: 275 * 1024 * 1024, // 275MB
+                path: 'dist/xtxc202510111614.zip'
+            }
+        ];
+        
+        // 选择第一个可用文件
+        const latestFile = downloadFiles[0];
+        
+        // 更新所有下载按钮的链接
+        const downloadButtons = document.querySelectorAll('.download-btn');
+        downloadButtons.forEach(btn => {
+            btn.href = latestFile.path;
+            btn.download = latestFile.name;
+        });
+        
+        // 格式化文件大小
+        const sizeFormatted = formatBytes(latestFile.size);
+        
+        // 更新页面上的文件信息
+        const versionElement = document.getElementById('file-version');
+        const versionElement2 = document.getElementById('file-version-2');
+        const sizeElement = document.getElementById('file-size');
+        const sizeElement2 = document.getElementById('file-size-2');
+        
+        if (versionElement) versionElement.textContent = latestFile.version;
+        if (versionElement2) versionElement2.textContent = '版本 ' + latestFile.version;
+        if (sizeElement) sizeElement.textContent = sizeFormatted;
+        if (sizeElement2) sizeElement2.textContent = sizeFormatted;
+        
+        console.log('下载文件信息已更新:', latestFile);
+    } catch (error) {
+        console.error('获取下载文件信息失败:', error);
+        // 如果获取失败，保持默认值
+    }
+}
+
+// 格式化字节大小
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// 页面加载时更新下载信息
+document.addEventListener('DOMContentLoaded', () => {
+    updateDownloadInfo();
+});
 
 console.log('芯图相册官网已加载完成 🎉');
 
