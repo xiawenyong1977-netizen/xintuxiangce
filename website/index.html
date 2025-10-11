@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>芯图相册 - AI智能照片分类管理工具 | 本地处理，隐私安全，免费下载</title>
+    <meta name="description" content="芯图相册是一款基于AI技术的智能照片分类管理工具，本地处理，无需联网，90%+准确率自动识别分类照片。支持内容、城市、相似度三大维度分类，帮您高效整理手机相册，释放存储空间。免费下载，无广告，完全保护您的隐私安全。">
+    <meta name="keywords" content="照片整理,相册管理,AI照片分类,智能相册,照片清理,手机相册整理,本地AI,隐私安全,照片管理工具,芯图相册">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="芯图相册 - AI智能照片分类管理工具">
+    <meta property="og:description" content="本地AI智能识别，自动分类照片，90%+准确率，无需联网，完全保护隐私">
+    <meta property="og:image" content="./icons/imageclassify.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="芯图相册 - AI智能照片分类管理工具">
+    <meta property="twitter:description" content="本地AI智能识别，自动分类照片，90%+准确率，无需联网，完全保护隐私">
+    
+    <!-- 添加结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "芯图相册",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        },
+        "operatingSystem": "Windows",
+        "description": "AI智能照片分类管理工具，本地处理，隐私安全"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                    <span>芯图相册</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">功能特性</a></li>
+                    <li><a href="#how-it-works">使用指南</a></li>
+                    <li><a href="#screenshots">应用截图</a></li>
+                    <li><a href="#faq">常见问题</a></li>
+                    <li><a href="#download" class="btn-nav-download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">智能分类</span><br>
+                        <span>让照片管理从此简单</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        本地AI智能识别，自动分类照片<br>
+                        无需联网 · 无需登录 · 无广告 · 完全保护隐私
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">90%+</div>
+                            <div class="stat-label">分类准确率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">7大</div>
+                            <div class="stat-label">内容类别</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">隐私保护</div>
+                        </div>
+                    </div>
+                    <div class="hero-cta">
+                        <a href="#download" class="btn btn-primary btn-large">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
+                                <path d="M3 15V17H17V15H19V17C19 18.1 18.1 19 17 19H3C1.9 19 1 18.1 1 17V15H3Z" fill="currentColor"/>
+                            </svg>
+                            免费下载 Windows 版
+                        </a>
+                        <div class="download-info">
+                            <span>v1.0.0</span>
+                            <span class="separator">·</span>
+                            <span>免费使用</span>
+                            <span class="separator">·</span>
+                            <span>约 85MB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="../images/首页-1.jpg" alt="芯图相册主界面" class="screenshot-preview">
+                        <div class="floating-badge badge-1">
+                            <span class="badge-icon">🔒</span>
+                            <span>本地处理</span>
+                        </div>
+                        <div class="floating-badge badge-2">
+                            <span class="badge-icon">⚡</span>
+                            <span>极速分类</span>
+                        </div>
+                        <div class="floating-badge badge-3">
+                            <span class="badge-icon">🎯</span>
+                            <span>精准识别</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 痛点共鸣区域 -->
+    <section class="pain-points">
+        <div class="container">
+            <h2 class="section-title">您是否也遇到这些困扰？</h2>
+            <div class="pain-points-grid">
+                <div class="pain-point-card">
+                    <div class="pain-icon">📱</div>
+                    <h3>手机存储告急</h3>
+                    <p>几千张照片占满手机，却舍不得删除珍贵回忆</p>
+                </div>
+                <div class="pain-point-card">
+                    <div class="pain-icon">🔍</div>
+                    <h3>找图如大海捞针</h3>
+                    <p>想找一张照片要翻半天，浪费大量时间</p>
+                </div>
+                <div class="pain-point-card">
+                    <div class="pain-icon">😰</div>
+                    <h3>手动整理太累</h3>
+                    <p>面对上千张照片，逐一分类整理力不从心</p>
+                </div>
+                <div class="pain-point-card">
+                    <div class="pain-icon">☁️</div>
+                    <h3>云备份不安全</h3>
+                    <p>担心隐私照片上传云端，被泄露或被滥用</p>
+                </div>
+            </div>
+            <div class="solution-highlight">
+                <div class="solution-icon">✨</div>
+                <div class="solution-text">
+                    <h3>芯图相册，专为解决这些问题而生</h3>
+                    <p>AI智能分类，本地安全处理，让照片管理轻松高效</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心特性 -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">核心特性</h2>
+            <p class="section-subtitle">强大功能，极致体验</p>
+            
+            <div class="features-grid">
+                <div class="feature-card feature-highlight">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI智能识别</h3>
+                    <p>采用先进的深度学习技术，自动识别照片内容、场景、人物等信息，准确率高达90%以上</p>
+                    <ul class="feature-list">
+                        <li>7大内容类别识别</li>
+                        <li>自动城市地点分类</li>
+                        <li>相似照片智能去重</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>隐私绝对安全</h3>
+                    <p>所有处理完全在本地进行，无需联网，不上传任何数据，从根源上保护您的隐私</p>
+                    <div class="feature-badges">
+                        <span class="badge">本地处理</span>
+                        <span class="badge">无需登录</span>
+                        <span class="badge">零上传</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>高效快速</h3>
+                    <p>优化的算法确保处理速度，大批量照片也能快速完成分类，节省您的宝贵时间</p>
+                    <div class="performance-stats">
+                        <div class="perf-stat">
+                            <strong>1886张</strong>
+                            <span>照片测试</span>
+                        </div>
+                        <div class="perf-stat">
+                            <strong>8.86GB</strong>
+                            <span>处理容量</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>多维度分类</h3>
+                    <p>提供三大分类维度，全方位整理您的照片库</p>
+                    <ul class="feature-list">
+                        <li><strong>按内容：</strong>截图、证件照、单人照、社会活动、风景、美食、萌宠</li>
+                        <li><strong>按城市：</strong>自动识别照片拍摄地点</li>
+                        <li><strong>按相似度：</strong>找出重复或相似照片</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✏️</div>
+                    <h3>灵活可控</h3>
+                    <p>AI分类结果支持手动调整，您可以轻松修正个别分类错误，完全掌控照片管理</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>简洁易用</h3>
+                    <p>清晰直观的界面设计，简单四步即可完成照片整理，无需复杂操作</p>
+                    <div class="feature-badges">
+                        <span class="badge">零学习成本</span>
+                        <span class="badge">一键操作</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作流程 -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">使用指南</h2>
+            <p class="section-subtitle">四步轻松完成相册整理</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h3>连接与设置</h3>
+                            <p>使用数据线连接手机与电脑，在设置页面选定需要整理的相册目录</p>
+                            <ul class="step-features">
+                                <li>支持手机相册目录</li>
+                                <li>支持电脑本地文件夹</li>
+                                <li>支持外置存储设备</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="../images/设置照片目录并智能分类.jpg" alt="设置照片目录">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step step-reverse">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h3>一键智能分类</h3>
+                            <p>点击"开始智能分类"按钮，AI将自动扫描识别，首页清晰展示分类进度与图片统计</p>
+                            <ul class="step-features">
+                                <li>实时显示处理进度</li>
+                                <li>自动统计各类别数量</li>
+                                <li>支持暂停和继续</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="../images/分类进展和统计信息.jpg" alt="智能分类进度">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h3>便捷拣选暂存</h3>
+                            <p>分类完成后，可逐类浏览，轻松勾选需要处理的照片，一键移入暂存箱</p>
+                            <ul class="step-features">
+                                <li>支持批量选择</li>
+                                <li>支持预览大图</li>
+                                <li>灵活的暂存管理</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="../images/暂存.jpg" alt="勾选照片暂存">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step step-reverse">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <div class="step-text">
+                            <h3>最终清理或归档</h3>
+                            <p>进入暂存箱二次确认，无误后可以全选删除，或复制到指定文件夹完成归档</p>
+                            <ul class="step-features">
+                                <li>删除前二次确认</li>
+                                <li>支持复制到其他位置</li>
+                                <li>批量操作省时省力</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="../images/暂存箱处置.jpg" alt="暂存箱处理">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 应用截图 -->
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2 class="section-title">应用截图</h2>
+            <p class="section-subtitle">一睹为快，直观感受</p>
+            
+            <div class="screenshot-tabs">
+                <button class="tab-btn active" data-tab="content">按内容分类</button>
+                <button class="tab-btn" data-tab="city">按城市分类</button>
+                <button class="tab-btn" data-tab="similar">相似照片</button>
+            </div>
+            
+            <div class="screenshot-gallery">
+                <div class="screenshot-item active" data-content="content">
+                    <img src="../images/首页-1.jpg" alt="按内容智能分类">
+                    <div class="screenshot-caption">
+                        <h4>按内容智能分类</h4>
+                        <p>自动识别截图、证件照、单人照、社会活动、风景、美食、萌宠等7大类别</p>
+                    </div>
+                </div>
+                <div class="screenshot-item" data-content="city">
+                    <img src="../images/首页-1.jpg" alt="按城市地点分类">
+                    <div class="screenshot-caption">
+                        <h4>按城市地点分类</h4>
+                        <p>根据照片元数据自动识别拍摄地点，按城市归类您的旅行回忆</p>
+                    </div>
+                </div>
+                <div class="screenshot-item" data-content="similar">
+                    <img src="../images/首页-2.jpg" alt="相似照片识别">
+                    <div class="screenshot-caption">
+                        <h4>相似照片智能分组</h4>
+                        <p>找出重复或相似的照片，帮您快速清理，释放存储空间</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">常见问题</h2>
+            <p class="section-subtitle">解答您的疑惑</p>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>芯图相册真的完全免费吗？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>是的，芯图相册完全免费使用，无任何隐藏收费，也没有内置广告。我们希望为每个用户提供纯粹、高效的照片管理体验。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>我的照片真的安全吗？会不会被上传？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>绝对安全！芯图相册的所有AI处理都在您的本地电脑进行，不需要联网，不会上传任何照片到云端。您的照片始终在您的设备上，我们无法访问，也不会收集任何数据。这是我们设计的核心原则。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>分类准确率有多高？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>经过大量测试，芯图相册的分类准确率稳定在90%以上。对于少数分类错误的照片，您可以手动调整。我们也在持续优化算法，未来版本的准确率会更高。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>支持哪些操作系统？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>目前芯图相册支持 Windows 10 及以上版本。Mac 和 Linux 版本正在开发中，敬请期待。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>可以处理多少张照片？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>理论上没有数量限制。我们测试过处理近2000张、总大小近9GB的照片，都能顺利完成。处理速度取决于您的电脑配置和照片数量。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>删除的照片可以恢复吗？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>芯图相册提供了"暂存箱"功能，在最终删除前可以进行二次确认。一旦确认删除，照片会进入系统回收站，您可以从回收站恢复。为了安全起见，建议在删除前备份重要照片。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>对电脑配置有什么要求？</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>建议配置：Windows 10/11，4GB以上内存，500MB可用磁盘空间。对于大批量照片处理，建议8GB以上内存以获得更好的体验。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载区域 -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2>立即下载，开启智能整理之旅</h2>
+                    <p class="download-subtitle">免费使用 · 本地安全 · 智能高效</p>
+                    
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 22C10.6868 22 9.38642 21.7413 8.17317 21.2388C6.95991 20.7362 5.85752 19.9997 4.92893 19.0711C3.05357 17.1957 2 14.6522 2 12C2 9.34784 3.05357 6.8043 4.92893 4.92893C6.8043 3.05357 9.34784 2 12 2C14.6522 2 17.1957 3.05357 19.0711 4.92893C20.9464 6.8043 22 9.34784 22 12C22 14.6522 20.9464 17.1957 19.0711 19.0711C18.1425 19.9997 17.0401 20.7362 15.8268 21.2388C14.6136 21.7413 13.3132 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div>
+                                <strong>100%安全</strong>
+                                <span>无病毒，无广告</span>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div>
+                                <strong>隐私保护</strong>
+                                <span>本地处理，零上传</span>
+                            </div>
+                        </div>
+                        <div class="trust-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M13 10V3L4 14H11V21L20 10H13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div>
+                                <strong>持续更新</strong>
+                                <span>免费升级新功能</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="download-buttons">
+                        <a href="../dist/芯图相册-智能分类，便捷管理，仅你可见 1.0.0.exe" class="btn btn-primary btn-large" download>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
+                                <path d="M3 15V17H17V15H19V17C19 18.1 18.1 19 17 19H3C1.9 19 1 18.1 1 17V15H3Z" fill="currentColor"/>
+                            </svg>
+                            下载 Windows 版
+                        </a>
+                        <div class="download-meta">
+                            <span>版本 v1.0.0</span>
+                            <span class="separator">·</span>
+                            <span>约 85MB</span>
+                            <span class="separator">·</span>
+                            <span>支持 Windows 10+</span>
+                        </div>
+                    </div>
+                    
+                    <p class="download-note">
+                        💡 <strong>温馨提示：</strong>首次运行时，Windows可能会显示安全提示，请点击"更多信息"然后"仍要运行"即可。这是因为我们是独立开发者，暂未购买代码签名证书。
+                    </p>
+                </div>
+                
+                <div class="download-visual">
+                    <div class="download-image-wrapper">
+                        <img src="../icons/imageclassify.png" alt="芯图相册图标" class="app-icon-large">
+                        <div class="download-stats-card">
+                            <h4>用户喜爱</h4>
+                            <div class="stat-row">
+                                <span class="stat-label">分类准确率</span>
+                                <span class="stat-value">90%+</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">平均处理速度</span>
+                                <span class="stat-value">快速高效</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">用户评价</span>
+                                <span class="stat-value">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="#features">功能特性</a></li>
+                            <li><a href="#how-it-works">使用指南</a></li>
+                            <li><a href="#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>支持</h4>
+                        <ul>
+                            <li><a href="#faq">常见问题</a></li>
+                            <li><a href="#contact">联系我们</a></li>
+                            <li><a href="#feedback">意见反馈</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>关于</h4>
+                        <ul>
+                            <li><a href="#about">关于我们</a></li>
+                            <li><a href="#privacy">隐私政策</a></li>
+                            <li><a href="#terms">使用条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

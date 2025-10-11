@@ -1,0 +1,53 @@
+# 排除大文件（dist目录下的exe文件太大，不适合推送到GitHub）
+dist/*.exe
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.bak
+*.orig
+
+# Node modules (如果将来添加了前端构建工具)
+node_modules/
+
+# 系统文件
+Thumbs.db
+Desktop.ini
+
