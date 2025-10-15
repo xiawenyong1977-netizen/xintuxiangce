@@ -7,7 +7,7 @@
 
 芯图相册是一款基于AI技术的智能照片分类管理工具，帮助用户高效整理海量照片。本地处理，无需联网，90%+准确率自动识别分类照片，完全保护您的隐私安全。
 
-**官网地址**: http://123.57.68.4/
+**官网地址**: https://www.xintuxiangce.top/
 
 ## ✨ 核心特性
 
@@ -56,7 +56,7 @@ xintuxiangce/
 
 ## 📥 下载
 
-**Windows版本**: [下载地址](http://123.57.68.4/#download)
+**Windows版本**: [下载地址](https://www.xintuxiangce.top/#download)
 
 系统要求：
 - Windows 10 或更高版本
@@ -65,7 +65,7 @@ xintuxiangce/
 
 ## 🌐 在线体验
 
-访问官网了解更多信息：http://123.57.68.4/
+访问官网了解更多信息：https://www.xintuxiangce.top/
 
 ## 📝 使用指南
 
@@ -114,9 +114,34 @@ xintuxiangce/
 
 欢迎提交问题和建议！
 
+### 如何贡献
+- 🐛 报告Bug：在[Issues](https://github.com/xiawenyong1977-netizen/xintuxiangce/issues)中提交问题
+- 💡 功能建议：提出新功能想法
+- 📝 文档改进：完善使用说明
+- 🌟 给项目点星：支持项目发展
+
+### 开发指南
+```bash
+# 克隆项目
+git clone https://github.com/xiawenyong1977-netizen/xintuxiangce.git
+
+# 进入项目目录
+cd xintuxiangce
+
+# 查看项目结构
+ls -la
+```
+
+## 📚 相关资源
+
+- [使用教程](https://www.xintuxiangce.top/blog.html) - 详细的使用指南
+- [技术博客](https://www.xintuxiangce.top/blog.html) - AI照片分类技术解析
+- [常见问题](https://www.xintuxiangce.top/#faq) - FAQ解答
+- [更新日志](https://github.com/xiawenyong1977-netizen/xintuxiangce/releases) - 版本更新记录
+
 ## 📮 联系方式
 
-- 官网: http://123.57.68.4/
+- 官网: https://www.xintuxiangce.top/
 - GitHub: https://github.com/xiawenyong1977-netizen/xintuxiangce
 
 ## 📜 许可证
