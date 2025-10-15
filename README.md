@@ -1,11 +1,15 @@
-# 芯图相册 - AI智能照片分类管理工具
+# 芯图相册官网 - 官方网站源码
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/xiawenyong1977-netizen/xintuxiangce)
+[![Website](https://img.shields.io/badge/website-https://www.xintuxiangce.top-blue.svg)](https://www.xintuxiangce.top)
+[![Software](https://img.shields.io/badge/software-芯图相册-green.svg)](https://www.xintuxiangce.top/#download)
 
 ## 📖 项目简介
 
-芯图相册是一款基于AI技术的智能照片分类管理工具，帮助用户高效整理海量照片。本地处理，无需联网，90%+准确率自动识别分类照片，完全保护您的隐私安全。
+**这是芯图相册的官方网站源码项目**，包含官网的HTML、CSS、JavaScript等前端代码。
+
+**芯图相册**是一款基于AI技术的智能照片分类管理工具，帮助用户高效整理海量照片。本地处理，无需联网，90%+准确率自动识别分类照片，完全保护您的隐私安全。
+
+> ⚠️ **注意**：本仓库只包含官网源码，不包含芯图相册软件的源代码。软件下载请访问官网。
 
 **官网地址**: https://www.xintuxiangce.top/
 
@@ -21,20 +25,24 @@
 ## 📦 项目结构
 
 ```
-xintuxiangce/
-├── website/              # 官网源码
-│   ├── index.html       # 主页面
-│   ├── styles.css       # 样式文件
-│   ├── script.js        # 交互脚本
-│   ├── 404.html         # 404页面
-│   ├── robots.txt       # SEO配置
-│   ├── sitemap.xml      # 网站地图
-│   └── *.md             # 文档文件
-├── dist/                # 应用程序（exe文件未上传GitHub）
-├── icons/               # 应用图标
-├── images/              # 应用截图
-└── README.md           # 本文件
+xintuxiangce-website/    # 官网源码项目
+├── website/             # 官网源码
+│   ├── index.html      # 主页面
+│   ├── blog.html       # 教程页面
+│   ├── styles.css      # 样式文件
+│   ├── script.js       # 交互脚本
+│   ├── 404.html        # 404页面
+│   ├── robots.txt      # SEO配置
+│   ├── sitemap.xml     # 网站地图
+│   └── *.md            # 文档文件
+├── docs/               # 文档页面
+├── icons/              # 应用图标
+├── images/             # 应用截图
+├── *.html              # 搜索引擎验证文件
+└── README.md          # 本文件
 ```
+
+> 📝 **说明**：这是官网的前端源码，用于展示和推广芯图相册软件。软件本身是独立的Windows应用程序。
 
 ## 🚀 功能介绍
 
