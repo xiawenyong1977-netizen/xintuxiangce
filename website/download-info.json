@@ -1,0 +1,27 @@
+{
+  "latest": {
+    "filename": "xtxc202510151254.zip",
+    "displayName": "芯图相册 Windows版",
+    "version": "v1.0.0",
+    "size": 275,
+    "sizeUnit": "MB",
+    "releaseDate": "2025-10-15",
+    "downloadPath": "dist/xtxc202510151254.zip",
+    "checksum": "sha256:abcd1234...",
+    "description": "最新版本，包含所有功能优化和bug修复"
+  },
+  "history": [
+    {
+      "filename": "xtxc202510151254.zip",
+      "version": "v1.0.0",
+      "releaseDate": "2025-10-15",
+      "size": 275
+    },
+    {
+      "filename": "xtxc202510111614.zip", 
+      "version": "v0.9.0",
+      "releaseDate": "2025-10-11",
+      "size": 275
+    }
+  ]
+}

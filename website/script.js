@@ -356,29 +356,48 @@ window.xintuxiangce = {
 // 自动获取最新下载文件信息
 async function updateDownloadInfo() {
     try {
-        // 获取dist目录下的文件列表
-        // 注意：纯静态网站无法直接列出目录，所以这里使用预定义的文件名模式
-        // 如果需要真正的动态获取，需要后端支持
-        
-        // 当前可用的下载文件（按优先级排序）
-        const downloadFiles = [
-            {
-                name: 'xtxc202510111614.zip',
-                displayName: '芯图相册 Windows版',
-                version: 'v1.0.0',
-                size: 275 * 1024 * 1024, // 275MB
-                path: 'dist/xtxc202510111614.zip'
-            }
+        // 智能检测最新文件 - 尝试多个可能的文件名
+        const possibleFiles = [
+            'xtxc202510151254.zip',  // 最新文件
+            'xtxc202510111614.zip',  // 备用文件
+            '芯图相册-智能分类，便捷管理，仅你可见 1.0.0.exe'  // exe文件作为最后备用
         ];
         
-        // 选择第一个可用文件
-        const latestFile = downloadFiles[0];
+        let latestFile = null;
+        
+        // 尝试检测最新文件
+        for (const filename of possibleFiles) {
+            try {
+                const response = await fetch(`dist/${filename}`, { method: 'HEAD' });
+                if (response.ok) {
+                    latestFile = {
+                        filename: filename,
+                        path: `dist/${filename}`,
+                        size: 275 * 1024 * 1024, // 默认大小
+                        version: 'v1.0.0'
+                    };
+                    break;
+                }
+            } catch (e) {
+                continue;
+            }
+        }
+        
+        // 如果没找到任何文件，使用默认的
+        if (!latestFile) {
+            latestFile = {
+                filename: possibleFiles[0],
+                path: `dist/${possibleFiles[0]}`,
+                size: 275 * 1024 * 1024,
+                version: 'v1.0.0'
+            };
+        }
         
         // 更新所有下载按钮的链接
         const downloadButtons = document.querySelectorAll('.download-btn');
         downloadButtons.forEach(btn => {
             btn.href = latestFile.path;
-            btn.download = latestFile.name;
+            btn.download = latestFile.filename;
         });
         
         // 格式化文件大小
