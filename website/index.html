@@ -70,6 +70,19 @@
             opacity: 0.9;
         }
         
+        .slogan {
+            font-size: 1.5em !important;
+            font-weight: 600;
+            margin: 15px 0 10px 0 !important;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1em !important;
+            opacity: 0.8;
+        }
+        
         .content {
             background: white;
             border-radius: 15px;
@@ -101,6 +114,44 @@
         .info-card p {
             color: #666;
             line-height: 1.8;
+        }
+        
+        .mission-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left: 4px solid #5a6fd8;
+        }
+        
+        .mission-card h3,
+        .mission-card p {
+            color: white;
+        }
+        
+        .vision-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-left: 4px solid #e91e63;
+        }
+        
+        .vision-card h3,
+        .vision-card p {
+            color: white;
+        }
+        
+        .values-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .values-card h3,
+        .values-card p {
+            color: white;
+        }
+        
+        .values-card strong {
+            color: #fff;
+            font-weight: 700;
         }
         
         .nav-links {
@@ -163,37 +214,54 @@
     <div class="container">
         <header class="header">
             <h1>深圳市智语未来软件有限责任公司</h1>
-            <p>专业从事工具软件开发、推广和运营</p>
+            <p class="slogan">让科技更懂你，让未来更智能</p>
+            <p class="subtitle">专业从事工具软件开发、推广和运营</p>
         </header>
         
         <main class="content">
             <div class="company-info">
+                <div class="info-card mission-card">
+                    <h3>🎯 公司使命</h3>
+                    <p>致力于通过创新技术，为用户创造更智能、更便捷的数字化体验，让每个人都能享受到科技带来的便利与乐趣。</p>
+                </div>
+                
+                <div class="info-card vision-card">
+                    <h3>🌟 公司愿景</h3>
+                    <p>成为国内领先的智能工具软件开发商，以技术创新驱动产品升级，用优质服务赢得用户信赖，打造具有国际竞争力的软件品牌。</p>
+                </div>
+                
+                <div class="info-card values-card">
+                    <h3>💎 核心价值观</h3>
+                    <p><strong>创新</strong> - 持续技术创新，追求卓越产品<br>
+                    <strong>用户</strong> - 以用户需求为导向，创造价值<br>
+                    <strong>诚信</strong> - 诚信经营，建立信任关系<br>
+                    <strong>协作</strong> - 团队协作，共同成长</p>
+                </div>
+                
                 <div class="info-card">
                     <h3>🏢 公司简介</h3>
-                    <p>深圳市智语未来软件有限责任公司成立于2024年，是一家专业从事工具软件开发、推广和运营的软件公司。公司致力于为用户提供实用、高效的软件工具，提升用户的工作效率和生活品质。</p>
+                    <p>深圳市智语未来软件有限责任公司成立于2024年，是一家专业从事工具软件开发、推广和运营的软件公司。我们专注于开发各类实用工具软件，为个人用户和企业客户提供优质的软件解决方案，提升用户的工作效率和生活品质。</p>
                 </div>
                 
                 <div class="info-card">
-                    <h3>🎯 主要业务</h3>
-                    <p>公司主要业务包括工具软件开发、软件产品推广、技术服务和软件运营。我们专注于开发各类实用工具软件，为个人用户和企业客户提供优质的软件解决方案。</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3>💼 招聘信息</h3>
-                    <p>我们正在招聘优秀的技术人才加入我们的团队。招聘岗位包括：软件工程师、前端开发工程师、后端开发工程师、产品经理等。欢迎有经验的技术人员投递简历。</p>
+                    <h3>💼 人才招聘</h3>
+                    <p>我们正在寻找志同道合的技术伙伴！招聘岗位包括：<br>
+                    • 软件工程师（Java/Python/C++）<br>
+                    • 前端开发工程师（React/Vue/小程序）<br>
+                    • 后端开发工程师（Spring Boot/Node.js）<br>
+                    • 产品经理（工具软件方向）<br>
+                    欢迎有经验的技术人员投递简历，与我们一起创造未来！</p>
                 </div>
                 
                 <div class="info-card">
                     <h3>📞 联系我们</h3>
-                    <p>公司地址：广东省深圳市福田区福田街道福山社区彩田路2048号福建大厦B座2305M4<br>
-                    联系邮箱：xiawenyong@xintuxiangce.top<br>
-                    社会信用代码：91440300MAEPBDM19T</p>
+                    <p><strong>公司地址：</strong>广东省深圳市福田区福田街道福山社区彩田路2048号福建大厦B座2305M4<br>
+                    <strong>联系邮箱：</strong>xiawenyong@xintuxiangce.top<br>
+                    <strong>社会信用代码：</strong>91440300MAEPBDM19T</p>
                 </div>
             </div>
             
             <div class="nav-links">
-                <a href="intro.html">产品介绍</a>
-                <a href="blog.html">技术博客</a>
                 <a href="mailto:xiawenyong@xintuxiangce.top">联系我们</a>
             </div>
         </main>
@@ -201,7 +269,7 @@
         <footer class="footer">
             <p>© 2024 深圳市智语未来软件有限责任公司 版权所有</p>
             <p>社会信用代码：91440300MAEPBDM19T</p>
-            <p>ICP备案号：正在申请中</p>
+            <p>ICP备案号：粤ICP备2025481778号-1</p>
             <p>地址：广东省深圳市福田区福田街道福山社区彩田路2048号福建大厦B座2305M4</p>
         </footer>
         </div>
