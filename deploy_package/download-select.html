@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择下载版本 - 芯图相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 90%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .download-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .download-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .download-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .download-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .download-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .download-card p {
+            font-size: 0.9em;
+            opacity: 0.8;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .file-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .back-link a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .download-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>选择下载版本</h1>
+            <p>请选择适合您的芯图相册版本</p>
+        </div>
+        
+        <div class="download-options">
+            <div class="download-card" onclick="downloadFile('portable')">
+                <span class="icon">📦</span>
+                <h3>便携版</h3>
+                <p>无需安装，解压即用<br>适合临时使用或不想安装软件的用户</p>
+                <button class="download-btn" data-type="portable">下载便携版</button>
+                <div class="file-info" id="portable-info">
+                    <div>版本: <span id="portable-version">v1.0.0</span></div>
+                    <div>大小: <span id="portable-size">275 MB</span></div>
+                </div>
+            </div>
+            
+            <div class="download-card" onclick="downloadFile('setup')">
+                <span class="icon">⚙️</span>
+                <h3>安装版</h3>
+                <p>自动安装到系统<br>适合长期使用，支持自动更新</p>
+                <button class="download-btn" data-type="setup">下载安装版</button>
+                <div class="file-info" id="setup-info">
+                    <div>版本: <span id="setup-version">v1.0.0</span></div>
+                    <div>大小: <span id="setup-size">280 MB</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html">← 返回首页</a>
+        </div>
+    </div>
+
+    <script>
+        // 获取最新文件信息
+        async function fetchLatestFiles() {
+            try {
+                const response = await fetch('download-info.json');
+                const data = await response.json();
+                
+                // 更新便携版信息
+                if (data.latest) {
+                    document.getElementById('portable-version').textContent = data.latest.version;
+                    document.getElementById('portable-size').textContent = data.latest.size + ' ' + data.latest.sizeUnit;
+                }
+                
+                // 更新安装版信息
+                if (data.setup) {
+                    document.getElementById('setup-version').textContent = data.setup.version;
+                    document.getElementById('setup-size').textContent = data.setup.size + ' ' + data.setup.sizeUnit;
+                }
+            } catch (error) {
+                console.error('获取文件信息失败:', error);
+            }
+        }
+        
+        // 下载文件
+        function downloadFile(type) {
+            const downloadUrls = {
+                portable: 'dist/pc/portable/xtxc202510151254.zip',
+                setup: 'dist/pc/setup/xtxc202510151254-setup.exe'
+            };
+            
+            const filenames = {
+                portable: 'xtxc202510151254.zip',
+                setup: 'xtxc202510151254-setup.exe'
+            };
+            
+            const url = downloadUrls[type];
+            const filename = filenames[type];
+            
+            if (url) {
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // 显示下载开始提示
+                showDownloadMessage(type);
+            }
+        }
+        
+        // 显示下载消息
+        function showDownloadMessage(type) {
+            const messages = {
+                portable: '便携版下载已开始，请稍候...',
+                setup: '安装版下载已开始，请稍候...'
+            };
+            
+            // 创建提示框
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                z-index: 1000;
+                font-size: 14px;
+            `;
+            messageDiv.textContent = messages[type];
+            document.body.appendChild(messageDiv);
+            
+            // 3秒后自动移除
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.parentNode.removeChild(messageDiv);
+                }
+            }, 3000);
+        }
+        
+        // 页面加载时获取文件信息
+        document.addEventListener('DOMContentLoaded', fetchLatestFiles);
+    </script>
+</body>
+</html>

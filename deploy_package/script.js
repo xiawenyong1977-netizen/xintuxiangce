@@ -226,32 +226,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 获取最新下载文件信息
 function fetchLatestFileInfo() {
-    fetch('download-info.json')
+    fetch('download.php?info=1')
         .then(response => response.json())
         .then(data => {
-            if (data.latest) {
+            if (data.success) {
+                // 提取版本号（如果文件名包含版本号）
+                const versionMatch = data.filename.match(/(\d+\.\d+\.\d+)/);
+                const version = versionMatch ? 'v' + versionMatch[1] : 'v1.0.0';
+                
                 // 更新所有显示文件信息的元素
                 const versionElements = document.querySelectorAll('#file-version, #file-version-2');
                 versionElements.forEach(el => {
                     if (el.id === 'file-version-2') {
-                        el.textContent = '版本 ' + data.latest.version;
+                        el.textContent = '版本 ' + version;
                     } else {
-                        el.textContent = data.latest.version;
+                        el.textContent = version;
                     }
                 });
                 
                 const sizeElements = document.querySelectorAll('#file-size, #file-size-2');
                 sizeElements.forEach(el => {
-                    el.textContent = data.latest.size + ' ' + data.latest.sizeUnit;
+                    el.textContent = data.sizeFormatted;
                 });
                 
                 // 更新下载按钮的title提示
                 const downloadButtons = document.querySelectorAll('.download-btn');
                 downloadButtons.forEach(btn => {
-                    btn.title = `下载: ${data.latest.filename} (${data.latest.size} ${data.latest.sizeUnit})`;
+                    btn.title = `下载: ${data.filename} (${data.sizeFormatted})`;
                 });
                 
-                console.log('最新下载文件:', data.latest.filename, data.latest.size + ' ' + data.latest.sizeUnit);
+                console.log('最新下载文件:', data.filename, data.sizeFormatted);
             }
         })
         .catch(error => {
@@ -259,7 +263,7 @@ function fetchLatestFileInfo() {
             // 如果获取失败，显示默认信息
             const sizeElements = document.querySelectorAll('#file-size, #file-size-2');
             sizeElements.forEach(el => {
-                el.textContent = '315 MB';
+                el.textContent = '点击下载';
             });
         });
 }
@@ -354,10 +358,10 @@ async function updateDownloadInfo() {
     try {
         // 智能检测最新文件 - 尝试多个可能的文件名
         const possibleFiles = [
-            'pc/portable/xtxc202510221247.zip',  // 最新便携版文件
-            'pc/portable/xtxc202510151254.zip',  // 便携版备用文件
+            'pc/portable/xtxc202510151254.zip',  // 便携版最新文件
             'pc/portable/xtxc202510111614.zip',  // 便携版备用文件
-            'pc/setup/xtxcsetup202510221247.zip',  // 安装版最新文件
+            'pc/setup/xtxc202510151254-setup.exe',  // 安装版最新文件
+            'pc/setup/xtxc202510111614-setup.exe',  // 安装版备用文件
             'pc/portable/芯图相册-智能分类，便捷管理，仅你可见 1.0.0.exe'  // 便携版exe文件作为最后备用
         ];
         
@@ -371,8 +375,8 @@ async function updateDownloadInfo() {
                     latestFile = {
                         filename: filename.split('/').pop(), // 只取文件名部分
                         path: `dist/${filename}`,
-                        size: 315 * 1024 * 1024, // 最新文件大小
-                        version: 'v1.0.1'
+                        size: 275 * 1024 * 1024, // 默认大小
+                        version: 'v1.0.0'
                     };
                     break;
                 }
@@ -386,20 +390,14 @@ async function updateDownloadInfo() {
             latestFile = {
                 filename: possibleFiles[0].split('/').pop(), // 只取文件名部分
                 path: `dist/${possibleFiles[0]}`,
-                size: 315 * 1024 * 1024,
-                version: 'v1.0.1'
+                size: 275 * 1024 * 1024,
+                version: 'v1.0.0'
             };
         }
         
-        // 更新所有下载按钮的链接（但不要覆盖指向版本选择页面或直接下载链接的按钮）
+        // 更新所有下载按钮的链接
         const downloadButtons = document.querySelectorAll('.download-btn');
         downloadButtons.forEach(btn => {
-            // 如果按钮已经指向版本选择页面或直接下载链接，不要覆盖
-            if (btn.href.includes('download-select.html') || 
-                btn.href.includes('dist/pc/portable/') || 
-                btn.href.includes('dist/pc/setup/')) {
-                return;
-            }
             btn.href = latestFile.path;
             btn.download = latestFile.filename;
         });

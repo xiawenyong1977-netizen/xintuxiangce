@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未找到 - 芯图相册</title>
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #E6F7F9 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 120px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2D9DA8 0%, #1F7580 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .error-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #2D9DA8;
+            color: white;
+            box-shadow: 0 4px 16px rgba(45, 157, 168, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #1F7580;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 157, 168, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2D9DA8;
+            border: 2px solid #2D9DA8;
+        }
+
+        .btn-secondary:hover {
+            background: #E6F7F9;
+            transform: translateY(-2px);
+        }
+
+        .suggestions {
+            margin-top: 60px;
+            text-align: left;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 1.6s ease-out;
+        }
+
+        .suggestions h2 {
+            font-size: 20px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .suggestions ul {
+            list-style: none;
+        }
+
+        .suggestions li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .suggestions li:last-child {
+            border-bottom: none;
+        }
+
+        .suggestions a {
+            color: #2D9DA8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .suggestions a:hover {
+            color: #1F7580;
+            padding-left: 8px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+            }
+
+            .error-icon {
+                font-size: 60px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .suggestions {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">🔍</div>
+        <div class="error-code">404</div>
+        <h1>哎呀！页面走丢了</h1>
+        <p>您访问的页面可能已被移除、名称已更改，或暂时不可用。<br>不过别担心，让我们帮您找到想要的内容。</p>
+        
+        <div class="buttons">
+            <a href="index.html" class="btn btn-primary">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 3L2 9H4V17H8V13H12V17H16V9H18L10 3Z" fill="currentColor"/>
+                </svg>
+                返回首页
+            </a>
+            <button onclick="history.back()" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10C18 14.4183 14.4183 18 10 18Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M10 6L6 10L10 14M14 10H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                返回上一页
+            </button>
+        </div>
+
+        <div class="suggestions">
+            <h2>您可能想访问：</h2>
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <span>🏠</span>
+                        <span>首页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#features">
+                        <span>✨</span>
+                        <span>功能特性</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#how-it-works">
+                        <span>📖</span>
+                        <span>使用指南</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#screenshots">
+                        <span>📱</span>
+                        <span>应用截图</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#faq">
+                        <span>❓</span>
+                        <span>常见问题</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#download">
+                        <span>⬇️</span>
+                        <span>立即下载</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 记录 404 错误（可选）
+        console.log('404 Error: Page not found -', window.location.href);
+        
+        // 如果需要，可以发送错误报告到服务器
+        // fetch('/api/log-404', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         url: window.location.href,
+        //         referrer: document.referrer,
+        //         timestamp: new Date().toISOString()
+        //     })
+        // });
+    </script>
+</body>
+</html>
+
