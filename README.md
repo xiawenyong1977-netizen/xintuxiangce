@@ -1,6 +1,6 @@
 # 芯图相册官网 - 官方网站源码
 
-[![Website](https://img.shields.io/badge/website-https://www.xintuxiangce.top-blue.svg)](https://www.xintuxiangce.top/intro.html)
+[![Website](https://img.shields.io/badge/website-https://www.xintuxiangce.top-blue.svg)](https://www.xintuxiangce.top/)
 [![Software](https://img.shields.io/badge/software-芯图相册-green.svg)](https://www.xintuxiangce.top/#download)
 
 ## 📖 项目简介
@@ -11,7 +11,7 @@
 
 > ⚠️ **注意**：本仓库只包含官网源码，不包含芯图相册软件的源代码。软件下载请访问官网。
 
-**官网地址**: https://www.xintuxiangce.top/intro.html
+**官网地址**: https://www.xintuxiangce.top/
 
 ## ✨ 核心特性
 
@@ -73,7 +73,7 @@ xintuxiangce-website/    # 官网源码项目
 
 ## 🌐 在线体验
 
-访问官网了解更多信息：https://www.xintuxiangce.top/intro.html
+访问官网了解更多信息：https://www.xintuxiangce.top/
 
 ## 📝 使用指南
 
@@ -149,7 +149,9 @@ ls -la
 
 ## 📮 联系方式
 
-- 官网: https://www.xintuxiangce.top/intro.html
+- 官网: https://www.xintuxiangce.top/
+
+
 - GitHub: https://github.com/xiawenyong1977-netizen/xintuxiangce
 
 ## 📜 许可证
