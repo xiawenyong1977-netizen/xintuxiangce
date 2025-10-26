@@ -1,29 +1,48 @@
 {
   "latest": {
-    "filename": "xtxc202510221247.zip",
+    "filename": "xtxc202510261318.zip",
     "displayName": "芯图相册 Windows便携版",
     "version": "v1.0.1",
-    "size": 315,
+    "size": 313,
     "sizeUnit": "MB",
-    "releaseDate": "2025-10-22",
-    "downloadPath": "dist/pc/portable/xtxc202510221247.zip",
+    "releaseDate": "2025-10-26",
+    "downloadPath": "dist/pc/portable/xtxc202510261318.zip",
     "type": "portable",
     "checksum": "sha256:abcd1234...",
     "description": "最新便携版本，包含所有功能优化和bug修复"
   },
   "setup": {
-    "filename": "xtxcsetup202510221247.zip",
+    "filename": "xtxcsetup202510261318.zip",
     "displayName": "芯图相册 Windows安装版",
     "version": "v1.0.1",
-    "size": 315,
+    "size": 314,
     "sizeUnit": "MB",
-    "releaseDate": "2025-10-22",
-    "downloadPath": "dist/pc/setup/xtxcsetup202510221247.zip",
+    "releaseDate": "2025-10-26",
+    "downloadPath": "dist/pc/setup/xtxcsetup202510261318.zip",
     "type": "setup",
     "checksum": "sha256:efgh5678...",
     "description": "最新安装版本，自动安装到系统"
   },
+  "android": {
+    "filename": "xuxc202510261318.apk",
+    "displayName": "芯图相册 Android版",
+    "version": "v1.0.1",
+    "size": 223,
+    "sizeUnit": "MB",
+    "releaseDate": "2025-10-26",
+    "downloadPath": "dist/android/xuxc202510261318.apk",
+    "type": "android",
+    "checksum": "sha256:xyz123...",
+    "description": "最新Android版本，即装即用"
+  },
   "history": [
+    {
+      "filename": "xtxc202510261318.zip",
+      "version": "v1.0.1",
+      "releaseDate": "2025-10-26",
+      "size": 313,
+      "type": "portable"
+    },
     {
       "filename": "xtxc202510221247.zip",
       "version": "v1.0.1",

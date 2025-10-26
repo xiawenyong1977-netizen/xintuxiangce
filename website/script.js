@@ -220,49 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //     faqItems[0].classList.add('active');
     // }
 
-    // 获取最新下载文件信息
-    fetchLatestFileInfo();
+    // 不再需要 fetchLatestFileInfo，因为 download.py 会自动处理
 });
 
-// 获取最新下载文件信息
-function fetchLatestFileInfo() {
-    fetch('download-info.json')
-        .then(response => response.json())
-        .then(data => {
-            if (data.latest) {
-                // 更新所有显示文件信息的元素
-                const versionElements = document.querySelectorAll('#file-version, #file-version-2');
-                versionElements.forEach(el => {
-                    if (el.id === 'file-version-2') {
-                        el.textContent = '版本 ' + data.latest.version;
-                    } else {
-                        el.textContent = data.latest.version;
-                    }
-                });
-                
-                const sizeElements = document.querySelectorAll('#file-size, #file-size-2');
-                sizeElements.forEach(el => {
-                    el.textContent = data.latest.size + ' ' + data.latest.sizeUnit;
-                });
-                
-                // 更新下载按钮的title提示
-                const downloadButtons = document.querySelectorAll('.download-btn');
-                downloadButtons.forEach(btn => {
-                    btn.title = `下载: ${data.latest.filename} (${data.latest.size} ${data.latest.sizeUnit})`;
-                });
-                
-                console.log('最新下载文件:', data.latest.filename, data.latest.size + ' ' + data.latest.sizeUnit);
-            }
-        })
-        .catch(error => {
-            console.error('获取文件信息失败:', error);
-            // 如果获取失败，显示默认信息
-            const sizeElements = document.querySelectorAll('#file-size, #file-size-2');
-            sizeElements.forEach(el => {
-                el.textContent = '315 MB';
-            });
-        });
-}
+// fetchLatestFileInfo 函数已移除，因为 download.py 会自动处理最新文件
 
 // 性能监控
 window.addEventListener('load', () => {
@@ -398,7 +359,8 @@ async function updateDownloadInfo() {
             if (btn.href.includes('download-select.html') || 
                 btn.href.includes('dist/pc/portable/') || 
                 btn.href.includes('dist/pc/setup/') ||
-                btn.href.includes('.py')) {
+                btn.href.includes('.py') ||
+                btn.closest('.hero-download-option')) {  // 不更新Hero区域的按钮
                 return;
             }
             btn.href = latestFile.path;
@@ -435,11 +397,6 @@ function formatBytes(bytes, decimals = 2) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
-
-// 页面加载时更新下载信息
-document.addEventListener('DOMContentLoaded', () => {
-    updateDownloadInfo();
-});
 
 console.log('芯图相册官网已加载完成 🎉');
 
