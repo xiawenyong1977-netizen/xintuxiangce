@@ -152,8 +152,9 @@
         .download-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 15px;
             margin: 30px 0;
+            width: 100%;
         }
         
         .download-option {
@@ -161,23 +162,42 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
         
-        @media (max-width: 1024px) {
-            .download-buttons {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .download-option .btn {
+            width: 100%;
+            box-sizing: border-box;
         }
         
         @media (max-width: 768px) {
             .download-buttons {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .download-option .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-height: 60px;
+            }
+            
+            .btn-main {
+                font-size: 14px !important;
+            }
+            
+            .btn-sub {
+                font-size: 11px !important;
             }
         }
         
-        .download-option .btn {
-            margin-bottom: 15px;
+        @media (max-width: 480px) {
+            .download-buttons {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
+        
     </style>
 </head>
 <body>
