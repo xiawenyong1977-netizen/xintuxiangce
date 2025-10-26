@@ -906,38 +906,52 @@
         function detectPlatform() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             
+            console.log('User Agent:', userAgent);
+            
             // 检测Android
             if (/android/i.test(userAgent)) {
+                console.log('Detected platform: Android');
                 return 'android';
             }
             
             // 检测iOS/Mac
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                console.log('Detected platform: iOS');
                 return 'ios';
             }
             if (/Macintosh|Mac OS X/.test(userAgent)) {
+                console.log('Detected platform: Mac');
                 return 'mac';
             }
             
-            // 检测Windows
-            if (/Windows/.test(userAgent)) {
+            // 检测Windows（更全面的Windows检测）
+            if (/Windows/i.test(userAgent)) {
+                console.log('Detected platform: Windows');
                 return 'windows';
             }
             
             // 检测Linux
             if (/Linux/.test(userAgent)) {
+                console.log('Detected platform: Linux');
                 return 'linux';
             }
             
             // 默认返回所有平台
+            console.log('Detected platform: Unknown (showing all)');
             return 'all';
         }
         
         function filterDownloadButtons(platform) {
+            console.log('Filtering buttons for platform:', platform);
             const heroCta = document.getElementById('hero-cta');
             const downloadOptions = heroCta.querySelectorAll('.hero-download-option');
             
-            if (!heroCta || downloadOptions.length === 0) return;
+            if (!heroCta || downloadOptions.length === 0) {
+                console.log('Hero CTA or download options not found');
+                return;
+            }
+            
+            console.log('Found', downloadOptions.length, 'download options');
             
             // 如果检测到是Android，只显示Android按钮
             if (platform === 'android') {
@@ -993,14 +1007,20 @@
             }
             // Windows和Linux只显示Windows相关按钮
             else if (platform === 'windows' || platform === 'linux') {
+                console.log('Showing Windows-only buttons');
+                let shownCount = 0;
                 downloadOptions.forEach(option => {
                     const optionPlatform = option.getAttribute('data-platform');
                     if (optionPlatform === 'windows') {
                         option.style.display = 'block';
+                        shownCount++;
+                        console.log('Showing', optionPlatform, 'button');
                     } else {
                         option.style.display = 'none';
+                        console.log('Hiding', optionPlatform, 'button');
                     }
                 });
+                console.log('Total buttons shown:', shownCount);
             }
             // 其他情况（未知平台）显示所有按钮
             else {
