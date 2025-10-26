@@ -150,39 +150,33 @@
         }
         
         .download-buttons {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             margin: 30px 0;
         }
         
         .download-option {
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         
-        .download-option .btn {
-            margin-bottom: 15px;
+        @media (max-width: 1024px) {
+            .download-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        
         
         @media (max-width: 768px) {
             .download-buttons {
-                flex-direction: column;
-                gap: 20px;
+                grid-template-columns: 1fr;
             }
-            
-            .download-option {
-                width: 100%;
-                max-width: none;
-            }
+        }
+        
+        .download-option .btn {
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -239,7 +233,7 @@
                         </div>
                     </div>
                     <div class="hero-cta">
-                        <a href="download-portable.py" class="btn btn-primary btn-large download-btn" data-type="portable">
+                        <a href="download.py?type=portable" class="btn btn-primary btn-large download-btn" data-type="portable">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
                                 <path d="M3 15V17H17V15H19V17C19 18.1 18.1 19 17 19H3C1.9 19 1 18.1 1 17V15H3Z" fill="currentColor"/>
@@ -628,7 +622,7 @@
                     
                     <div class="download-buttons">
                         <div class="download-option">
-                            <a href="download-portable.py" class="btn btn-primary btn-large download-btn" data-type="portable">
+                            <a href="download.py?type=portable" class="btn btn-primary btn-large download-btn" data-type="portable">
                                 <div class="btn-content">
                                     <div class="btn-main">
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -650,7 +644,7 @@
                         </div>
                         
                         <div class="download-option">
-                            <a href="download-setup.py" class="btn btn-secondary btn-large download-btn" data-type="setup">
+                            <a href="download.py?type=setup" class="btn btn-secondary btn-large download-btn" data-type="setup">
                                 <div class="btn-content">
                                     <div class="btn-main">
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -666,6 +660,48 @@
                                     </div>
                                     <div class="btn-sub">
                                         <span>安装版 · 自动安装</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="download-option">
+                            <a href="download.py?type=android" class="btn btn-primary btn-large download-btn" data-type="android">
+                                <div class="btn-content">
+                                    <div class="btn-main">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
+                                            <path d="M3 15V17H17V15H19V17C19 18.1 18.1 19 17 19H3C1.9 19 1 18.1 1 17V15H3Z" fill="currentColor"/>
+                                        </svg>
+                                        下载 Android 版
+                                    </div>
+                                    <div class="btn-sub">
+                                        <span>最新版本</span>
+                                        <span class="separator">·</span>
+                                        <span>约 220 MB</span>
+                                    </div>
+                                    <div class="btn-sub">
+                                        <span>Android · 即装即用</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="download-option">
+                            <a href="download.py?type=mac" class="btn btn-secondary btn-large download-btn" data-type="mac" style="opacity: 0.6;">
+                                <div class="btn-content">
+                                    <div class="btn-main">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                            <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
+                                            <path d="M3 15V17H17V15H19V17C19 18.1 18.1 19 17 19H3C1.9 19 1 18.1 1 17V15H3Z" fill="currentColor"/>
+                                        </svg>
+                                        下载 Mac 版
+                                    </div>
+                                    <div class="btn-sub">
+                                        <span>🚧 正在开发中</span>
+                                    </div>
+                                    <div class="btn-sub">
+                                        <span>敬请期待</span>
                                     </div>
                                 </div>
                             </a>
