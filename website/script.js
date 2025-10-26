@@ -391,13 +391,14 @@ async function updateDownloadInfo() {
             };
         }
         
-        // 更新所有下载按钮的链接（但不要覆盖指向版本选择页面或直接下载链接的按钮）
+        // 更新所有下载按钮的链接（但不要覆盖指向版本选择页面、直接下载链接或CGI脚本的按钮）
         const downloadButtons = document.querySelectorAll('.download-btn');
         downloadButtons.forEach(btn => {
-            // 如果按钮已经指向版本选择页面或直接下载链接，不要覆盖
+            // 如果按钮已经指向版本选择页面、直接下载链接或CGI脚本，不要覆盖
             if (btn.href.includes('download-select.html') || 
                 btn.href.includes('dist/pc/portable/') || 
-                btn.href.includes('dist/pc/setup/')) {
+                btn.href.includes('dist/pc/setup/') ||
+                btn.href.includes('.py')) {
                 return;
             }
             btn.href = latestFile.path;
