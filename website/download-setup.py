@@ -35,14 +35,15 @@ def main():
     filename = os.path.basename(latest_file)
     file_size = os.path.getsize(latest_file)
     
-    # 设置下载头
-    print("Content-Type: application/octet-stream")
-    print(f"Content-Disposition: attachment; filename=\"{filename}\"")
-    print(f"Content-Length: {file_size}")
-    print("Cache-Control: no-cache, must-revalidate")
-    print("Pragma: no-cache")
-    print("Expires: 0")
-    print()
+    # 设置下载头（注意：这些打印应该在输出文件内容之前）
+    sys.stdout.write("Content-Type: application/octet-stream\r\n")
+    sys.stdout.write(f"Content-Disposition: attachment; filename=\"{filename}\"\r\n")
+    sys.stdout.write(f"Content-Length: {file_size}\r\n")
+    sys.stdout.write("Cache-Control: no-cache, must-revalidate\r\n")
+    sys.stdout.write("Pragma: no-cache\r\n")
+    sys.stdout.write("Expires: 0\r\n")
+    sys.stdout.write("\r\n")
+    sys.stdout.flush()
     
     # 输出文件内容
     try:
