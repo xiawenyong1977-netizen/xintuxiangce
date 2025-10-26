@@ -302,9 +302,9 @@
                             <div class="stat-label">隐私保护</div>
                         </div>
                     </div>
-                    <div class="hero-cta">
+                    <div class="hero-cta" id="hero-cta">
                         <div class="hero-download-buttons">
-                            <div class="hero-download-option">
+                            <div class="hero-download-option" data-platform="windows">
                                 <a href="download.py?type=portable" class="btn btn-primary btn-large download-btn" data-type="portable">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
@@ -314,7 +314,7 @@
                                 </a>
                             </div>
                             
-                            <div class="hero-download-option">
+                            <div class="hero-download-option" data-platform="windows">
                                 <a href="download.py?type=setup" class="btn btn-secondary btn-large download-btn" data-type="setup">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
@@ -324,7 +324,7 @@
                                 </a>
                             </div>
                             
-                            <div class="hero-download-option">
+                            <div class="hero-download-option" data-platform="android">
                                 <a href="download.py?type=android" class="btn btn-primary btn-large download-btn" data-type="android">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
@@ -334,7 +334,7 @@
                                 </a>
                             </div>
                             
-                            <div class="hero-download-option">
+                            <div class="hero-download-option" data-platform="mac">
                                 <a href="download.py?type=mac" class="btn btn-secondary btn-large download-btn" data-type="mac" style="opacity: 0.6;">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                                         <path d="M10 13L5 8H8V3H12V8H15L10 13Z" fill="currentColor"/>
@@ -899,6 +899,131 @@
     </button>
 
     <script src="script.js"></script>
+    
+    <script>
+    // 检测用户操作系统并显示相应下载按钮
+    (function() {
+        function detectPlatform() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // 检测Android
+            if (/android/i.test(userAgent)) {
+                return 'android';
+            }
+            
+            // 检测iOS/Mac
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'ios';
+            }
+            if (/Macintosh|Mac OS X/.test(userAgent)) {
+                return 'mac';
+            }
+            
+            // 检测Windows
+            if (/Windows/.test(userAgent)) {
+                return 'windows';
+            }
+            
+            // 检测Linux
+            if (/Linux/.test(userAgent)) {
+                return 'linux';
+            }
+            
+            // 默认返回所有平台
+            return 'all';
+        }
+        
+        function filterDownloadButtons(platform) {
+            const heroCta = document.getElementById('hero-cta');
+            const downloadOptions = heroCta.querySelectorAll('.hero-download-option');
+            
+            if (!heroCta || downloadOptions.length === 0) return;
+            
+            // 如果检测到是Android，只显示Android按钮
+            if (platform === 'android') {
+                downloadOptions.forEach(option => {
+                    const optionPlatform = option.getAttribute('data-platform');
+                    if (optionPlatform === 'android') {
+                        option.style.display = 'block';
+                        // 让Android按钮占据更大空间
+                        const buttons = heroCta.querySelector('.hero-download-buttons');
+                        if (buttons) {
+                            buttons.style.gridTemplateColumns = '1fr';
+                        }
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+                // 更新download-info
+                const downloadInfo = heroCta.querySelector('.download-info');
+                if (downloadInfo) {
+                    downloadInfo.innerHTML = `
+                        <span>最新版本</span>
+                        <span class="separator">·</span>
+                        <span>约 220 MB</span>
+                        <span class="separator">·</span>
+                        <span>即装即用</span>
+                    `;
+                }
+            }
+            // 如果检测到是iOS，显示提示信息
+            else if (platform === 'ios') {
+                downloadOptions.forEach(option => {
+                    option.style.display = 'none';
+                });
+                const downloadInfo = heroCta.querySelector('.download-info');
+                if (downloadInfo) {
+                    downloadInfo.innerHTML = `
+                        <span>iOS 版本正在开发中</span>
+                        <span class="separator">·</span>
+                        <span>敬请期待</span>
+                    `;
+                }
+            }
+            // 如果检测到是Mac，只显示Mac相关按钮
+            else if (platform === 'mac') {
+                downloadOptions.forEach(option => {
+                    const optionPlatform = option.getAttribute('data-platform');
+                    if (optionPlatform === 'mac') {
+                        option.style.display = 'block';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            }
+            // Windows和Linux显示所有Windows按钮
+            else if (platform === 'windows' || platform === 'linux') {
+                downloadOptions.forEach(option => {
+                    const optionPlatform = option.getAttribute('data-platform');
+                    if (optionPlatform === 'windows') {
+                        option.style.display = 'block';
+                    } else if (optionPlatform === 'mac') {
+                        option.style.display = 'block';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            }
+            // 其他情况显示所有按钮
+            else {
+                downloadOptions.forEach(option => {
+                    option.style.display = 'block';
+                });
+            }
+        }
+        
+        // 页面加载完成后检测并过滤
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                const platform = detectPlatform();
+                filterDownloadButtons(platform);
+            });
+        } else {
+            const platform = detectPlatform();
+            filterDownloadButtons(platform);
+        }
+    })();
+    </script>
 </body>
 </html>
 
