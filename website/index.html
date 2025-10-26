@@ -991,20 +991,18 @@
                     }
                 });
             }
-            // Windows和Linux显示所有Windows按钮
+            // Windows和Linux只显示Windows相关按钮
             else if (platform === 'windows' || platform === 'linux') {
                 downloadOptions.forEach(option => {
                     const optionPlatform = option.getAttribute('data-platform');
                     if (optionPlatform === 'windows') {
-                        option.style.display = 'block';
-                    } else if (optionPlatform === 'mac') {
                         option.style.display = 'block';
                     } else {
                         option.style.display = 'none';
                     }
                 });
             }
-            // 其他情况显示所有按钮
+            // 其他情况（未知平台）显示所有按钮
             else {
                 downloadOptions.forEach(option => {
                     option.style.display = 'block';
