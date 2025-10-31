@@ -400,3 +400,205 @@ function formatBytes(bytes, decimals = 2) {
 
 console.log('芯图相册官网已加载完成 🎉');
 
+// 调试工具：在微信或 ?debug=1 时在页面左下角显示日志
+const __XT_VERSION = 'wx-intercept-20251030';
+function __xt_shouldDebug() {
+    try {
+        const q = new URLSearchParams(location.search);
+        if (q.get('debug') === '1') return true; // 仅当显式指定时显示调试面板
+    } catch (e) {}
+    return false;
+}
+function __xt_log(msg) {
+    try {
+        console.log('[XT]', msg);
+        if (!__xt_shouldDebug()) return;
+        let panel = document.getElementById('xt-debug-panel');
+        if (!panel) {
+            panel = document.createElement('div');
+            panel.id = 'xt-debug-panel';
+            panel.style.position = 'fixed';
+            panel.style.left = '8px';
+            panel.style.bottom = '8px';
+            panel.style.maxWidth = '80vw';
+            panel.style.maxHeight = '40vh';
+            panel.style.overflow = 'auto';
+            panel.style.background = 'rgba(0,0,0,0.7)';
+            panel.style.color = '#0f0';
+            panel.style.fontSize = '12px';
+            panel.style.lineHeight = '1.4';
+            panel.style.padding = '6px 8px';
+            panel.style.borderRadius = '6px';
+            panel.style.zIndex = '10000';
+            panel.style.pointerEvents = 'none';
+            panel.textContent = `[XT ${__XT_VERSION}]`;
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.appendChild(panel);
+            });
+            // 若 DOM 已就绪
+            if (document.readyState !== 'loading' && document.body) {
+                document.body.appendChild(panel);
+            }
+        }
+        const line = document.createElement('div');
+        const now = new Date();
+        const ts = now.toLocaleTimeString();
+        line.textContent = `${ts} - ${msg}`;
+        panel.appendChild(line);
+    } catch (e) {}
+}
+__xt_log('script loaded');
+
+// 微信内置浏览器下载拦截与指引
+(function () {
+    try {
+        const ua = navigator.userAgent || '';
+        const isWeChat = ua.indexOf('MicroMessenger') !== -1;
+        __xt_log(`UA=${ua}`);
+        __xt_log(`isWeChat=${isWeChat}`);
+        if (!isWeChat) return;
+
+        const overlay = document.createElement('div');
+        overlay.id = 'wx-download-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.left = '0';
+        overlay.style.top = '0';
+        overlay.style.right = '0';
+        overlay.style.bottom = '0';
+        overlay.style.background = 'rgba(0,0,0,0.65)';
+        overlay.style.display = 'none';
+        overlay.style.zIndex = '9999';
+        overlay.style.backdropFilter = 'blur(2px)';
+
+        const panel = document.createElement('div');
+        panel.style.position = 'absolute';
+        panel.style.left = '50%';
+        panel.style.top = '50%';
+        panel.style.transform = 'translate(-50%, -50%)';
+        panel.style.width = 'min(92%, 560px)';
+        panel.style.background = '#fff';
+        panel.style.borderRadius = '12px';
+        panel.style.boxShadow = '0 12px 32px rgba(0,0,0,0.2)';
+        panel.style.padding = '20px 20px 16px';
+        panel.style.textAlign = 'left';
+
+        const title = document.createElement('div');
+        title.textContent = '在微信内下载可能被拦截';
+        title.style.fontSize = '18px';
+        title.style.fontWeight = '600';
+        title.style.color = '#111';
+        title.style.marginBottom = '8px';
+
+        const desc = document.createElement('div');
+        desc.innerHTML = '请点击右上角 ···，选择“在浏览器中打开”后再进行下载；或复制下载链接到浏览器打开。';
+        desc.style.fontSize = '14px';
+        desc.style.color = '#444';
+        desc.style.lineHeight = '1.6';
+        desc.style.marginBottom = '14px';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.readOnly = true;
+        input.style.width = '100%';
+        input.style.fontSize = '13px';
+        input.style.padding = '10px 12px';
+        input.style.border = '1px solid #e5e7eb';
+        input.style.borderRadius = '8px';
+        input.style.background = '#f9fafb';
+        input.style.color = '#111';
+        input.style.marginBottom = '12px';
+
+        const actions = document.createElement('div');
+        actions.style.display = 'flex';
+        actions.style.gap = '10px';
+        actions.style.justifyContent = 'flex-end';
+
+        const copyBtn = document.createElement('button');
+        copyBtn.textContent = '复制链接';
+        copyBtn.style.padding = '10px 14px';
+        copyBtn.style.border = '1px solid #2563eb';
+        copyBtn.style.background = '#2563eb';
+        copyBtn.style.color = '#fff';
+        copyBtn.style.borderRadius = '8px';
+        copyBtn.style.cursor = 'pointer';
+
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '关闭';
+        closeBtn.style.padding = '10px 14px';
+        closeBtn.style.border = '1px solid #e5e7eb';
+        closeBtn.style.background = '#fff';
+        closeBtn.style.color = '#111';
+        closeBtn.style.borderRadius = '8px';
+        closeBtn.style.cursor = 'pointer';
+
+        actions.appendChild(closeBtn);
+        actions.appendChild(copyBtn);
+
+        panel.appendChild(title);
+        panel.appendChild(desc);
+        panel.appendChild(input);
+        panel.appendChild(actions);
+        overlay.appendChild(panel);
+        document.body.appendChild(overlay);
+
+        let currentDownloadHref = '';
+
+        function openOverlay(href) {
+            currentDownloadHref = href;
+            input.value = href;
+            overlay.style.display = 'block';
+            __xt_log('overlay open');
+        }
+
+        function closeOverlay() {
+            overlay.style.display = 'none';
+        }
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeOverlay();
+        });
+        closeBtn.addEventListener('click', closeOverlay);
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await (window.xintuxiangce && window.xintuxiangce.copyToClipboard
+                    ? window.xintuxiangce.copyToClipboard(currentDownloadHref)
+                    : navigator.clipboard.writeText(currentDownloadHref));
+                copyBtn.textContent = '已复制';
+                setTimeout(() => { copyBtn.textContent = '复制链接'; }, 1500);
+            } catch (err) {
+                console.error(err);
+                copyBtn.textContent = '复制失败';
+                setTimeout(() => { copyBtn.textContent = '复制链接'; }, 1500);
+            }
+        });
+
+        // 拦截所有下载按钮（直链、download.py、dist 文件等）
+        const candidates = document.querySelectorAll('a[href*="download.py"], a[href*="dist/"], a[href$=".exe"], a[href$=".zip"], a[href$=".apk"], a[download]');
+        __xt_log(`candidates=${candidates.length}`);
+
+        function interceptAnchor(a) {
+            function handler(e) {
+                const href = a.getAttribute('href') || '';
+                if (!href) return;
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                const absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
+                openOverlay(absolute);
+                __xt_log(`intercept: ${absolute}`);
+                return false;
+            }
+            // 同时拦截 click 与 touchend，提升在微信内的可靠性
+            a.addEventListener('click', handler, { capture: true });
+            a.addEventListener('touchend', handler, { capture: true, passive: false });
+            a.addEventListener('pointerup', handler, { capture: true });
+        }
+
+        candidates.forEach(interceptAnchor);
+        __xt_log('bind done');
+    } catch (e) {
+        console.error('WeChat download intercept failed:', e);
+        __xt_log('intercept init error');
+    }
+})();
+
