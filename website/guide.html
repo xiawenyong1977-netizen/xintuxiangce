@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>使用指南 - 芯图相册 | AI智能照片分类管理教程</title>
+    <meta name="description" content="芯图相册详细使用指南，教您如何使用AI技术智能分类照片，提高照片管理效率，释放手机存储空间。包含连接设置、智能分类、暂存管理、清理归档等完整操作步骤。">
+    <meta name="keywords" content="芯图相册使用指南,照片分类教程,AI照片管理,手机相册整理,照片清理技巧,智能相册使用,照片管理教程">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guide.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="使用指南 - 芯图相册">
+    <meta property="og:description" content="详细的使用指南，教您如何使用AI技术智能分类照片，四步轻松完成相册整理">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guide.html">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册使用指南",
+        "description": "详细的使用教程，帮助您快速掌握芯图相册的各项功能，轻松管理您的照片",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图相册团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025-11-13",
+        "dateModified": "2025-11-13",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.xintuxiangce.top/guide.html"
+        }
+    }
+    </script>
+    
+    <!-- 面包屑导航结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guide.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        .guide-container {
+            min-height: calc(100vh - 200px);
+            padding: 40px 0;
+        }
+        
+        .guide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 24px;
+        }
+        
+        .guide-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .guide-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .guide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .guide-article {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+        
+        .guide-section {
+            margin-bottom: 40px;
+        }
+        
+        .guide-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .guide-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .guide-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .guide-step {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            padding: 24px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .guide-step .step-number {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        
+        .guide-step .step-content h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+        
+        .guide-step .step-content p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .guide-feature-list,
+        .guide-tips-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .guide-feature-list li,
+        .guide-tips-list li {
+            padding: 16px 0 16px 32px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .guide-feature-list li:last-child,
+        .guide-tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .guide-feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .guide-tips-list li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+        }
+        
+        .guide-link-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .guide-card-icon {
+            margin: 0 auto 30px;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+        
+        .guide-link-card h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .guide-link-card > p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .guide-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .guide-feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .guide-feature-item .feature-icon {
+            font-size: 32px;
+        }
+        
+        .guide-link-btn {
+            margin-bottom: 20px;
+            min-width: 200px;
+        }
+        
+        .guide-note {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 32px;
+            }
+            
+            .guide-header p {
+                font-size: 16px;
+            }
+            
+            .guide-article {
+                padding: 40px 24px;
+            }
+            
+            .guide-section h2 {
+                font-size: 24px;
+            }
+            
+            .guide-step {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .guide-step .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .guide-link-card {
+                padding: 40px 24px;
+            }
+            
+            .guide-link-card h2 {
+                font-size: 24px;
+            }
+            
+            .guide-link-card > p {
+                font-size: 16px;
+            }
+            
+            .guide-features {
+                gap: 24px;
+            }
+            
+            .guide-card-icon {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <div class="nav-overlay"></div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">功能特性</a></li>
+                    <li><a href="guide.html" class="active">使用指南</a></li>
+                    <li><a href="index.html#screenshots">应用截图</a></li>
+                    <li><a href="index.html#faq">常见问题</a></li>
+                    <li><a href="index.html#download" class="btn-nav-download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 使用指南内容 -->
+    <div class="guide-container">
+        <div class="guide-header">
+            <h1>使用指南</h1>
+            <p>详细的使用教程，帮助您快速掌握芯图相册的各项功能，轻松管理您的照片</p>
+        </div>
+        
+        <div class="guide-content">
+            <!-- SEO友好的文字内容 -->
+            <article class="guide-article">
+                <section class="guide-section">
+                    <h2>快速开始</h2>
+                    <p>芯图相册是一款基于AI技术的智能照片分类管理工具，通过本地AI智能识别，自动分类照片，准确率高达90%以上。所有处理完全在本地进行，无需联网，不上传任何数据，从根源上保护您的隐私安全。</p>
+                </section>
+                
+                <section class="guide-section">
+                    <h2>使用步骤</h2>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <h3>连接与设置</h3>
+                            <p>使用数据线连接手机与电脑，在设置页面选定需要整理的相册目录。支持手机相册目录、电脑本地文件夹和外置存储设备。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <h3>一键智能分类</h3>
+                            <p>点击"开始智能分类"按钮，AI将自动扫描识别，首页清晰展示分类进度与图片统计。实时显示处理进度，自动统计各类别数量，支持暂停和继续。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <h3>便捷拣选暂存</h3>
+                            <p>分类完成后，可逐类浏览，轻松勾选需要处理的照片，一键移入暂存箱。支持批量选择、预览大图和灵活的暂存管理。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-number">04</div>
+                        <div class="step-content">
+                            <h3>最终清理或归档</h3>
+                            <p>进入暂存箱二次确认，无误后可以全选删除，或复制到指定文件夹完成归档。删除前二次确认，支持复制到其他位置，批量操作省时省力。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="guide-section">
+                    <h2>核心功能</h2>
+                    <ul class="guide-feature-list">
+                        <li><strong>AI智能识别：</strong>采用先进的深度学习技术，自动识别照片内容、场景、人物等信息，准确率高达90%以上。支持7大内容类别识别、自动城市地点分类和相似照片智能去重。</li>
+                        <li><strong>隐私绝对安全：</strong>所有处理完全在本地进行，无需联网，不上传任何数据，从根源上保护您的隐私。</li>
+                        <li><strong>多维度分类：</strong>提供三大分类维度，包括按内容（截图、证件照、单人照、社会活动、风景、美食、萌宠）、按城市和按相似度分类。</li>
+                        <li><strong>灵活可控：</strong>AI分类结果支持手动调整，您可以轻松修正个别分类错误，完全掌控照片管理。</li>
+                    </ul>
+                </section>
+                
+                <section class="guide-section">
+                    <h2>使用技巧</h2>
+                    <ul class="guide-tips-list">
+                        <li>建议每周或每月定期使用芯图相册整理照片，避免照片积累过多</li>
+                        <li>在删除照片前，请确保重要照片已经备份到云端或其他存储设备</li>
+                        <li>虽然AI分类准确率很高，但建议在删除照片前检查分类结果，避免误删重要照片</li>
+                        <li>对于大批量照片处理，建议8GB以上内存以获得更好的体验</li>
+                    </ul>
+                </section>
+            </article>
+            
+            <!-- 详细图文指南链接卡片 -->
+            <div class="guide-link-card">
+                <div class="guide-card-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7V11C2 16.55 6.84 21.74 12 23C17.16 21.74 22 16.55 22 11V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2>查看详细图文指南</h2>
+                <p>我们为您准备了更详细的使用教程，包含图文说明和操作步骤，帮助您更深入地了解芯图相册的各项功能。</p>
+                <div class="guide-features">
+                    <div class="guide-feature-item">
+                        <span class="feature-icon">📖</span>
+                        <span>详细操作步骤</span>
+                    </div>
+                    <div class="guide-feature-item">
+                        <span class="feature-icon">🖼️</span>
+                        <span>图文并茂说明</span>
+                    </div>
+                    <div class="guide-feature-item">
+                        <span class="feature-icon">💡</span>
+                        <span>实用技巧分享</span>
+                    </div>
+                </div>
+                <a href="https://t.1yb.co/NOFc" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large guide-link-btn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M11 3H5C3.89543 3 3 3.89543 3 5V15C3 16.1046 3.89543 17 5 17H15C16.1046 17 17 16.1046 17 15V9M14 2H17M17 2V5M17 2L8 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    查看详细图文指南
+                </a>
+                <p class="guide-note">点击按钮将在新窗口中打开详细的使用指南页面</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html#features">功能特性</a></li>
+                            <li><a href="guide.html">使用指南</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>支持</h4>
+                        <ul>
+                            <li><a href="index.html#faq">常见问题</a></li>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                            <li><a href="index.html#feedback">意见反馈</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>关于</h4>
+                        <ul>
+                            <li><a href="index.html#about">关于我们</a></li>
+                            <li><a href="index.html#privacy">隐私政策</a></li>
+                            <li><a href="index.html#terms">使用条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <script>
+        // 处理导航栏中的active状态
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                if (link.href === window.location.href || link.classList.contains('active')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

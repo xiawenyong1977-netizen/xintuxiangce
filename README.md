@@ -77,10 +77,32 @@ xintuxiangce-website/    # 官网源码项目
 
 ## 📝 使用指南
 
+### 快速上手
 1. **连接与设置**: 使用数据线连接手机与电脑，选定需要整理的相册目录
 2. **一键智能分类**: 点击"开始智能分类"，AI将自动扫描识别
 3. **便捷拣选暂存**: 分类完成后，勾选需要处理的照片，一键移入暂存箱
 4. **最终清理或归档**: 进入暂存箱二次确认，删除或归档
+
+### 📚 详细教程文章
+
+我们提供了完整的使用指南，帮助您快速掌握芯图相册的各项功能：
+
+- 📖 [**芯图相册使用指南：快速掌握PC端与移动端照片管理技巧**](https://www.xintuxiangce.top/guide-quick-start.html)
+  - 从零开始，快速了解如何使用芯图相册进行智能照片分类和管理
+  - 包含PC端（Windows）和移动端（Android）的完整操作步骤
+  - 涵盖安装、设置、扫描、会员开通等详细说明
+
+- 🔒 [**掌握芯图相册权限设置：保护隐私同时享受智能分类功能**](https://www.xintuxiangce.top/guide-permissions.html)
+  - 详细说明Android版本需要哪些权限、这些权限的用途
+  - 包含华为、小米、OPPO等各品牌手机的权限设置方法
+  - 帮助您正确配置应用权限，保护隐私的同时享受智能分类功能
+
+- 🚀 [**告别手动整理！芯图相册AI技术，7大分类助你高效清理照片**](https://www.xintuxiangce.top/guide-cleanup.html)
+  - 详细说明如何使用AI智能分类功能快速清理手机照片
+  - 包含7个智能分类介绍和完整的清理流程
+  - 释放存储空间，让照片管理更高效
+
+📋 [查看所有使用指南文章](https://www.xintuxiangce.top/guides.html)
 
 ## 🛠️ 技术栈
 
@@ -113,6 +135,13 @@ xintuxiangce-website/    # 官网源码项目
 
 ## 📄 文档
 
+### 用户使用文档
+- 📖 [使用指南：快速掌握PC端与移动端照片管理技巧](https://www.xintuxiangce.top/guide-quick-start.html)
+- 🔒 [权限设置说明：保护隐私同时享受智能分类功能](https://www.xintuxiangce.top/guide-permissions.html)
+- 🚀 [快速清理指南：7大分类助你高效清理照片](https://www.xintuxiangce.top/guide-cleanup.html)
+- 📋 [所有使用指南文章](https://www.xintuxiangce.top/guides.html)
+
+### 开发文档
 - [官网完整说明](website/README.md)
 - [快速开始指南](website/QUICK_START.md)
 - [部署指南](website/DEPLOYMENT.md)
@@ -142,7 +171,13 @@ ls -la
 
 ## 📚 相关资源
 
-- [使用教程](https://www.xintuxiangce.top/blog.html) - 详细的使用指南
+### 使用指南
+- 📖 [使用指南列表](https://www.xintuxiangce.top/guides.html) - 完整的使用教程文章
+- 🚀 [快速入门指南](https://www.xintuxiangce.top/guide-quick-start.html) - PC端与移动端照片管理技巧
+- 🔒 [权限设置说明](https://www.xintuxiangce.top/guide-permissions.html) - 保护隐私同时享受智能分类
+- 🧹 [快速清理指南](https://www.xintuxiangce.top/guide-cleanup.html) - 7大分类助你高效清理照片
+
+### 其他资源
 - [技术博客](https://www.xintuxiangce.top/blog.html) - AI照片分类技术解析
 - [常见问题](https://www.xintuxiangce.top/#faq) - FAQ解答
 - [更新日志](https://github.com/xiawenyong1977-netizen/xintuxiangce/releases) - 版本更新记录

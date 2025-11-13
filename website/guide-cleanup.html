@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>告别手动整理！芯图相册AI技术，7大分类助你高效清理照片</title>
+    <meta name="description" content="芯图相册快速清理指南，详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。告别手动整理，让AI帮你高效清理照片。">
+    <meta name="keywords" content="芯图相册清理指南,照片清理教程,手机照片整理,存储空间释放,智能照片分类,AI照片分类,7大分类">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guide-cleanup.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="告别手动整理！芯图相册AI技术，7大分类助你高效清理照片">
+    <meta property="og:description" content="详细说明如何使用AI智能分类功能快速清理手机照片">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guide-cleanup.html">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "告别手动整理！芯图相册AI技术，7大分类助你高效清理照片",
+        "description": "详细说明如何使用AI智能分类功能快速清理手机照片",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图相册团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025-11-13",
+        "dateModified": "2025-11-13"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 24px 0 12px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 40px 0;
+        }
+        
+        .article-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .article-nav-link:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .article-header {
+                padding: 40px 24px;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+            
+            .article-body h2 {
+                font-size: 24px;
+            }
+            
+            .article-body h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <div class="nav-overlay"></div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">功能特性</a></li>
+                    <li><a href="guides.html">使用指南</a></li>
+                    <li><a href="index.html#screenshots">应用截图</a></li>
+                    <li><a href="index.html#faq">常见问题</a></li>
+                    <li><a href="index.html#download" class="btn-nav-download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章内容 -->
+    <div class="article-container">
+        <div class="article-content">
+            <div class="article-header">
+                <h1>告别手动整理！芯图相册AI技术，7大分类助你高效清理照片</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月13日</span>
+                    <span>⏱️ 阅读时间：10分钟</span>
+                </div>
+            </div>
+            
+            <article class="article-body">
+                <h2>概述</h2>
+                <p>芯图相册是一款基于AI大模型的智能照片分类应用，可以帮助您快速整理和清理手机中的照片。通过AI对照片内容的深度理解，应用会自动将照片分类到7个类别中，让您能够高效地清理不需要的照片，释放手机存储空间。</p>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>一、7个智能分类介绍</h2>
+                <p>芯图相册会将您的照片自动分类到以下7个类别中。这些分类是基于<strong>AI大模型对照片内容的深度理解</strong>而生成的，而不是传统的图像识别技术（识别物体后按预设规则分类）。这种分类方式更贴近用户的实际使用场景和关注点。</p>
+                
+                <h3>1. 单人照片</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>包含单个人物的照片</li>
+                    <li>适合回忆和保存的个人照片</li>
+                    <li>通常是您自己的照片或朋友的单人照</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li>这类照片通常有纪念价值，建议保留</li>
+                    <li>如果发现重复或不满意的照片，可以挑选后放入暂存箱</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>2. 社交活动</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>多人聚会、活动、会议等社交场景的照片</li>
+                    <li>包含朋友聚会、家庭聚餐、团队活动等</li>
+                    <li>记录生活中的社交时刻</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li>社交活动的照片通常有纪念意义，建议保留</li>
+                    <li>如果照片模糊、重复或不再需要，可以挑选后放入暂存箱</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>3. 旅行风景</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>旅行、旅游、户外活动的照片</li>
+                    <li>包含风景、建筑、自然景观等</li>
+                    <li>记录您旅行和探索的足迹</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li>旅行照片通常有很高的纪念价值，建议保留</li>
+                    <li>如果发现重复的风景照或不满意的照片，可以挑选后放入暂存箱</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>4. 宠物萌照</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>包含宠物（猫、狗、鸟等）的照片</li>
+                    <li>记录宠物的日常和可爱瞬间</li>
+                    <li>宠物主人的珍贵回忆</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li>宠物照片通常有很高的情感价值，建议保留</li>
+                    <li><strong>但如果您拍了很多重复的宠物照片，可以挑选不需要的放入暂存箱</strong></li>
+                    <li>保留最可爱、最有意义的宠物照片</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>5. 美食记录</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>美食、餐厅、烹饪的照片</li>
+                    <li>记录您品尝的美食和烹饪成果</li>
+                    <li>生活中的美食时刻</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li>美食照片通常是生活记录，有些可能不再需要</li>
+                    <li><strong>可以挑选不需要的美食照片放入暂存箱</strong></li>
+                    <li>保留有意义的美食照片（如特殊场合、自己做的美食等）</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>6. 手机截图</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>手机截图、屏幕截图</li>
+                    <li>包括聊天记录、网页截图、应用截图等</li>
+                    <li>通常是为了临时保存信息而拍摄的</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li><strong>这是重点清理对象</strong></li>
+                    <li>大部分截图都是临时性的，不再需要长期保存</li>
+                    <li><strong>建议全选放入暂存箱</strong>，然后统一删除</li>
+                    <li>只保留有长期价值的截图（如重要通知、证件信息等）</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>7. 其它</h3>
+                <p><strong>分类说明：</strong></p>
+                <ul>
+                    <li>不属于以上6个类别的照片</li>
+                    <li>包括文档、物品、场景等各类照片</li>
+                    <li>内容比较杂乱的分类</li>
+                </ul>
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li><strong>需要仔细挑选</strong></li>
+                    <li>这类照片中可能有很多不需要的内容</li>
+                    <li><strong>建议挑选不需要的照片放入暂存箱</strong></li>
+                    <li>保留有意义的照片</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>二、分类技术的优势</h2>
+                
+                <h3>传统图像识别技术 vs AI大模型理解</h3>
+                <p><strong>传统图像识别技术：</strong></p>
+                <ul>
+                    <li>识别照片中的物体（如"人"、"猫"、"食物"等）</li>
+                    <li>根据预设规则将物体映射到分类（如"识别到猫" → "宠物萌照"）</li>
+                    <li>只能识别物体，无法理解照片的场景和意义</li>
+                </ul>
+                
+                <p><strong>AI大模型理解：</strong></p>
+                <ul>
+                    <li>深度理解照片的内容、场景和意义</li>
+                    <li>能够理解照片的上下文和用户关注点</li>
+                    <li>分类更贴近用户的实际使用场景</li>
+                </ul>
+                
+                <p><strong>优势：</strong></p>
+                <ul>
+                    <li>✅ <strong>分类更准确</strong>：能够理解照片的真实含义，而不仅仅是识别物体</li>
+                    <li>✅ <strong>更贴近用户</strong>：分类站在用户的角度，关注用户真正关心的内容</li>
+                    <li>✅ <strong>更智能</strong>：能够理解照片的场景和意义，而不是简单地识别物体</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>三、快速清理流程</h2>
+                
+                <h3>步骤1：扫描照片</h3>
+                <ol>
+                    <li>打开芯图相册应用</li>
+                    <li>在首页点击<strong>扫描</strong>按钮（🔄图标）</li>
+                    <li>应用会自动扫描您手机中的照片</li>
+                    <li>扫描完成后，照片会自动分类到7个类别中</li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>提示</strong>：非会员用户每次扫描只处理最近的100张照片。开通会员后可以无限制扫描所有照片。</p>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>步骤2：清理手机截图（重点）</h3>
+                <p><strong>手机截图是重点清理对象，通常包含大量不需要的照片。</strong></p>
+                
+                <h4>操作步骤：</h4>
+                <ol>
+                    <li><strong>进入手机截图分类</strong>
+                        <ul>
+                            <li>在首页点击"手机截图"分类卡片</li>
+                            <li>查看所有截图照片</li>
+                        </ul>
+                    </li>
+                    <li><strong>全选照片</strong>
+                        <ul>
+                            <li>长按任意一张截图，进入多选模式</li>
+                            <li>点击右上角的"全选"按钮，选中所有截图</li>
+                        </ul>
+                    </li>
+                    <li><strong>放入暂存箱</strong>
+                        <ul>
+                            <li>点击底部操作栏的"放入暂存箱"按钮（📦图标）</li>
+                            <li>确认操作，所有选中的截图会被移动到暂存箱</li>
+                        </ul>
+                    </li>
+                    <li><strong>完成</strong>
+                        <ul>
+                            <li>截图清理完成，您可以继续清理其他分类</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>注意</strong>：如果发现某些截图需要保留（如重要通知、证件信息等），可以在全选前先取消选择这些截图。</p>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>步骤3：清理"其它"分类</h3>
+                <p><strong>"其它"分类中的照片内容比较杂乱，需要仔细挑选。</strong></p>
+                
+                <h4>操作步骤：</h4>
+                <ol>
+                    <li><strong>进入其它分类</strong>
+                        <ul>
+                            <li>在首页点击"其它"分类卡片</li>
+                            <li>查看所有其他照片</li>
+                        </ul>
+                    </li>
+                    <li><strong>挑选不需要的照片</strong>
+                        <ul>
+                            <li>浏览照片，识别不需要的照片</li>
+                            <li>长按不需要的照片，进入多选模式</li>
+                            <li>点击照片选择/取消选择</li>
+                        </ul>
+                    </li>
+                    <li><strong>放入暂存箱</strong>
+                        <ul>
+                            <li>选择完成后，点击底部操作栏的"放入暂存箱"按钮</li>
+                            <li>确认操作，选中的照片会被移动到暂存箱</li>
+                        </ul>
+                    </li>
+                    <li><strong>完成</strong>
+                        <ul>
+                            <li>"其它"分类清理完成</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>提示</strong>：如果照片较多，可以分批清理，不需要一次性清理完所有照片。</p>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>步骤4：清理美食记录或宠物萌照（可选）</h3>
+                <p><strong>如果您拍了很多美食或宠物照片，可以挑选不需要的放入暂存箱。</strong></p>
+                
+                <h4>操作步骤：</h4>
+                <ol>
+                    <li><strong>进入美食记录或宠物萌照分类</strong>
+                        <ul>
+                            <li>在首页点击"美食记录"或"宠物萌照"分类卡片</li>
+                            <li>查看所有照片</li>
+                        </ul>
+                    </li>
+                    <li><strong>挑选不需要的照片</strong>
+                        <ul>
+                            <li>浏览照片，识别不需要的照片</li>
+                            <li>长按不需要的照片，进入多选模式</li>
+                            <li>点击照片选择/取消选择</li>
+                        </ul>
+                    </li>
+                    <li><strong>放入暂存箱</strong>
+                        <ul>
+                            <li>选择完成后，点击底部操作栏的"放入暂存箱"按钮</li>
+                            <li>确认操作，选中的照片会被移动到暂存箱</li>
+                        </ul>
+                    </li>
+                    <li><strong>完成</strong>
+                        <ul>
+                            <li>美食记录或宠物萌照清理完成</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>提示</strong>：</p>
+                    <ul style="margin: 10px 0 0 0;">
+                        <li>美食记录：保留有意义的照片（如特殊场合、自己做的美食等），删除普通的餐厅照片</li>
+                        <li>宠物萌照：保留最可爱、最有意义的照片，删除重复或不满意的照片</li>
+                    </ul>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>步骤5：进入暂存箱进行最后确认和删除</h3>
+                <p><strong>暂存箱是删除前的最后确认环节，确保不会误删重要照片。</strong></p>
+                
+                <h4>操作步骤：</h4>
+                <ol>
+                    <li><strong>进入暂存箱</strong>
+                        <ul>
+                            <li>在首页底部导航栏点击"暂存箱"标签</li>
+                            <li>或点击首页的"暂存箱"分类卡片</li>
+                            <li>查看所有准备删除的照片</li>
+                        </ul>
+                    </li>
+                    <li><strong>最后一次确认</strong>
+                        <ul>
+                            <li>仔细检查暂存箱中的照片</li>
+                            <li>如果发现误放的照片，可以：
+                                <ul>
+                                    <li>长按照片，进入多选模式</li>
+                                    <li>选中误放的照片</li>
+                                    <li>点击底部操作栏的"修改分类"按钮</li>
+                                    <li>选择正确的分类，将照片移回原分类</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><strong>全选并删除</strong>
+                        <ul>
+                            <li>确认所有照片都可以删除后，点击右上角的"全选"按钮</li>
+                            <li>选中所有照片</li>
+                            <li>点击底部操作栏的"删除"按钮（🗑️图标）</li>
+                            <li>确认删除操作</li>
+                        </ul>
+                    </li>
+                    <li><strong>完成清理</strong>
+                        <ul>
+                            <li>照片删除完成，照片会被移动到手机相册的回收站</li>
+                            <li>清理流程完成</li>
+                            <li>如果误删了照片，可以到手机相册的回收站中恢复</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>重要提示</strong>：</p>
+                    <ul style="margin: 10px 0 0 0;">
+                        <li>删除操作会将照片移动到手机相册的回收站，可以从回收站恢复</li>
+                        <li>如果发现误放的照片，可以在删除前移回原分类</li>
+                        <li>建议分批清理，不要一次性删除太多照片</li>
+                        <li>回收站中的照片通常会在30天后自动永久删除，请及时恢复重要照片</li>
+                    </ul>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>四、操作技巧</h2>
+                
+                <h3>1. 多选模式</h3>
+                <ul>
+                    <li><strong>进入多选模式</strong>：长按任意一张照片</li>
+                    <li><strong>选择/取消选择</strong>：点击照片</li>
+                    <li><strong>全选</strong>：点击右上角的"全选"按钮</li>
+                    <li><strong>退出多选模式</strong>：点击左上角的"取消"按钮</li>
+                </ul>
+                
+                <h3>2. 批量操作</h3>
+                <ul>
+                    <li><strong>放入暂存箱</strong>：选中照片后，点击"放入暂存箱"按钮</li>
+                    <li><strong>修改分类</strong>：选中照片后，点击"修改分类"按钮，选择新分类</li>
+                    <li><strong>删除</strong>：在暂存箱中，选中照片后，点击"删除"按钮</li>
+                </ul>
+                
+                <h3>3. 照片预览</h3>
+                <ul>
+                    <li><strong>预览照片</strong>：在分类页面点击照片，进入预览页面</li>
+                    <li><strong>切换照片</strong>：在预览页面左右滑动切换照片</li>
+                    <li><strong>单个操作</strong>：在预览页面可以单独放入暂存箱或删除</li>
+                </ul>
+                
+                <h3>4. 分页加载</h3>
+                <ul>
+                    <li>如果照片较多，应用会自动分页加载</li>
+                    <li>滚动到底部会自动加载更多照片</li>
+                    <li>可以随时下拉刷新数据</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>五、清理建议</h2>
+                
+                <h3>1. 定期清理</h3>
+                <ul>
+                    <li>建议每周或每月清理一次照片</li>
+                    <li>及时清理不需要的照片，避免积累过多</li>
+                    <li>定期清理可以保持手机存储空间充足</li>
+                </ul>
+                
+                <h3>2. 分类清理</h3>
+                <ul>
+                    <li><strong>优先清理</strong>：手机截图（通常可以全选删除）</li>
+                    <li><strong>其次清理</strong>：其它分类（需要仔细挑选）</li>
+                    <li><strong>可选清理</strong>：美食记录、宠物萌照（挑选不需要的）</li>
+                    <li><strong>保留分类</strong>：单人照片、社交活动、旅行风景（通常有纪念价值）</li>
+                </ul>
+                
+                <h3>3. 谨慎删除</h3>
+                <ul>
+                    <li>删除前务必在暂存箱中确认</li>
+                    <li>如果不确定是否删除，可以先保留</li>
+                    <li>重要照片建议备份后再删除</li>
+                    <li>如果误删了照片，可以到手机相册的回收站中恢复</li>
+                </ul>
+                
+                <h3>4. 使用暂存箱</h3>
+                <ul>
+                    <li>暂存箱是删除前的最后确认环节</li>
+                    <li>可以随时将照片移回原分类</li>
+                    <li>确认无误后再删除</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>六、常见问题</h2>
+                
+                <h3>Q1: 如何恢复误删的照片？</h3>
+                <p><strong>A:</strong> 删除操作会将照片移动到手机相册的回收站，可以从回收站恢复。恢复方法：</p>
+                <ol>
+                    <li>打开手机自带的相册应用</li>
+                    <li>找到"回收站"或"最近删除"文件夹</li>
+                    <li>找到误删的照片，选择恢复</li>
+                    <li>照片会被恢复到原来的位置</li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>提示</strong>：回收站中的照片通常会在30天后自动永久删除，请及时恢复重要照片。如果发现误放的照片，也可以在删除前移回原分类。</p>
+                </blockquote>
+                
+                <h3>Q2: 分类不准确怎么办？</h3>
+                <p><strong>A:</strong> 如果发现分类不准确，可以：</p>
+                <ol>
+                    <li>选中照片，点击"修改分类"按钮</li>
+                    <li>选择正确的分类</li>
+                    <li>照片会被移动到新分类</li>
+                </ol>
+                
+                <h3>Q3: 可以批量修改分类吗？</h3>
+                <p><strong>A:</strong> 可以。选中多张照片后，点击"修改分类"按钮，选择新分类，所有选中的照片会被移动到新分类。</p>
+                
+                <h3>Q4: 暂存箱中的照片会占用存储空间吗？</h3>
+                <p><strong>A:</strong> 会。暂存箱中的照片仍然占用存储空间。删除后，照片会进入手机相册的回收站，存储空间会在回收站清理后释放。如果需要立即释放存储空间，可以在回收站中永久删除照片。</p>
+                
+                <h3>Q5: 如何快速清理大量照片？</h3>
+                <p><strong>A:</strong> 建议按照以下顺序清理：</p>
+                <ol>
+                    <li>手机截图：全选放入暂存箱</li>
+                    <li>其它：挑选放入暂存箱</li>
+                    <li>美食记录/宠物萌照：挑选放入暂存箱</li>
+                    <li>暂存箱：最后确认并删除</li>
+                </ol>
+                
+                <h3>Q6: 分类是基于什么技术的？</h3>
+                <p><strong>A:</strong> 分类是基于AI大模型对照片内容的深度理解，而不是传统的图像识别技术。这种技术能够理解照片的场景和意义，分类更贴近用户的实际使用场景。</p>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>七、总结</h2>
+                <p>芯图相册通过AI大模型的深度理解，将照片自动分类到7个类别中，让您能够高效地清理不需要的照片。通过以下清理流程，您可以快速释放手机存储空间：</p>
+                <ol>
+                    <li><strong>扫描照片</strong>：应用自动分类照片</li>
+                    <li><strong>清理手机截图</strong>：全选放入暂存箱（重点）</li>
+                    <li><strong>清理其它分类</strong>：挑选放入暂存箱</li>
+                    <li><strong>清理美食记录/宠物萌照</strong>：挑选放入暂存箱（可选）</li>
+                    <li><strong>暂存箱确认删除</strong>：最后确认并删除</li>
+                </ol>
+                
+                <p><strong>清理建议：</strong></p>
+                <ul>
+                    <li>定期清理，避免积累过多</li>
+                    <li>谨慎删除，重要照片先备份</li>
+                    <li>使用暂存箱，删除前仔细确认</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <p>如有任何问题，请访问官方网站：<strong>www.xintuxiangce.top</strong></p>
+                
+                <p style="text-align: center; font-size: 18px; margin-top: 40px;"><strong>祝您使用愉快！</strong> 🎉</p>
+            </article>
+            
+            <div class="article-navigation">
+                <a href="guides.html" class="article-nav-link">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    返回文章列表
+                </a>
+                <a href="index.html#download" class="article-nav-link">
+                    立即下载
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M8 4L12 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html#features">功能特性</a></li>
+                            <li><a href="guides.html">使用指南</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>支持</h4>
+                        <ul>
+                            <li><a href="index.html#faq">常见问题</a></li>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                            <li><a href="index.html#feedback">意见反馈</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>关于</h4>
+                        <ul>
+                            <li><a href="index.html#about">关于我们</a></li>
+                            <li><a href="index.html#privacy">隐私政策</a></li>
+                            <li><a href="index.html#terms">使用条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

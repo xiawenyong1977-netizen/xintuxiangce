@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>掌握芯图相册权限设置：保护隐私同时享受智能分类功能</title>
+    <meta name="description" content="芯图相册Android版本权限设置详细说明，包含运行时权限、特殊权限的设置方法和常见问题解答，帮助您正确配置应用权限，保护隐私的同时享受智能分类功能。">
+    <meta name="keywords" content="芯图相册权限设置,Android权限配置,照片权限,存储权限,权限申请,隐私保护,智能分类">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guide-permissions.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="掌握芯图相册权限设置：保护隐私同时享受智能分类功能">
+    <meta property="og:description" content="详细说明Android版本需要哪些权限以及如何设置">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guide-permissions.html">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "掌握芯图相册权限设置：保护隐私同时享受智能分类功能",
+        "description": "详细说明Android版本需要哪些权限以及如何设置",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图相册团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025-11-13",
+        "dateModified": "2025-11-13"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 24px 0 12px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="permissions"],
+        .article-body img[alt*="权限设置"],
+        .article-body img[alt*="华为手机"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 40px 0;
+        }
+        
+        .article-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .article-nav-link:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .article-header {
+                padding: 40px 24px;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+            
+            .article-body h2 {
+                font-size: 24px;
+            }
+            
+            .article-body h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <div class="nav-overlay"></div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">功能特性</a></li>
+                    <li><a href="guides.html">使用指南</a></li>
+                    <li><a href="index.html#screenshots">应用截图</a></li>
+                    <li><a href="index.html#faq">常见问题</a></li>
+                    <li><a href="index.html#download" class="btn-nav-download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章内容 -->
+    <div class="article-container">
+        <div class="article-content">
+            <div class="article-header">
+                <h1>掌握芯图相册权限设置：保护隐私同时享受智能分类功能</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月13日</span>
+                    <span>⏱️ 阅读时间：8分钟</span>
+                </div>
+            </div>
+            
+            <article class="article-body">
+                <h2>概述</h2>
+                <p>芯图相册Android版本需要获取一定的系统权限才能正常使用各项功能。本文档详细说明了应用需要哪些权限、这些权限的用途，以及如何设置这些权限。</p>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>权限列表</h2>
+                
+                <h3>一、运行时权限（应用内申请）</h3>
+                <p>运行时权限可以在应用内弹出对话框进行申请，用户可以直接在对话框中点击"允许"或"拒绝"。</p>
+                
+                <h4>1. 相册/存储权限</h4>
+                <p><strong>权限名称：</strong></p>
+                <ul>
+                    <li><strong>Android 12 及以下版本</strong>：<code>读取存储空间</code>、<code>写入存储空间</code></li>
+                    <li><strong>Android 13 及以上版本</strong>：<code>读取照片和视频</code>、<code>修改照片和视频</code></li>
+                </ul>
+                
+                <p><strong>用途说明：</strong></p>
+                <ul>
+                    <li>扫描设备上的照片和图片</li>
+                    <li>读取照片的元数据（如拍摄时间、文件大小等）</li>
+                    <li>保存处理后的图片到相册</li>
+                    <li>删除不需要的照片</li>
+                </ul>
+                
+                <p><strong>申请方式：</strong></p>
+                <ul>
+                    <li>首次使用扫描功能时，应用会弹出权限申请对话框</li>
+                    <li>点击"允许"即可授予权限</li>
+                    <li>如果点击"拒绝"，可以稍后在系统设置中手动开启</li>
+                </ul>
+                
+                <p><strong>设置位置：</strong></p>
+                <ul>
+                    <li><strong>应用内申请</strong>：首次使用扫描功能时自动弹出</li>
+                    <li><strong>系统设置</strong>：设置 → 应用 → 芯图相册 → 权限 → 存储/照片和视频</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h4>2. 媒体位置权限</h4>
+                <p><strong>权限名称：</strong> <code>访问照片中的位置信息</code></p>
+                
+                <p><strong>用途说明：</strong></p>
+                <ul>
+                    <li>读取照片EXIF数据中的GPS位置信息</li>
+                    <li>用于按拍摄地点分类照片（如"北京"、"上海"等城市分类）</li>
+                    <li>帮助您根据地理位置回忆和整理照片</li>
+                </ul>
+                
+                <p><strong>申请方式：</strong></p>
+                <ul>
+                    <li>首次需要读取照片位置信息时，应用会弹出权限申请对话框</li>
+                    <li>点击"允许"即可授予权限</li>
+                    <li>如果不需要按地点分类照片，可以选择"拒绝"</li>
+                </ul>
+                
+                <p><strong>设置位置：</strong></p>
+                <ul>
+                    <li><strong>应用内申请</strong>：首次使用地点分类功能时自动弹出</li>
+                    <li><strong>系统设置</strong>：设置 → 应用 → 芯图相册 → 权限 → 位置信息</li>
+                </ul>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>注意</strong>：此权限仅用于读取照片中已包含的位置信息，不会获取您当前的位置。</p>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h4>3. 通知权限（Android 13+）</h4>
+                <p><strong>权限名称：</strong> <code>通知</code></p>
+                
+                <p><strong>用途说明：</strong></p>
+                <ul>
+                    <li>显示后台扫描进度通知</li>
+                    <li>扫描完成后的提醒通知</li>
+                    <li>保持前台服务正常运行</li>
+                </ul>
+                
+                <p><strong>申请方式：</strong></p>
+                <ul>
+                    <li>Android 13及以上版本首次运行时，应用会弹出权限申请对话框</li>
+                    <li>点击"允许"即可授予权限</li>
+                    <li>如果不允许通知，后台扫描功能可能无法正常工作</li>
+                </ul>
+                
+                <p><strong>设置位置：</strong></p>
+                <ul>
+                    <li><strong>应用内申请</strong>：首次运行时自动弹出</li>
+                    <li><strong>系统设置</strong>：设置 → 应用 → 芯图相册 → 权限 → 通知</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>二、特殊权限（需要手动设置）</h3>
+                <p>特殊权限无法在应用内直接申请，需要用户手动到系统设置页面开启。</p>
+                
+                <h4>管理所有文件权限（Android 11+）</h4>
+                <p><strong>权限名称：</strong> <code>管理所有文件</code> 或 <code>所有文件访问权限</code></p>
+                
+                <p><strong>用途说明：</strong></p>
+                <ul>
+                    <li>允许应用访问设备上的所有文件（包括其他应用创建的文件）</li>
+                    <li>用于删除其他应用创建的重复照片</li>
+                    <li>提供更完整的文件管理功能</li>
+                </ul>
+                
+                <p><strong>申请方式：</strong></p>
+                <ul>
+                    <li><strong>无法在应用内申请</strong>，必须手动到系统设置中开启</li>
+                    <li>应用会在需要时提示您前往系统设置</li>
+                </ul>
+                
+                <p><strong>设置位置（华为手机）：</strong></p>
+                <ol>
+                    <li>打开手机<strong>设置</strong></li>
+                    <li>找到<strong>应用</strong>或<strong>应用管理</strong></li>
+                    <li>找到<strong>芯图相册</strong></li>
+                    <li>点击<strong>权限</strong></li>
+                    <li>找到<strong>文件和媒体</strong>或<strong>存储</strong>选项</li>
+                    <li>选择<strong>所有文件</strong>或<strong>管理所有文件</strong></li>
+                    <li>打开开关</li>
+                </ol>
+                
+                <p><strong>详细步骤（华为手机截图指引）：</strong></p>
+                <img src="/assets/permissions/hw-1.png" alt="华为手机权限设置步骤1" style="width: 100%; border-radius: var(--radius-md); margin: 20px 0; box-shadow: var(--shadow-md);">
+                <img src="/assets/permissions/hw-2.png" alt="华为手机权限设置步骤2" style="width: 100%; border-radius: var(--radius-md); margin: 20px 0; box-shadow: var(--shadow-md);">
+                <img src="/assets/permissions/hw-3.png" alt="华为手机权限设置步骤3" style="width: 100%; border-radius: var(--radius-md); margin: 20px 0; box-shadow: var(--shadow-md);">
+                <img src="/assets/permissions/hw-4.png" alt="华为手机权限设置步骤4" style="width: 100%; border-radius: var(--radius-md); margin: 20px 0; box-shadow: var(--shadow-md);">
+                <img src="/assets/permissions/hw-5.png" alt="华为手机权限设置步骤5" style="width: 100%; border-radius: var(--radius-md); margin: 20px 0; box-shadow: var(--shadow-md);">
+                
+                <p><strong>其他品牌手机：</strong></p>
+                <ul>
+                    <li><strong>小米手机</strong>：设置 → 应用管理 → 芯图相册 → 权限管理 → 存储 → 允许管理所有文件</li>
+                    <li><strong>OPPO/一加手机</strong>：设置 → 应用管理 → 芯图相册 → 权限 → 存储和文件 → 允许管理所有文件</li>
+                    <li><strong>vivo手机</strong>：设置 → 应用与权限 → 应用管理 → 芯图相册 → 权限 → 存储 → 允许管理所有文件</li>
+                    <li><strong>三星手机</strong>：设置 → 应用程序 → 芯图相册 → 权限 → 存储 → 允许管理所有文件</li>
+                </ul>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>注意</strong>：</p>
+                    <ul style="margin: 10px 0 0 0;">
+                        <li>此权限主要用于删除其他应用创建的文件，如果不需要此功能，可以不开启</li>
+                        <li>开启此权限后，应用可以访问设备上的所有文件，请确保您信任此应用</li>
+                    </ul>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h3>三、普通权限（自动授予）</h3>
+                <p>以下权限是普通权限，系统会自动授予，无需用户操作：</p>
+                <ul>
+                    <li><strong>网络权限</strong>：用于连接远程AI推理服务器</li>
+                    <li><strong>网络状态权限</strong>：用于检测网络连接状态</li>
+                    <li><strong>唤醒锁权限</strong>：防止手机休眠影响图片处理性能</li>
+                    <li><strong>前台服务权限</strong>：用于后台扫描时保持应用运行</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>不同Android版本的权限差异</h2>
+                
+                <h3>Android 12 及以下版本（API 32及以下）</h3>
+                <p><strong>需要的权限：</strong></p>
+                <ul>
+                    <li><code>读取存储空间</code>（READ_EXTERNAL_STORAGE）</li>
+                    <li><code>写入存储空间</code>（WRITE_EXTERNAL_STORAGE）</li>
+                    <li><code>访问照片中的位置信息</code>（ACCESS_MEDIA_LOCATION，可选）</li>
+                    <li><code>管理所有文件</code>（MANAGE_EXTERNAL_STORAGE，特殊权限）</li>
+                </ul>
+                
+                <h3>Android 13 及以上版本（API 33+）</h3>
+                <p><strong>需要的权限：</strong></p>
+                <ul>
+                    <li><code>读取照片和视频</code>（READ_MEDIA_IMAGES）</li>
+                    <li><code>修改照片和视频</code>（WRITE_MEDIA_IMAGES）</li>
+                    <li><code>访问照片中的位置信息</code>（ACCESS_MEDIA_LOCATION，可选）</li>
+                    <li><code>通知</code>（POST_NOTIFICATIONS）</li>
+                    <li><code>管理所有文件</code>（MANAGE_EXTERNAL_STORAGE，特殊权限）</li>
+                </ul>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>说明</strong>：Android 13引入了更细粒度的媒体权限，将原来的存储权限拆分为照片、视频、音频等具体权限，提高了用户隐私保护。</p>
+                </blockquote>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>常见问题</h2>
+                
+                <h3>Q1: 为什么需要这么多权限？</h3>
+                <p><strong>A:</strong> 芯图相册是一个照片管理和分类应用，需要访问您的照片才能进行分类和管理。所有权限都是为了实现核心功能所必需的，应用不会滥用这些权限。</p>
+                
+                <h3>Q2: 如果拒绝某些权限，应用还能正常使用吗？</h3>
+                <p><strong>A:</strong></p>
+                <ul>
+                    <li><strong>相册/存储权限</strong>：必须授予，否则无法扫描照片</li>
+                    <li><strong>媒体位置权限</strong>：可以不授予，但无法按地点分类照片</li>
+                    <li><strong>通知权限</strong>：建议授予，否则后台扫描功能可能无法正常工作</li>
+                    <li><strong>管理所有文件权限</strong>：可以不授予，但无法删除其他应用创建的文件</li>
+                </ul>
+                
+                <h3>Q3: 应用会泄露我的隐私吗？</h3>
+                <p><strong>A:</strong> 不会。芯图相册严格遵守隐私保护原则：</p>
+                <ul>
+                    <li>所有照片处理都在本地完成</li>
+                    <li>不会上传照片到服务器</li>
+                    <li>不会访问其他类型的文件</li>
+                    <li>不会追踪您的位置信息</li>
+                </ul>
+                
+                <h3>Q4: 如何查看应用的权限使用情况？</h3>
+                <p><strong>A:</strong></p>
+                <ol>
+                    <li>打开手机<strong>设置</strong></li>
+                    <li>找到<strong>应用</strong>或<strong>应用管理</strong></li>
+                    <li>找到<strong>芯图相册</strong></li>
+                    <li>点击<strong>权限</strong></li>
+                    <li>查看已授予的权限列表</li>
+                </ol>
+                
+                <h3>Q5: 如何撤销已授予的权限？</h3>
+                <p><strong>A:</strong></p>
+                <ol>
+                    <li>打开手机<strong>设置</strong></li>
+                    <li>找到<strong>应用</strong>或<strong>应用管理</strong></li>
+                    <li>找到<strong>芯图相册</strong></li>
+                    <li>点击<strong>权限</strong></li>
+                    <li>找到需要撤销的权限</li>
+                    <li>关闭对应的开关</li>
+                </ol>
+                
+                <blockquote style="background: var(--bg-light); padding: 16px 20px; border-left: 4px solid var(--primary-color); margin: 20px 0; border-radius: var(--radius-sm);">
+                    <p><strong>注意</strong>：撤销某些权限可能会影响应用的正常使用。</p>
+                </blockquote>
+                
+                <h3>Q6: 为什么"管理所有文件"权限无法在应用内申请？</h3>
+                <p><strong>A:</strong> 这是Android系统的安全机制。为了保护用户隐私，Android系统将"管理所有文件"权限设置为特殊权限，必须由用户手动在系统设置中开启，应用无法直接申请。</p>
+                
+                <h3>Q7: 华为手机设置界面找不到"管理所有文件"选项？</h3>
+                <p><strong>A:</strong> 不同品牌的手机设置界面可能略有不同：</p>
+                <ul>
+                    <li>华为手机可能显示为"文件和媒体" → "所有文件"</li>
+                    <li>或者"存储" → "管理所有文件"</li>
+                    <li>如果找不到，可以尝试在设置中搜索"芯图相册"或"权限"</li>
+                </ul>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <h2>总结</h2>
+                <p>芯图相册需要获取必要的系统权限才能正常使用各项功能。大部分权限可以在应用内直接申请，少数特殊权限需要手动到系统设置中开启。应用严格遵守隐私保护原则，不会滥用这些权限。</p>
+                
+                <p><strong>建议操作：</strong></p>
+                <ol>
+                    <li>首次使用时，按照应用提示授予必要的权限</li>
+                    <li>如果某个权限被拒绝，可以在系统设置中手动开启</li>
+                    <li>对于特殊权限（如"管理所有文件"），根据实际需求决定是否开启</li>
+                </ol>
+                
+                <hr style="border: none; border-top: 2px solid var(--border-color); margin: 40px 0;">
+                
+                <p>如有任何问题，请访问官方网站：<strong>www.xintuxiangce.top</strong></p>
+                
+                <p style="text-align: center; font-size: 18px; margin-top: 40px;"><strong>祝您使用愉快！</strong> 🎉</p>
+            </article>
+            
+            <div class="article-navigation">
+                <a href="guides.html" class="article-nav-link">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    返回文章列表
+                </a>
+                <a href="index.html#download" class="article-nav-link">
+                    立即下载
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M8 4L12 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html#features">功能特性</a></li>
+                            <li><a href="guides.html">使用指南</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>支持</h4>
+                        <ul>
+                            <li><a href="index.html#faq">常见问题</a></li>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                            <li><a href="index.html#feedback">意见反馈</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>关于</h4>
+                        <ul>
+                            <li><a href="index.html#about">关于我们</a></li>
+                            <li><a href="index.html#privacy">隐私政策</a></li>
+                            <li><a href="index.html#terms">使用条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

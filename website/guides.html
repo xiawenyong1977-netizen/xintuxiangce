@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>使用指南 - 芯图相册 | 完整教程文章列表</title>
+    <meta name="description" content="芯图相册完整使用指南文章列表，包含详细的操作教程、功能介绍和使用技巧，帮助您快速掌握AI智能照片分类管理。">
+    <meta name="keywords" content="芯图相册使用指南,照片分类教程,AI照片管理,手机相册整理,照片清理技巧,智能相册使用">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="使用指南 - 芯图相册">
+    <meta property="og:description" content="完整的使用指南文章列表，教您如何使用AI技术智能分类照片">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides.html">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "芯图相册使用指南",
+        "description": "完整的使用教程文章列表",
+        "url": "https://www.xintuxiangce.top/guides.html"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        .guides-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .guides-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .guides-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .guides-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .guide-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .guide-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-light) 100%);
+        }
+        
+        .guide-card-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .guide-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        
+        .guide-card-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .guide-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        .guide-card-link {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        
+        .guide-card-link:hover {
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .guides-header h1 {
+                font-size: 32px;
+            }
+            
+            .guides-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <div class="nav-overlay"></div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">功能特性</a></li>
+                    <li><a href="guides.html" class="active">使用指南</a></li>
+                    <li><a href="index.html#screenshots">应用截图</a></li>
+                    <li><a href="index.html#faq">常见问题</a></li>
+                    <li><a href="index.html#download" class="btn-nav-download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章列表 -->
+    <div class="guides-container">
+        <div class="container">
+            <div class="guides-header">
+                <h1>使用指南</h1>
+                <p>详细的使用教程，帮助您快速掌握芯图相册的各项功能，轻松管理您的照片</p>
+            </div>
+            
+            <div class="guides-grid" id="guides-list">
+                <!-- 文章卡片将通过JavaScript动态加载 -->
+                <div class="guide-card">
+                    <div class="guide-card-image"></div>
+                    <div class="guide-card-content">
+                        <h3 class="guide-card-title">芯图相册使用指南：快速掌握PC端与移动端照片管理技巧</h3>
+                        <p class="guide-card-description">从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。</p>
+                        <div class="guide-card-meta">
+                            <span>阅读时间：5分钟</span>
+                            <a href="guide-quick-start.html" class="guide-card-link">
+                                阅读全文
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-card-image"></div>
+                    <div class="guide-card-content">
+                        <h3 class="guide-card-title">掌握芯图相册权限设置：保护隐私同时享受智能分类功能</h3>
+                        <p class="guide-card-description">详细说明Android版本需要哪些权限、这些权限的用途，以及如何设置这些权限，帮助您正确配置应用权限。</p>
+                        <div class="guide-card-meta">
+                            <span>阅读时间：8分钟</span>
+                            <a href="guide-permissions.html" class="guide-card-link">
+                                阅读全文
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-card-image"></div>
+                    <div class="guide-card-content">
+                        <h3 class="guide-card-title">告别手动整理！芯图相册AI技术，7大分类助你高效清理照片</h3>
+                        <p class="guide-card-description">详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。</p>
+                        <div class="guide-card-meta">
+                            <span>阅读时间：10分钟</span>
+                            <a href="guide-cleanup.html" class="guide-card-link">
+                                阅读全文
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html#features">功能特性</a></li>
+                            <li><a href="guides.html">使用指南</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>支持</h4>
+                        <ul>
+                            <li><a href="index.html#faq">常见问题</a></li>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                            <li><a href="index.html#feedback">意见反馈</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>关于</h4>
+                        <ul>
+                            <li><a href="index.html#about">关于我们</a></li>
+                            <li><a href="index.html#privacy">隐私政策</a></li>
+                            <li><a href="index.html#terms">使用条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    
+    <script>
+        // 文章列表数据
+        const guides = [
+            {
+                id: 'quick-start',
+                title: '芯图相册使用指南：快速掌握PC端与移动端照片管理技巧',
+                description: '从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。',
+                image: '/assets/1.png',
+                readTime: '5分钟',
+                url: 'guide-quick-start.html'
+            },
+            {
+                id: 'permissions',
+                title: '掌握芯图相册权限设置：保护隐私同时享受智能分类功能',
+                description: '详细说明Android版本需要哪些权限、这些权限的用途，以及如何设置这些权限，帮助您正确配置应用权限。',
+                image: '/assets/2.png',
+                readTime: '8分钟',
+                url: 'guide-permissions.html'
+            },
+            {
+                id: 'cleanup',
+                title: '告别手动整理！芯图相册AI技术，7大分类助你高效清理照片',
+                description: '详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。',
+                image: '/assets/3.png',
+                readTime: '10分钟',
+                url: 'guide-cleanup.html'
+            }
+            // 可以在这里添加更多文章
+        ];
+        
+        // 渲染文章列表
+        function renderGuides() {
+            const container = document.getElementById('guides-list');
+            if (!container) return;
+            
+            container.innerHTML = guides.map(guide => `
+                <div class="guide-card">
+                    ${guide.image ? `<img src="${guide.image}" alt="${guide.title}" class="guide-card-image">` : '<div class="guide-card-image"></div>'}
+                    <div class="guide-card-content">
+                        <h3 class="guide-card-title">${guide.title}</h3>
+                        <p class="guide-card-description">${guide.description}</p>
+                        <div class="guide-card-meta">
+                            <span>阅读时间：${guide.readTime}</span>
+                            <a href="${guide.url}" class="guide-card-link">
+                                阅读全文
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // 页面加载时渲染
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGuides();
+            
+            // 处理导航栏中的active状态
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                if (link.href === window.location.href || link.classList.contains('active')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

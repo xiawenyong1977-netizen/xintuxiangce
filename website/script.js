@@ -29,14 +29,53 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// 移动菜单切换
+// 移动菜单切换 - 侧边栏抽屉式
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navLinks = document.querySelector('.nav-links');
+const navOverlay = document.querySelector('.nav-overlay');
 
-if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        mobileMenuToggle.classList.toggle('active');
+function toggleMobileMenu() {
+    const isActive = navLinks.classList.contains('active');
+    navLinks.classList.toggle('active');
+    mobileMenuToggle.classList.toggle('active');
+    if (navOverlay) {
+        navOverlay.classList.toggle('active');
+    }
+    // 防止背景滚动
+    document.body.style.overflow = isActive ? '' : 'hidden';
+}
+
+function closeMobileMenu() {
+    navLinks.classList.remove('active');
+    mobileMenuToggle.classList.remove('active');
+    if (navOverlay) {
+        navOverlay.classList.remove('active');
+    }
+    document.body.style.overflow = '';
+}
+
+if (mobileMenuToggle && navLinks) {
+    mobileMenuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileMenu();
+    });
+    
+    // 点击遮罩层关闭菜单
+    if (navOverlay) {
+        navOverlay.addEventListener('click', closeMobileMenu);
+    }
+    
+    // 点击菜单项后关闭菜单
+    const navLinksItems = navLinks.querySelectorAll('a');
+    navLinksItems.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // ESC键关闭菜单
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            closeMobileMenu();
+        }
     });
 }
 
