@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>照片创玩 - AI智能照片增强功能 | 芯图相册</title>
+    <meta name="description" content="照片创玩是芯图相册推出的AI图像增强功能，基于先进的AI大模型技术，让您无需专业的图像编辑技能，就能轻松提升照片质量。用文字描述需求，AI自动处理，三步完成照片美化。">
+    <meta name="keywords" content="照片创玩,AI照片增强,照片美化,人像美颜,照片清晰化,色彩优化,证件照处理,AI图像处理,照片编辑">
+    <link rel="canonical" href="https://www.xintuxiangce.top/photobetter.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="照片创玩 - AI智能照片增强功能">
+    <meta property="og:description" content="用文字描述需求，AI自动处理，三步完成照片美化。无需专业技能，AI大模型技术，专业级处理效果。">
+    <meta property="og:url" content="https://www.xintuxiangce.top/photobetter.html">
+    <meta property="og:image" content="https://www.xintuxiangce.top/icons/imageclassify.png">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "照片创玩",
+        "applicationCategory": "MultimediaApplication",
+        "description": "AI智能照片增强功能，用文字描述需求，AI自动处理",
+        "url": "https://www.xintuxiangce.top/photobetter.html",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图相册团队"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        /* 页面特定样式 */
+        .photobetter-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .photobetter-hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .photobetter-hero .subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .photobetter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+        }
+        
+        /* 响应式样式 */
+        @media (max-width: 768px) {
+            .photobetter-hero h1 {
+                font-size: 32px;
+            }
+            
+            .photobetter-hero .subtitle {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .section-subtitle {
+                font-size: 16px;
+            }
+            
+            /* 步骤布局改为单列 */
+            .section > .photobetter-container > div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .section > .photobetter-container > div[style*="grid-template-columns: 1fr 1fr"] > div[style*="order: 2"] {
+                order: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <div class="nav-overlay"></div>
+                <a href="index.html#download" class="btn-nav-download mobile-download-btn">立即下载</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">智能分类</a></li>
+                    <li><a href="photobetter.html">照片创玩</a></li>
+                    <li><a href="guides.html">使用指南</a></li>
+                    <li><a href="faq.html">常见问题</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero区域 -->
+    <section class="photobetter-hero">
+        <div class="photobetter-container">
+            <h1>照片创玩</h1>
+            <p class="subtitle">AI智能照片增强 - 用文字描述需求，AI自动处理，三步完成照片美化</p>
+        </div>
+    </section>
+
+    <!-- 内容区域 -->
+    <main>
+        <!-- 痛点部分 -->
+        <section class="section" style="background: var(--bg-light);">
+            <div class="photobetter-container">
+                <h2 class="section-title">传统照片编辑的困扰</h2>
+                <p class="section-subtitle">操作复杂、效率低下、效果难以把控</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <div style="background: white; padding: 30px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                        <div style="font-size: 40px; margin-bottom: 20px;">📚</div>
+                        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--text-primary);">操作复杂，学习成本高</h3>
+                        <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 1.8;">
+                            <li>• 需要学习Photoshop、Lightroom等专业软件</li>
+                            <li>• 需要了解各种工具和参数</li>
+                            <li>• 需要手动调整每个细节</li>
+                            <li>• 对普通用户来说，门槛太高</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: white; padding: 30px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                        <div style="font-size: 40px; margin-bottom: 20px;">⏰</div>
+                        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--text-primary);">效率低下，耗时费力</h3>
+                        <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 1.8;">
+                            <li>• 处理一张照片需要花费大量时间</li>
+                            <li>• 需要逐张处理，无法批量操作</li>
+                            <li>• 需要专业知识和经验</li>
+                            <li>• 普通用户往往因为操作复杂而放弃</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: white; padding: 30px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                        <div style="font-size: 40px; margin-bottom: 20px;">🎯</div>
+                        <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--text-primary);">效果难以把控</h3>
+                        <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 1.8;">
+                            <li>• 不知道如何调整参数</li>
+                            <li>• 容易过度修饰，失去自然感</li>
+                            <li>• 无法准确表达自己的需求</li>
+                            <li>• 处理结果往往不如预期</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 解决方案部分 -->
+        <section class="section">
+            <div class="photobetter-container">
+                <h2 class="section-title">芯图的解决方案</h2>
+                <p class="section-subtitle">用文字描述需求，AI自动处理</p>
+                
+                <div style="background: linear-gradient(135deg, var(--primary-light) 0%, white 100%); padding: 60px; border-radius: var(--radius-lg); margin-top: 40px; box-shadow: var(--shadow-md);">
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <div style="font-size: 60px; margin-bottom: 20px;">✨</div>
+                        <p style="font-size: 20px; color: var(--text-primary); line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                            <strong>照片创玩</strong>是芯图相册推出的AI图像增强功能，基于先进的AI大模型技术，让您无需专业的图像编辑技能，就能轻松提升照片质量。
+                        </p>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">🎯</div>
+                            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">面向需求</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">只需用文字描述想要的效果，AI自动理解并处理</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">🚀</div>
+                            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">操作简单</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">选择照片 → 选择方案 → 开始处理，三步完成</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">⚡</div>
+                            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">批量高效</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">支持同时处理1-9张照片，提高效率</p>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">✨</div>
+                            <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">效果专业</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.6;">AI大模型技术，专业级处理效果</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用流程部分 -->
+        <section class="section">
+            <div class="photobetter-container">
+                <h2 class="section-title">快速上手，三步完成</h2>
+                <p class="section-subtitle">简单直观的操作流程，让照片美化变得轻松</p>
+                
+                <div style="margin-top: 60px;">
+                    <!-- 步骤1 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; align-items: center;">
+                        <div>
+                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                <div style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin-right: 20px;">1</div>
+                                <h3 style="font-size: 28px; font-weight: 700; color: var(--text-primary);">选择照片</h3>
+                            </div>
+                            <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 2; font-size: 16px;">
+                                <li>• 进入暂存箱</li>
+                                <li>• 选择需要处理的照片（1-9张）</li>
+                            </ul>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="/assets/photobetter/1_pc-start.png" alt="选择照片" style="max-width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+                        </div>
+                    </div>
+                    
+                    <!-- 步骤2 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; align-items: center;">
+                        <div style="order: 2; text-align: center;">
+                            <img src="/assets/photobetter/2_facebeautify.png" alt="选择方案" style="max-width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+                        </div>
+                        <div style="order: 1;">
+                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                <div style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin-right: 20px;">2</div>
+                                <h3 style="font-size: 28px; font-weight: 700; color: var(--text-primary);">选择方案</h3>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <p style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;">预设方案：</p>
+                                <p style="color: var(--text-secondary); line-height: 1.8;">选择人像美颜、清晰增强、色彩优化、证件照处理等</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;">自定义：</p>
+                                <p style="color: var(--text-secondary); line-height: 1.8;">输入文字描述，例如"修复面部瑕疵，提亮肤色"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 步骤3 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; align-items: center;">
+                        <div>
+                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                <div style="width: 60px; height: 60px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin-right: 20px;">3</div>
+                                <h3 style="font-size: 28px; font-weight: 700; color: var(--text-primary);">开始处理</h3>
+                            </div>
+                            <ul style="list-style: none; padding: 0; color: var(--text-secondary); line-height: 2; font-size: 16px;">
+                                <li>• 点击"开始处理"</li>
+                                <li>• 等待AI处理完成（平均每张约18秒）</li>
+                                <li>• 查看原图和增强后的对比</li>
+                                <li>• 保存结果到本地或添加到暂存箱</li>
+                            </ul>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="/assets/photobetter/3_colorbetter.png" alt="处理结果对比" style="max-width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 适用场景 -->
+                <div style="margin-top: 80px; padding: 50px; background: linear-gradient(135deg, var(--primary-light) 0%, white 100%); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 40px; color: var(--text-primary);">适用场景</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                        <div style="background: white; padding: 25px; border-radius: var(--radius-md); text-align: center;">
+                            <div style="font-size: 40px; margin-bottom: 15px;">👤</div>
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">人像照片美化</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; font-size: 14px;">自拍、人像照片需要美颜</p>
+                        </div>
+                        <div style="background: white; padding: 25px; border-radius: var(--radius-md); text-align: center;">
+                            <div style="font-size: 40px; margin-bottom: 15px;">🔍</div>
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">照片清晰度增强</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; font-size: 14px;">模糊、低分辨率照片需要清晰化</p>
+                        </div>
+                        <div style="background: white; padding: 25px; border-radius: var(--radius-md); text-align: center;">
+                            <div style="font-size: 40px; margin-bottom: 15px;">🎨</div>
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">色彩优化</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; font-size: 14px;">照片色彩暗淡需要优化</p>
+                        </div>
+                        <div style="background: white; padding: 25px; border-radius: var(--radius-md); text-align: center;">
+                            <div style="font-size: 40px; margin-bottom: 15px;">🆔</div>
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">证件照处理</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; font-size: 14px;">身份证、护照、港澳通行证等需要规范化</p>
+                        </div>
+                        <div style="background: white; padding: 25px; border-radius: var(--radius-md); text-align: center;">
+                            <div style="font-size: 40px; margin-bottom: 15px;">✨</div>
+                            <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">自定义需求</h4>
+                            <p style="color: var(--text-secondary); line-height: 1.6; font-size: 14px;">通过文字描述实现任意效果</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>芯图相册</h3>
+                    <p>AI智能照片分类管理工具</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html">智能分类</a></li>
+                            <li><a href="photobetter.html">照片创玩</a></li>
+                            <li><a href="guides.html">使用指南</a></li>
+                            <li><a href="faq.html">常见问题</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>联系我们</h4>
+                        <ul>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

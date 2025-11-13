@@ -49,6 +49,16 @@ img {
     display: block;
 }
 
+/* 导航栏logo图片特殊处理 - 防止图标过大 */
+.navbar img,
+.nav-brand img,
+.logo img {
+    max-width: 40px !important;
+    width: 40px !important;
+    height: auto !important;
+    max-height: 40px !important;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -66,12 +76,21 @@ a {
     transition: var(--transition);
 }
 
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+}
+
 .nav-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 16px 0;
     position: relative;
+    gap: 24px;
 }
 
 .logo {
@@ -96,22 +115,62 @@ a {
 }
 
 .logo img {
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+    border-radius: 10px;
+}
+
+.nav-brand img {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
     border-radius: 10px;
 }
 
 .nav-links {
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 32px;
     list-style: none;
+    position: static !important;
+    flex-direction: row !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    right: auto !important;
+    top: auto !important;
 }
 
 .nav-links a {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
     font-weight: 500;
     position: relative;
+    display: inline-block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    text-align: left !important;
+}
+
+.nav-links a.btn-nav-download {
+    padding: 8px 20px !important;
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 14px;
+    display: inline-block !important;
+    width: auto !important;
+    margin: 0 !important;
+    text-align: center !important;
 }
 
 .nav-links a:not(.btn-nav-download):hover {
@@ -141,18 +200,15 @@ a {
     width: 100%;
 }
 
-.btn-nav-download {
-    padding: 8px 20px;
-    background: var(--primary-color);
-    color: white;
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-}
-
 .btn-nav-download:hover {
-    background: var(--primary-dark);
+    background: var(--primary-dark) !important;
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
+}
+
+/* PC端隐藏移动端下载按钮 */
+.mobile-download-btn {
+    display: none;
 }
 
 .mobile-menu-toggle {
@@ -987,8 +1043,9 @@ section {
 
 .footer-links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+    justify-items: start;
 }
 
 .footer-column h4 {
@@ -1104,6 +1161,110 @@ section {
 }
 
 @media (max-width: 768px) {
+    /* 移动端导航栏高度调整 */
+    .navbar {
+        min-height: auto;
+    }
+    
+    .navbar .container {
+        padding: 8px 12px;
+        min-height: auto;
+    }
+    
+    .nav-content {
+        padding: 0;
+        gap: 8px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: auto;
+    }
+    
+    .logo {
+        font-size: 18px;
+        gap: 8px;
+        white-space: nowrap;
+    }
+    
+    .logo a {
+        white-space: nowrap;
+        flex-direction: row !important;
+    }
+    
+    .logo span {
+        display: inline-block;
+        white-space: nowrap;
+    }
+    
+    .logo img {
+        width: 32px !important;
+        height: 32px !important;
+        max-width: 32px !important;
+        max-height: 32px !important;
+        flex-shrink: 0;
+    }
+    
+    .mobile-download-btn {
+        padding: 6px 12px !important;
+        font-size: 15px !important;
+        white-space: nowrap;
+        writing-mode: horizontal-tb !important;
+        text-orientation: mixed !important;
+    }
+    
+    .mobile-menu-toggle {
+        padding: 4px;
+        flex-shrink: 0;
+        order: 3;
+        margin-left: 0;
+    }
+    
+    /* 移动端：立即下载按钮在导航栏中直接显示 */
+    .mobile-download-btn {
+        display: inline-block !important;
+        padding: 6px 10px !important;
+        background: var(--primary-color) !important;
+        color: white !important;
+        border-radius: var(--radius-sm) !important;
+        font-size: 15px !important;
+        font-weight: 600;
+        margin: 0;
+        margin-left: auto;
+        margin-right: 8px;
+        text-decoration: none;
+        order: 2;
+        white-space: nowrap;
+        writing-mode: horizontal-tb !important;
+        text-orientation: mixed !important;
+        line-height: 1.2;
+        flex-shrink: 0;
+    }
+    
+    .mobile-download-btn:hover {
+        background: var(--primary-dark) !important;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    /* 导航链接默认隐藏 */
+    .nav-links {
+        display: none !important;
+        position: fixed !important;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
+        bottom: auto !important;
+        flex-direction: column !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        width: auto !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    
     /* 侧边栏遮罩层 */
     .nav-overlay {
         display: none;
@@ -1121,80 +1282,92 @@ section {
     .nav-overlay.active {
         display: block;
         opacity: 1;
+        z-index: 1001;
     }
     
-    /* 侧边栏菜单 - 从右侧滑入 */
-    .nav-links {
-        display: flex;
-        position: fixed;
-        top: 72px;
-        right: -100%;
-        width: 140px;
-        max-width: 45vw;
-        max-height: calc(100vh - 72px);
-        height: auto;
-        background: white;
-        flex-direction: column;
-        padding: 12px 0;
-        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
-        border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-        z-index: 1000;
-        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow-y: auto;
-        gap: 8px;
-    }
-    
+    /* 侧边栏菜单 - 从右侧滑入（不包含立即下载按钮） */
     .nav-links.active {
-        right: 0;
+        display: flex !important;
+        position: fixed !important;
+        top: 48px !important;
+        right: 0 !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 140px !important;
+        max-width: 45vw !important;
+        max-height: calc(100vh - 48px) !important;
+        height: auto !important;
+        background: white !important;
+        flex-direction: column !important;
+        padding: 12px 0 !important;
+        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15) !important;
+        border-radius: var(--radius-lg) 0 0 var(--radius-lg) !important;
+        z-index: 1002 !important;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        overflow-y: auto !important;
+        gap: 8px !important;
+        align-items: stretch !important;
     }
     
-    .nav-links li {
-        width: 100%;
-        margin: 0;
+    /* 侧边栏菜单默认隐藏 */
+    .nav-links:not(.active) {
+        right: -100% !important;
     }
     
-    .nav-links a {
-        display: block;
-        padding: 10px 16px;
-        margin: 0 12px;
-        width: calc(100% - 24px);
-        font-size: 14px;
-        color: white;
-        background: var(--primary-color);
-        border-radius: var(--radius-md);
-        text-align: center;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        box-sizing: border-box;
+    
+    .nav-links.active li {
+        width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
     }
     
-    .nav-links a:hover,
-    .nav-links a:active {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-sm);
+    .nav-links.active a {
+        display: block !important;
+        padding: 12px 20px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        font-size: 15px !important;
+        color: var(--text-primary) !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+        text-align: left !important;
+        font-weight: 500 !important;
+        transition: all 0.2s ease !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
     }
     
-    .nav-links .btn-nav-download {
-        margin: 0 12px;
-        padding: 10px 16px;
-        text-align: center;
-        border-radius: var(--radius-md);
-        background: var(--primary-color);
-        color: white;
-        font-weight: 600;
-        font-size: 14px;
+    .nav-links.active a:last-child {
+        border-bottom: none !important;
     }
     
-    .nav-links .btn-nav-download:hover,
-    .nav-links .btn-nav-download:active {
-        background: var(--primary-dark);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-sm);
+    .nav-links.active a::after {
+        display: none !important;
+        content: none !important;
+    }
+    
+    .nav-links.active a:hover,
+    .nav-links.active a:active {
+        background: rgba(0, 0, 0, 0.03) !important;
+        transform: none !important;
+        box-shadow: none !important;
+        color: var(--primary-color) !important;
+    }
+    
+    .nav-links.active a.active {
+        color: var(--primary-color) !important;
+        background: rgba(0, 0, 0, 0.03) !important;
+    }
+    
+    .nav-links.active a.active::after {
+        display: none !important;
+        content: none !important;
     }
     
     .mobile-menu-toggle {
         display: flex;
+        order: 3;
     }
     
     .hero {

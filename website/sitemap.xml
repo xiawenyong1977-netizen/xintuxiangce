@@ -1,46 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- 首页 -->
     <url>
         <loc>https://www.xintuxiangce.top/</loc>
-        <lastmod>2025-10-11</lastmod>
+        <lastmod>2025-01-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
+    
+    <!-- 照片创玩 -->
     <url>
-        <loc>https://www.xintuxiangce.top/#features</loc>
-        <lastmod>2025-10-11</lastmod>
+        <loc>https://www.xintuxiangce.top/photobetter.html</loc>
+        <lastmod>2025-01-13</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.xintuxiangce.top/#how-it-works</loc>
-        <lastmod>2025-10-11</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://www.xintuxiangce.top/#screenshots</loc>
-        <lastmod>2025-10-11</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.xintuxiangce.top/#faq</loc>
-        <lastmod>2025-10-11</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://www.xintuxiangce.top/#download</loc>
-        <lastmod>2025-10-11</lastmod>
-        <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
+    
+    <!-- 使用指南列表 -->
     <url>
-        <loc>https://www.xintuxiangce.top/blog.html</loc>
-        <lastmod>2025-10-15</lastmod>
+        <loc>https://www.xintuxiangce.top/guides.html</loc>
+        <lastmod>2025-01-13</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    
+    <!-- 快速入门指南 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guide-quick-start.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 权限设置说明 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guide-permissions.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 快速清理指南 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guide-cleanup.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 常见问题 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/faq.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 联系我们 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/aifuture.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
 </urlset>
-
