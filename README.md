@@ -28,6 +28,13 @@
 xintuxiangce-website/    # 官网源码项目
 ├── website/             # 官网源码
 │   ├── index.html      # 主页面
+│   ├── diary.html      # 芯图日记列表页
+│   ├── diary/          # 芯图日记内容
+│   │   ├── *.html      # 文章/视频详情页
+│   │   ├── *.md        # Markdown源文件
+│   │   └── article-template.html  # 详情页模板
+│   ├── diary-data.json # 日记数据配置
+│   ├── update-diary.py # 日记更新脚本
 │   ├── blog.html       # 教程页面
 │   ├── styles.css      # 样式文件
 │   ├── script.js       # 交互脚本
@@ -38,6 +45,7 @@ xintuxiangce-website/    # 官网源码项目
 ├── docs/               # 文档页面
 ├── icons/              # 应用图标
 ├── images/             # 应用截图
+│   └── diary/          # 日记图片资源
 ├── *.html              # 搜索引擎验证文件
 └── README.md          # 本文件
 ```
@@ -141,6 +149,12 @@ xintuxiangce-website/    # 官网源码项目
 - 🚀 [快速清理指南：7大分类助你高效清理照片](https://www.xintuxiangce.top/guide-cleanup.html)
 - 📋 [所有使用指南文章](https://www.xintuxiangce.top/guides.html)
 
+### 芯图日记
+- 📝 [芯图日记](https://www.xintuxiangce.top/diary.html) - 大模型研发经验与产品运营分享
+  - 分享大模型相关的研发经验、产品运营思路和技术实践
+  - 包含文章和视频内容，每周更新
+  - 涵盖AI协作、架构思维、学习路径等深度内容
+
 ### 开发文档
 - [官网完整说明](website/README.md)
 - [快速开始指南](website/QUICK_START.md)
@@ -176,6 +190,12 @@ ls -la
 - 🚀 [快速入门指南](https://www.xintuxiangce.top/guide-quick-start.html) - PC端与移动端照片管理技巧
 - 🔒 [权限设置说明](https://www.xintuxiangce.top/guide-permissions.html) - 保护隐私同时享受智能分类
 - 🧹 [快速清理指南](https://www.xintuxiangce.top/guide-cleanup.html) - 7大分类助你高效清理照片
+
+### 芯图日记
+- 📝 [芯图日记](https://www.xintuxiangce.top/diary.html) - 大模型研发经验与产品运营分享
+  - 分享大模型相关的研发经验、产品运营思路和技术实践
+  - 包含文章和视频内容，每周更新
+  - 涵盖AI协作、架构思维、学习路径等深度内容
 
 ### 其他资源
 - [技术博客](https://www.xintuxiangce.top/blog.html) - AI照片分类技术解析

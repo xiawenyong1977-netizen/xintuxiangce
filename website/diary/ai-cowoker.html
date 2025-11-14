@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验 | 芯图日记</title>
+    <meta name="description" content="当几十年经验遇上零代码编写，我看到了未来的软件开发模式。">
+    <meta name="keywords" content="AI, Cursor, 开发, 经验分享">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验">
+    <meta property="og:description" content="当几十年经验遇上零代码编写，我看到了未来的软件开发模式。">
+    <meta property="og:image" content="../assets/diary/ai-cowoker/1st.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/ai-cowoker.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验",
+        "description": "当几十年经验遇上零代码编写，我看到了未来的软件开发模式。",
+        "image": "../assets/diary/ai-cowoker/1st.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2025年10月19日",
+        "dateModified": "2025年10月19日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验",
+                "item": "https://www.xintuxiangce.top/diary/ai-cowoker.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="../../icons/imageclassify.png">
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="../index.html">
+                        <img src="../../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../index.html">智能分类</a></li>
+                    <li><a href="../photobetter.html">照片创玩</a></li>
+                    <li><a href="../guides.html">使用指南</a></li>
+                    <li><a href="../diary.html" class="active">芯图日记</a></li>
+                    <li><a href="../faq.html">常见问题</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验</h1>
+                <div class="article-meta">
+                    <span>📅 2025年10月19日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 10分钟</span>
+                </div>
+                <img src="../assets/diary/ai-cowoker/1st.png" alt="我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验" class="article-cover">
+            </header>
+            
+            <div class="article-content">
+                <h2>一、转身：从传统技术栈到AI协作者</h2>
+<p>我的技术生涯不算短：通信行业十年嵌入式，互联网五年后台，后来又横跨To C与To B业务，做过市场、销售、运营。具体的技术细节虽已生疏，但技术的骨架与灵魂——架构思维与业务洞察，却沉淀了下来。用老领导们的话说，我是个 <strong>"懂业务的技术架构师"</strong>。</p>
+<p>在DeepSeek出现之前，我和许多人一样，认为大模型只是个超级知识库。但它的出现，让我第一次真切地感受到：<strong>通用智能的苗头出现了</strong>。它不仅在训练过的领域逻辑缜密，更在未知领域展现了惊人的泛化能力。</p>
+<p>"大力出奇迹"的哲学，正在让神经网络发生质变。这个冲击，让我在去年7月毅然做出了选择：离职，并邀请 <strong>Cursor</strong> 作为我的全职"开发同事"，开启了一场前所未有的创业实验。</p>
+<img src="../assets/diary/ai-cowoker/2nd.png" alt="智能涌现" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2>二、起点：一个"不一样"的相册梦想</h2>
+<p>我选择从"芯图相册"起步，原因有二：</p>
+<p>1. <strong>一是想亲手触摸这场技术革命，自学神经网络</strong></p>
+<p>2. <strong>二是我自己就是相册的"重度受害者"</strong></p>
+<p>你是否也经历过？</p>
+<ul>
+<li>急需电子证件照，它明明就在相册里，却如大海捞针。</li>
+<li>工作截图堆积成山，删不完理还乱，混乱不堪。</li>
+</ul>
+<p>我想要的，是一个真正"懂我"的相册。于是，<strong>"让照片的智能分类成为第一个不一样"</strong>，成了我交给Cursor的第一个项目需求。</p>
+<img src="../assets/diary/ai-cowoker/3rd.png" alt="相册管理难点" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2>三、鏖战：客厅里的百日攻坚</h2>
+<p>接下来的三个月，我的客厅成了主战场。我如定海神针般坐镇于此：</p>
+<ul>
+<li><strong>早晨7:30</strong>，准时开工。</li>
+<li><strong>晚上10:00</strong>，方才收工。</li>
+</ul>
+<p>累了，就与我养的鱼、龟、花花草草对话片刻，让它们为我焦躁的情绪"降降温"。</p>
+<p>这段完全沉浸的时光，让我得以深入观察这位AI同事的工作模式。</p>
+<img src="../assets/diary/ai-cowoker/4th.png" alt="客厅开发" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2>四、战果：一人三月，全平台交付</h2>
+<p>在Cursor的辅助下，我这个<strong>没写一行代码</strong>的人，交出了这份成绩单：</p>
+<h3>技术预研：</h3>
+<ul>
+<li><strong>身份证识别</strong>：训练YOLOv8s模型，用Stable Diffusion生成虚拟数据集解决数据瓶颈。</li>
+<li><strong>场景识别</strong>：基于ImageNet-1k数据集训练MobileNetV3模型。</li>
+</ul>
+<h3>产品开发（全栈交付）：</h3>
+<p>1. <strong>移动端</strong>：芯图相册安卓版（核心功能：智能分类、照片创玩）。</p>
+<p>2. <strong>PC端</strong>：功能完整的Windows桌面版。</p>
+<p>3. <strong>后端与服务</strong>：基于FastAPI的后端服务、管理后台、官网。</p>
+<p>技术栈涉及：React Native, Node.js, Java, Python，....。而所有这些，对我这个C/C++老兵来说，都是第一次接触。</p>
+<img src="../assets/diary/ai-cowoker/5th.png" alt="全栈交付" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2>五、磨合：AI同事的四个"臭毛病"</h2>
+<p>Cursor的效率惊为天人，分分钟完成过去需月余的工作量。但当代码规模扩大，真正的挑战才浮现。我总结了这位天才同事的几个典型"毛病"：</p>
+<p>1. <strong>程咬金三板斧</strong>：针对同一问题，若尝试三种方案未果，它便开始"摆烂"，推荐绕过问题的取巧方案，而非根治问题。</p>
+<p>2. <strong>毅力平平，来回拉磨</strong>：在新方案引入新问题后，它缺乏持续深入的洞察力，往往会无奈地推荐<strong>改回原方案</strong>，陷入循环。</p>
+<p>3. <strong>简单问题复杂化</strong>：钟情于用"牛刀杀鸡"，喜欢引入复杂的技术实践来解决简单的业务问题。</p>
+<p>4. <strong>凡事留一线</strong>：代码中存在大量"降级处理"，甚至在接口字段提取时，也喜欢尝试不同标签，显得犹豫不决。</p>
+<p>核心结论是：当项目复杂度提升，你绝不能当"甩手掌柜"。仅靠测试驱动远远不够，必须用更高级的架构思维对其进行引导与约束。</p>
+<img src="../assets/diary/ai-cowoker/6th.png" alt="AI开发常见问题" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2>结语：从"指哪打哪"到"心领神会"</h2>
+<p>这四个月，是一场与未来对话的深度实验。我证明了，<strong>一个资深技术人的架构思维与业务理解，加上一个强大的AI编码伙伴，可以爆发出何等惊人的生产力</strong>。</p>
+<p>但如何让AI真正理解你的"意图"而不仅仅是"指令"？如何将你的技术认知转化为它能严格执行的"架构约束"？</p>
+<p>在下一篇文章中，我将分享我的核心心法：<strong>《如何让大模型指哪打哪：架构师的提示词工程与思维传导》</strong>。我们将一同探索，如何成为AI时代的真正"指挥家"。</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">AI</span><span class="article-tag">Cursor</span><span class="article-tag">开发</span><span class="article-tag">经验分享</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="article-001.html" class="related-article-card">
+                    <h3>中年程序员的困局与大模型的破局：我的思考与实践</h3>
+                    <p>当经验遇见变革，是固守成规，还是重铸利剑？</p>
+                </a>
+                <a href="arch-pe.html" class="related-article-card">
+                    <h3>如何让大模型指哪打哪：架构师的提示词工程与思维传导</h3>
+                    <p>当AI的代码能力远超人类，我们凭什么指挥它？答案是架构思维与全新的协作机制。</p>
+                </a>
+                <a href="ai-roadmap.html" class="related-article-card">
+                    <h3>我的大模型学习之路</h3>
+                    <p>从西方自然科学到东方传统智慧，一位IT人的AI探索之旅</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="../index.html">智能分类</a></li>
+                            <li><a href="../photobetter.html">照片创玩</a></li>
+                            <li><a href="../guides.html">使用指南</a></li>
+                            <li><a href="../faq.html">常见问题</a></li>
+                            <li><a href="../index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>联系我们</h4>
+                        <ul>
+                            <li><a href="../aifuture.html">联系我们</a></li>
+                            <li><a href="../diary.html">芯图日记</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

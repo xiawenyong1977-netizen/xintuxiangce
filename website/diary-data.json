@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "title": "芯图日记 - 大模型研发经验与产品运营分享",
+    "description": "分享大模型相关的研发经验、产品运营思路和技术实践，包含文章和视频内容",
+    "lastUpdated": "2025-01-20"
+  },
+  "articles": [
+    {
+      "id": "article-001",
+      "type": "article",
+      "title": "中年程序员的困局与大模型的破局：我的思考与实践",
+      "description": "当经验遇见变革，是固守成规，还是重铸利剑？",
+      "content": "diary/middle-age-thinking.md",
+      "author": "芯图团队",
+      "date": "2025-10-18",
+      "tags": ["AI", "中年叛逆", "大模型", "产品思考"],
+      "category": "产品运营",
+      "cover": "../assets/diary/article-1/1st.jpg",
+      "readTime": "8分钟",
+      "related": ["ai-cowoker", "arch-pe", "ai-roadmap"]
+    },
+    {
+      "id": "ai-cowoker",
+      "type": "article",
+      "title": "我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验",
+      "description": "当几十年经验遇上零代码编写，我看到了未来的软件开发模式。",
+      "content": "diary/ai-cowoker.md",
+      "author": "芯图团队",
+      "date": "2025-10-19",
+      "tags": ["AI", "Cursor", "开发", "经验分享"],
+      "category": "产品运营",
+      "cover": "../assets/diary/ai-cowoker/1st.png",
+      "readTime": "10分钟",
+      "related": ["article-001","arch-pe","ai-roadmap"]
+    },
+    {
+      "id": "arch-pe",
+      "type": "article",
+      "title": "如何让大模型指哪打哪：架构师的提示词工程与思维传导",
+      "description": "当AI的代码能力远超人类，我们凭什么指挥它？答案是架构思维与全新的协作机制。",
+      "content": "diary/arch-pe.md",
+      "author": "芯图团队",
+      "date": "2025-10-20",
+      "tags": ["AI", "架构", "提示词工程", "经验分享"],
+      "category": "产品运营",
+      "cover": "../assets/diary/arch-pe/1.png",
+      "readTime": "10分钟",
+      "related": ["article-001","ai-cowoker","ai-roadmap"]
+    },
+    {
+      "id": "ai-roadmap",
+      "type": "article",
+      "title": "我的大模型学习之路",
+      "description": "从西方自然科学到东方传统智慧，一位IT人的AI探索之旅",
+      "content": "diary/ai-roadmap.md",
+      "author": "芯图团队",
+      "date": "2025-10-23",
+      "tags": ["AI", "学习之路", "经验分享"],
+      "category": "产品运营",
+      "cover": "../assets/diary/ai-roadmap/1.png",
+      "readTime": "10分钟",
+      "related": ["article-001","ai-cowoker","arch-pe"]
+    },
+    {
+      "id": "video-001",
+      "type": "video",
+      "title": "程序员福音：大模型帮我搞定了烦人的文档",
+      "description": "分享与大模型协作编写芯图相册用户手册的实战经验，让文档写作变得轻松高效。",
+      "videoUrl": "https://www.bilibili.com/video/BV1S4CKB3EyX",
+      "videoPlatform": "bilibili",
+      "duration": "03:11",
+      "author": "芯图团队",
+      "date": "2025-11-13",
+      "tags": ["AI", "AI协作", "文档写作", "经验分享"],
+      "category": "研发经验",
+      "cover": "../assets/diary/video/1.jpg",
+      "related": ["article-001", "ai-cowoker", "arch-pe", "ai-roadmap"]
+    },
+    {
+      "id": "video-002",
+      "type": "video",
+      "title": "和大模型探讨芯图相册的技术架构",
+      "description": "分享与Cursor探讨芯图相册技术架构的实战经验，如何实现一份代码多端支持后台扫描。",
+      "videoUrl": "https://www.bilibili.com/video/BV1utCKB6EFw",
+      "videoPlatform": "bilibili",
+      "duration": "02:39",
+      "author": "芯图团队",
+      "date": "2025-11-14",
+      "tags": ["AI", "研发经验"],
+      "category": "研发经验",
+      "cover": "../assets/diary/video/2.jpg",
+      "related": ["article-001", "ai-cowoker", "arch-pe", "ai-roadmap", "video-001"]
+    }
+  ]
+}
+

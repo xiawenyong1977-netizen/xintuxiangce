@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>芯图日记 - 大模型研发经验与产品运营分享 | 芯图相册</title>
+    <meta name="description" content="芯图日记分享大模型相关的研发经验、产品运营思路和技术实践。包含AI本地推理、产品运营、用户体验优化等深度内容，每周更新。">
+    <meta name="keywords" content="大模型研发,AI产品运营,本地AI推理,ONNX,产品运营思路,技术博客,芯图日记">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="芯图日记 - 大模型研发经验与产品运营分享">
+    <meta property="og:description" content="分享大模型相关的研发经验、产品运营思路和技术实践">
+    <meta property="og:image" content="./icons/imageclassify.png">
+    
+    <!-- 结构化数据 - Blog -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "芯图日记",
+        "description": "分享大模型相关的研发经验和产品运营思路",
+        "url": "https://www.xintuxiangce.top/diary.html",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        /* 日记模块专用样式 */
+        .diary-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .diary-hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        
+        .diary-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .diary-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            margin-top: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 10px 24px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        .diary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        
+        .diary-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .diary-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .diary-card-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #e0f2f4 100%);
+        }
+        
+        .diary-card-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .diary-card-type {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+        
+        .diary-card-type.video {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .diary-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .diary-card-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .diary-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .diary-tag {
+            padding: 4px 10px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .diary-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-light);
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .diary-empty {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .diary-empty h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .diary-hero h1 {
+                font-size: 32px;
+            }
+            
+            .diary-hero p {
+                font-size: 16px;
+            }
+            
+            .diary-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">智能分类</a></li>
+                    <li><a href="photobetter.html">照片创玩</a></li>
+                    <li><a href="guides.html">使用指南</a></li>
+                    <li><a href="diary.html" class="active">芯图日记</a></li>
+                    <li><a href="faq.html">常见问题</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="diary-hero">
+        <div class="container">
+            <h1>📝 芯图日记</h1>
+            <p>分享大模型相关的研发经验与产品运营思路</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="diary-filters" id="filters">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="article">文章</button>
+            <button class="filter-btn" data-filter="video">视频</button>
+            <button class="filter-btn" data-filter="研发经验">研发经验</button>
+            <button class="filter-btn" data-filter="产品运营">产品运营</button>
+        </div>
+
+        <div class="diary-grid" id="diaryGrid">
+            <!-- 动态加载内容 -->
+        </div>
+
+        <div class="diary-empty" id="emptyState" style="display: none;">
+            <h3>暂无内容</h3>
+            <p>敬请期待，我们正在准备精彩内容...</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html">智能分类</a></li>
+                            <li><a href="photobetter.html">照片创玩</a></li>
+                            <li><a href="guides.html">使用指南</a></li>
+                            <li><a href="faq.html">常见问题</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>联系我们</h4>
+                        <ul>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                            <li><a href="diary.html">芯图日记</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 加载日记数据
+        let diaryData = [];
+        
+        async function loadDiaryData() {
+            try {
+                const response = await fetch('diary-data.json');
+                const data = await response.json();
+                diaryData = data.articles || [];
+                // 按日期倒序排序（最新的在前）
+                diaryData.sort((a, b) => {
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    return dateB - dateA; // 倒序：最新的在前
+                });
+                renderDiaryCards(diaryData);
+            } catch (error) {
+                console.error('加载日记数据失败:', error);
+                document.getElementById('diaryGrid').innerHTML = 
+                    '<div class="diary-empty"><h3>加载失败</h3><p>请稍后重试</p></div>';
+            }
+        }
+        
+        function renderDiaryCards(articles) {
+            const grid = document.getElementById('diaryGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (articles.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            grid.innerHTML = articles.map(article => {
+                const date = new Date(article.date).toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                const tagsHtml = article.tags.map(tag => 
+                    `<span class="diary-tag">${tag}</span>`
+                ).join('');
+                
+                const typeClass = article.type === 'video' ? 'video' : '';
+                const typeText = article.type === 'video' ? '🎥 视频' : '📄 文章';
+                const readTime = article.readTime || article.duration || '';
+                
+                return `
+                    <div class="diary-card" onclick="window.location.href='diary/${article.id}.html'">
+                        <img src="${article.cover || '../icons/imageclassify.png'}" 
+                             alt="${article.title}" 
+                             class="diary-card-cover"
+                             onerror="this.src='../icons/imageclassify.png'">
+                        <div class="diary-card-content">
+                            <span class="diary-card-type ${typeClass}">${typeText}</span>
+                            <h3 class="diary-card-title">${article.title}</h3>
+                            <p class="diary-card-description">${article.description}</p>
+                            <div class="diary-card-tags">${tagsHtml}</div>
+                            <div class="diary-card-meta">
+                                <span>${date}</span>
+                                ${readTime ? `<span>${readTime}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 筛选功能
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 更新活动状态
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 筛选内容
+                const filter = this.dataset.filter;
+                let filtered = diaryData;
+                
+                if (filter !== 'all') {
+                    filtered = diaryData.filter(article => {
+                        if (filter === 'article' || filter === 'video') {
+                            return article.type === filter;
+                        }
+                        return article.category === filter || article.tags.includes(filter);
+                    });
+                }
+                
+                renderDiaryCards(filtered);
+            });
+        });
+        
+        // 页面加载时获取数据
+        loadDiaryData();
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+

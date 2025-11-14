@@ -17,17 +17,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const navbar = document.querySelector('.navbar');
 let lastScroll = 0;
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
-    }
-    
-    lastScroll = currentScroll;
-});
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            navbar.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
+        } else {
+            navbar.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+        }
+        
+        lastScroll = currentScroll;
+    });
+}
 
 // 移动菜单切换 - 侧边栏抽屉式
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -35,6 +37,7 @@ const navLinks = document.querySelector('.nav-links');
 const navOverlay = document.querySelector('.nav-overlay');
 
 function toggleMobileMenu() {
+    if (!navLinks || !mobileMenuToggle) return;
     const isActive = navLinks.classList.contains('active');
     navLinks.classList.toggle('active');
     mobileMenuToggle.classList.toggle('active');
@@ -46,6 +49,7 @@ function toggleMobileMenu() {
 }
 
 function closeMobileMenu() {
+    if (!navLinks || !mobileMenuToggle) return;
     navLinks.classList.remove('active');
     mobileMenuToggle.classList.remove('active');
     if (navOverlay) {
@@ -82,68 +86,75 @@ if (mobileMenuToggle && navLinks) {
 // FAQ 折叠/展开
 const faqItems = document.querySelectorAll('.faq-item');
 
-faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    
-    question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        
-        // 关闭所有其他项
-        faqItems.forEach(otherItem => {
-            if (otherItem !== item) {
-                otherItem.classList.remove('active');
-            }
-        });
-        
-        // 切换当前项
-        if (isActive) {
-            item.classList.remove('active');
-        } else {
-            item.classList.add('active');
+if (faqItems.length > 0) {
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // 关闭所有其他项
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // 切换当前项
+                if (isActive) {
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
+                }
+            });
         }
     });
-});
+}
 
-// 截图标签切换
+// 截图标签切换（仅在存在这些元素时执行）
 const tabButtons = document.querySelectorAll('.tab-btn');
 const screenshotItems = document.querySelectorAll('.screenshot-item');
 
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const targetTab = button.getAttribute('data-tab');
-        
-        // 更新按钮状态
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        
-        // 更新截图显示
-        screenshotItems.forEach(item => {
-            if (item.getAttribute('data-content') === targetTab) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
+if (tabButtons.length > 0 && screenshotItems.length > 0) {
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            
+            // 更新按钮状态
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // 更新截图显示
+            screenshotItems.forEach(item => {
+                if (item.getAttribute('data-content') === targetTab) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
         });
     });
-});
+}
 
 // 返回顶部按钮
 const backToTopButton = document.querySelector('.back-to-top');
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopButton.classList.add('visible');
-    } else {
-        backToTopButton.classList.remove('visible');
-    }
-});
-
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
     });
-});
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
 
 // 交叉观察器 - 滚动动画
 const observerOptions = {
@@ -247,12 +258,30 @@ if ('loading' in HTMLImageElement.prototype) {
 
 // 页面加载完成后的初始化
 document.addEventListener('DOMContentLoaded', () => {
-    // 添加页面加载动画
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease-in';
-        document.body.style.opacity = '1';
-    }, 100);
+    // 确保页面可见（移除可能导致页面隐藏的样式）
+    try {
+        // 立即确保body可见
+        if (document.body) {
+            document.body.style.opacity = '1';
+            document.body.style.visibility = 'visible';
+            document.body.style.display = '';
+        }
+        
+        // 可选：添加淡入动画（仅在需要时）
+        // document.body.style.opacity = '0';
+        // setTimeout(() => {
+        //     document.body.style.transition = 'opacity 0.5s ease-in';
+        //     document.body.style.opacity = '1';
+        // }, 100);
+    } catch (error) {
+        // 如果出错，确保页面仍然可见
+        console.error('页面初始化出错:', error);
+        if (document.body) {
+            document.body.style.opacity = '1';
+            document.body.style.visibility = 'visible';
+            document.body.style.display = '';
+        }
+    }
 
     // 自动打开第一个 FAQ（可选）
     // if (faqItems.length > 0) {
@@ -284,9 +313,15 @@ forms.forEach(form => {
 // 键盘导航支持
 document.addEventListener('keydown', (e) => {
     // ESC 键关闭移动菜单
-    if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+    if (e.key === 'Escape' && navLinks && navLinks.classList.contains('active')) {
         navLinks.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+        if (mobileMenuToggle) {
+            mobileMenuToggle.classList.remove('active');
+        }
+        if (navOverlay) {
+            navOverlay.classList.remove('active');
+        }
+        document.body.style.overflow = '';
     }
 });
 

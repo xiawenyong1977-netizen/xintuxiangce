@@ -63,4 +63,68 @@
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
+    
+    <!-- 下载选择页面 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/download-select.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 芯图日记列表页 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/article-001.html</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/ai-cowoker.html</loc>
+        <lastmod>2025-10-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/arch-pe.html</loc>
+        <lastmod>2025-10-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/ai-roadmap.html</loc>
+        <lastmod>2025-10-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记视频 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/video-001.html</loc>
+        <lastmod>2025-11-13</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记视频 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/video-002.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
