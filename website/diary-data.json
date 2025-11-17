@@ -15,7 +15,7 @@
       "date": "2025-10-18",
       "tags": ["AI", "中年叛逆", "大模型", "产品思考"],
       "category": "产品运营",
-      "cover": "../assets/diary/article-1/1st.jpg",
+      "cover": "/assets/diary/article-1/1st.jpg",
       "readTime": "8分钟",
       "related": ["ai-cowoker", "arch-pe", "ai-roadmap"]
     },
@@ -29,7 +29,7 @@
       "date": "2025-10-19",
       "tags": ["AI", "Cursor", "开发", "经验分享"],
       "category": "产品运营",
-      "cover": "../assets/diary/ai-cowoker/1st.png",
+      "cover": "/assets/diary/ai-cowoker/1st.png",
       "readTime": "10分钟",
       "related": ["article-001","arch-pe","ai-roadmap"]
     },
@@ -43,7 +43,7 @@
       "date": "2025-10-20",
       "tags": ["AI", "架构", "提示词工程", "经验分享"],
       "category": "产品运营",
-      "cover": "../assets/diary/arch-pe/1.png",
+      "cover": "/assets/diary/arch-pe/1.png",
       "readTime": "10分钟",
       "related": ["article-001","ai-cowoker","ai-roadmap"]
     },
@@ -57,7 +57,7 @@
       "date": "2025-10-23",
       "tags": ["AI", "学习之路", "经验分享"],
       "category": "产品运营",
-      "cover": "../assets/diary/ai-roadmap/1.png",
+      "cover": "/assets/diary/ai-roadmap/1.png",
       "readTime": "10分钟",
       "related": ["article-001","ai-cowoker","arch-pe"]
     },
@@ -73,7 +73,7 @@
       "date": "2025-11-13",
       "tags": ["AI", "AI协作", "文档写作", "经验分享"],
       "category": "研发经验",
-      "cover": "../assets/diary/video/1.jpg",
+      "cover": "/assets/diary/video/1.jpg",
       "related": ["article-001", "ai-cowoker", "arch-pe", "ai-roadmap"]
     },
     {
@@ -88,8 +88,51 @@
       "date": "2025-11-14",
       "tags": ["AI", "研发经验"],
       "category": "研发经验",
-      "cover": "../assets/diary/video/2.jpg",
+      "cover": "/assets/diary/video/2.jpg",
       "related": ["article-001", "ai-cowoker", "arch-pe", "ai-roadmap", "video-001"]
+    },
+    {
+      "id": "video-003",
+      "type": "video",
+      "title": "与AI对话编程，一小时新模块开发上线全流程",
+      "description": "展示如何通过与AI对话编程，在一小时内完成新模块的开发、测试和上线全流程，体验AI辅助开发的效率提升。",
+      "videoUrl": "https://www.bilibili.com/video/BV1SsCLBYEx3",
+      "videoPlatform": "bilibili",
+      "duration": "待定",
+      "author": "芯图团队",
+      "date": "2025-11-17",
+      "tags": ["AI", "AI协作", "编程", "开发流程", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/video/3.jpg",
+      "related": ["ai-cowoker", "arch-pe", "video-001", "video-002", "backend-arch"]
+    },
+    {
+      "id": "backend-arch",
+      "type": "article",
+      "title": "图片分类后端系统 - 芯图相册后端技术方案",
+      "description": "基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。",
+      "content": "diary/技术方案梳理.md",
+      "author": "芯图团队",
+      "date": "2025-11-17",
+      "tags": ["技术架构", "后端开发", "AI", "大模型", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/backend-arch/cover.png",
+      "readTime": "15分钟",
+      "related": ["ai-cowoker", "arch-pe", "video-002", "async-arch"]
+    },
+    {
+      "id": "async-arch",
+      "type": "article",
+      "title": "芯图相册：异步架构与高并发技术说明",
+      "description": "深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。",
+      "content": "diary/异步架构与高并发技术说明.md",
+      "author": "芯图团队",
+      "date": "2025-11-17",
+      "tags": ["异步架构", "高并发", "性能优化", "后端开发", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/backend-arch/cover.png",
+      "readTime": "18分钟",
+      "related": ["backend-arch", "arch-pe", "video-002"]
     }
   ]
 }

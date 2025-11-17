@@ -13,7 +13,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="中年程序员的困局与大模型的破局：我的思考与实践">
     <meta property="og:description" content="当经验遇见变革，是固守成规，还是重铸利剑？">
-    <meta property="og:image" content="../assets/diary/article-1/1st.jpg">
+    <meta property="og:image" content="/assets/diary/article-1/1st.jpg">
     <meta property="og:url" content="https://www.xintuxiangce.top/diary/article-001.html">
     
     <!-- 结构化数据 - Article -->
@@ -23,7 +23,7 @@
         "@type": "Article",
         "headline": "中年程序员的困局与大模型的破局：我的思考与实践",
         "description": "当经验遇见变革，是固守成规，还是重铸利剑？",
-        "image": "../assets/diary/article-1/1st.jpg",
+        "image": "/assets/diary/article-1/1st.jpg",
         "author": {
             "@type": "Organization",
             "name": "芯图团队"
@@ -66,7 +66,10 @@
     </script>
     
     <link rel="stylesheet" href="../styles.css">
-    <link rel="icon" type="image/png" href="../../icons/imageclassify.png">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
     
     <style>
         .article-header {
@@ -268,26 +271,8 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <a href="../index.html">
-                        <img src="../../icons/imageclassify.png" alt="芯图相册Logo">
-                        <span>芯图相册</span>
-                    </a>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="../index.html">智能分类</a></li>
-                    <li><a href="../photobetter.html">照片创玩</a></li>
-                    <li><a href="../guides.html">使用指南</a></li>
-                    <li><a href="../diary.html" class="active">芯图日记</a></li>
-                    <li><a href="../faq.html">常见问题</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
     <main>
         <article>
             <header class="article-header">
@@ -297,7 +282,7 @@
                     <span>✍️ 芯图团队</span>
                     <span>⏱️ 8分钟</span>
                 </div>
-                <img src="../assets/diary/article-1/1st.jpg" alt="中年程序员的困局与大模型的破局：我的思考与实践" class="article-cover">
+                <img src="/assets/diary/article-1/1st.jpg" alt="中年程序员的困局与大模型的破局：我的思考与实践" class="article-cover">
             </header>
             
             <div class="article-content">
@@ -397,46 +382,7 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="../../icons/imageclassify.png" alt="芯图相册Logo">
-                        <span>芯图相册</span>
-                    </div>
-                    <p>智能分类，便捷管理，仅你可见</p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>产品</h4>
-                        <ul>
-                            <li><a href="../index.html">智能分类</a></li>
-                            <li><a href="../photobetter.html">照片创玩</a></li>
-                            <li><a href="../guides.html">使用指南</a></li>
-                            <li><a href="../faq.html">常见问题</a></li>
-                            <li><a href="../index.html#download">立即下载</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>联系我们</h4>
-                        <ul>
-                            <li><a href="../aifuture.html">联系我们</a></li>
-                            <li><a href="../diary.html">芯图日记</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
-                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
-                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
-            </div>
-        </div>
-    </footer>
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
     
     <script src="../script.js"></script>
 </body>

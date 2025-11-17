@@ -64,14 +64,6 @@
         <priority>0.6</priority>
     </url>
     
-    <!-- 下载选择页面 -->
-    <url>
-        <loc>https://www.xintuxiangce.top/download-select.html</loc>
-        <lastmod>2025-01-13</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    
     <!-- 芯图日记列表页 -->
     <url>
         <loc>https://www.xintuxiangce.top/diary.html</loc>

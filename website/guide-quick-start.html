@@ -41,7 +41,10 @@
     </script>
     
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="components-loader.js"></script>
     
     <style>
         /* 覆盖全局img样式，确保移动端图片大小正确 */
@@ -267,33 +270,7 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
-                        <span>芯图相册</span>
-                    </a>
-                </div>
-                <div class="nav-overlay"></div>
-                <a href="index.html#download" class="btn-nav-download mobile-download-btn">立即下载</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">智能分类</a></li>
-                    <li><a href="photobetter.html">照片创玩</a></li>
-                    <li><a href="guides.html" class="active">使用指南</a></li>
-                    <li><a href="diary.html">芯图日记</a></li>
-                    <li><a href="faq.html">常见问题</a></li>
-                </ul>
-                <button class="mobile-menu-toggle" aria-label="菜单">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
 
     <!-- 文章内容 -->
     <div class="article-container">
@@ -599,47 +576,7 @@
         </div>
     </div>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
-                        <span>芯图相册</span>
-                    </div>
-                    <p>智能分类，便捷管理，仅你可见</p>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>产品</h4>
-                        <ul>
-                            <li><a href="index.html">智能分类</a></li>
-                            <li><a href="photobetter.html">照片创玩</a></li>
-                            <li><a href="guides.html">使用指南</a></li>
-                            <li><a href="faq.html">常见问题</a></li>
-                            <li><a href="index.html#download">立即下载</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>联系我们</h4>
-                        <ul>
-                            <li><a href="aifuture.html">联系我们</a></li>
-                            <li><a href="diary.html">芯图日记</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
-                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
-                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
-            </div>
-        </div>
-    </footer>
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
 
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" aria-label="返回顶部">

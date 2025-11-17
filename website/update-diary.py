@@ -64,7 +64,7 @@ def generate_article_page(article, template_path, all_articles=None):
         '{{TITLE}}': article.get('title', ''),
         '{{DESCRIPTION}}': article.get('description', ''),
         '{{TAGS}}': ', '.join(article.get('tags', [])),
-        '{{COVER}}': article.get('cover', '../icons/imageclassify.png'),
+        '{{COVER}}': article.get('cover', '/icons/imageclassify.png'),
         '{{ID}}': article.get('id', ''),
         '{{DATE}}': format_date(article.get('date', '')),
         '{{AUTHOR}}': article.get('author', '芯图团队'),

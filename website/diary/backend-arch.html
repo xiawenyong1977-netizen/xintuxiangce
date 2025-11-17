@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>图片分类后端系统 - 芯图相册后端技术方案 | 芯图日记</title>
+    <meta name="description" content="基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。">
+    <meta name="keywords" content="技术架构, 后端开发, AI, 大模型, 研发经验">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="图片分类后端系统 - 芯图相册后端技术方案">
+    <meta property="og:description" content="基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。">
+    <meta property="og:image" content="/assets/diary/backend-arch/cover.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/backend-arch.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "图片分类后端系统 - 芯图相册后端技术方案",
+        "description": "基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。",
+        "image": "/assets/diary/backend-arch/cover.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2025年11月17日",
+        "dateModified": "2025年11月17日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "图片分类后端系统 - 芯图相册后端技术方案",
+                "item": "https://www.xintuxiangce.top/diary/backend-arch.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>图片分类后端系统 - 芯图相册后端技术方案</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月17日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 15分钟</span>
+                </div>
+                <img src="/assets/diary/backend-arch/cover.png" alt="图片分类后端系统 - 芯图相册后端技术方案" class="article-cover">
+            </header>
+            
+            <div class="article-content">
+                <h2>📋 项目概述</h2>
+<p><strong>项目名称</strong>：图片分类后端系统（ImageClassifierBackend）</p>
+<p><strong>项目定位</strong>：基于大模型技术的智能照片分类服务后端</p>
+<p><strong>核心价值</strong>：为客户端提供高精度图片分类API，通过智能缓存机制显著降低大模型调用成本</p>
+<p>---</p>
+<h2>🏗️ 技术架构</h2>
+<h3>1. 整体架构</h3>
+<img src="../assets/diary/backend-arch/5.png" alt="整体架构" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>2. 技术栈</h3>
+<p>#### 后端框架</p>
+<ul>
+<li><strong>FastAPI 0.109.0</strong> - 现代、高性能的异步Web框架</li>
+<li><strong>Python 3.8+</strong> - 编程语言</li>
+<li><strong>Uvicorn</strong> - ASGI服务器（开发环境）</li>
+<li><strong>Gunicorn + Uvicorn Workers</strong> - 生产环境进程管理器</li>
+</ul>
+<p>#### 数据库</p>
+<ul>
+<li><strong>MySQL 8.0+</strong> - 关系型数据库</li>
+<li><strong>aiomysql 0.2.0</strong> - 异步MySQL驱动</li>
+<li><strong>PyMySQL 1.1.0</strong> - MySQL同步驱动（备用）</li>
+</ul>
+<p>#### AI技术</p>
+<ul>
+<li><strong>阿里云通义千问 (DashScope)</strong> - 主要大模型服务</li>
+<li><strong>OpenAI GPT-4 Vision</strong> - 备用大模型服务</li>
+<li><strong>ONNX Runtime 1.16.3</strong> - 本地模型推理引擎</li>
+<li><strong>YOLOv8</strong> - 物体检测模型（本地推理）</li>
+<li><strong>MobileNetV3</strong> - 图像分类模型（本地推理）</li>
+</ul>
+<p>#### 图片处理</p>
+<ul>
+<li><strong>Pillow 10.2.0</strong> - 图片验证、格式转换</li>
+<li><strong>Ultralytics 8.0.200</strong> - YOLO推理库</li>
+</ul>
+<p>#### 其他工具</p>
+<ul>
+<li><strong>Pydantic 2.5.3</strong> - 数据验证和序列化</li>
+<li><strong>python-dotenv</strong> - 环境变量管理</li>
+<li><strong>loguru</strong> - 日志记录</li>
+<li><strong>python-jose</strong> - JWT认证</li>
+<li><strong>passlib</strong> - 密码哈希</li>
+<li><strong>httpx</strong> - HTTP客户端</li>
+</ul>
+<p>---</p>
+<h2>🎯 核心功能模块</h2>
+<h3>1. 图片分类模块</h3>
+<p>#### 功能描述</p>
+<ul>
+<li>支持8种预定义分类类别</li>
+<li>基于大模型的智能分类</li>
+<li>支持本地模型降级推理</li>
+<li>混合推理策略（远程优先，失败降级）</li>
+</ul>
+<p>#### 分类类别</p>
+<p>1. <strong>social_activities</strong> - 社交活动（聚会、合影、多人互动）</p>
+<p>2. <strong>pets</strong> - 宠物萌照（猫、狗等宠物照片）</p>
+<p>3. <strong>single_person</strong> - 单人照片（个人照、自拍、肖像）</p>
+<p>4. <strong>foods</strong> - 美食记录（食物、餐饮、烹饪相关）</p>
+<p>5. <strong>travel_scenery</strong> - 旅行风景（旅游景点、自然风光）</p>
+<p>6. <strong>screenshot</strong> - 手机截图（手机屏幕截图、应用界面）</p>
+<p>7. <strong>idcard</strong> - 证件照（身份证、护照、驾照等）</p>
+<p>8. <strong>other</strong> - 其它（无法归类到上述类别）</p>
+<p>#### 核心接口</p>
+<ul>
+<li><code>POST /api/v1/classify/check-cache</code> - 哈希缓存查询（带宽优化）</li>
+<li><code>POST /api/v1/classify</code> - 单张图片分类</li>
+<li><code>POST /api/v1/classify/batch</code> - 批量图片分类</li>
+<li><code>POST /api/v1/local-classify</code> - 本地模型推理</li>
+</ul>
+<h3>2. 智能缓存模块</h3>
+<p>#### 缓存策略</p>
+<ul>
+<li><strong>SHA-256哈希去重</strong> - 基于图片内容的全局缓存</li>
+<li><strong>全局共享缓存</strong> - 多用户共享，最大化成本节省</li>
+<li><strong>缓存命中统计</strong> - 详细的缓存效率分析</li>
+</ul>
+<p>#### 缓存流程</p>
+<pre><code></code></pre>
+<p>#### 性能指标</p>
+<ul>
+<li><strong>缓存命中率</strong>：60-80%</li>
+<li><strong>带宽节省</strong>：90%+</li>
+<li><strong>成本节省</strong>：30-50%</li>
+</ul>
+<h3>3. 混合推理模块</h3>
+<p>#### 推理策略</p>
+<p>1. <strong>优先远程推理</strong> - 使用大模型API（阿里云通义千问/OpenAI）</p>
+<p>2. <strong>失败降级</strong> - 大模型失败时自动降级到本地ONNX模型</p>
+<p>3. <strong>本地优先模式</strong> - 可配置为仅使用本地推理（节省API成本）</p>
+<p>#### 本地模型</p>
+<ul>
+<li><strong>YOLOv8</strong> - 用于物体检测和场景识别</li>
+<li><strong>MobileNetV3</strong> - 用于图像分类</li>
+<li><strong>身份证检测模型</strong> - 专用证件照识别</li>
+</ul>
+<h3>4. 统计分析模块</h3>
+<p>#### 统计维度</p>
+<ul>
+<li><strong>请求统计</strong> - 总请求数、缓存命中率、处理时间</li>
+<li><strong>用户统计</strong> - 用户请求分布、活跃度分析</li>
+<li><strong>分类分布</strong> - 各类别图片数量、占比</li>
+<li><strong>成本统计</strong> - API调用成本、节省成本</li>
+<li><strong>性能监控</strong> - 响应时间、成功率</li>
+</ul>
+<p>#### 核心接口</p>
+<ul>
+<li><code>GET /api/v1/stats/today</code> - 今日统计</li>
+<li><code>GET /api/v1/stats/cache-efficiency</code> - 缓存效率统计</li>
+<li><code>GET /api/v1/stats/category-distribution</code> - 分类分布</li>
+<li><code>GET /api/v1/stats/users/top</code> - 用户排行榜</li>
+</ul>
+<h3>5. 图像编辑模块</h3>
+<p>#### 功能描述</p>
+<ul>
+<li>基于大模型的图像编辑功能</li>
+<li>支持多种编辑场景</li>
+<li>编辑结果缓存机制</li>
+<li>编辑任务队列管理</li>
+</ul>
+<h3>6. 支付与会员模块</h3>
+<p>#### 功能描述</p>
+<ul>
+<li>微信支付集成</li>
+<li>会员开通功能</li>
+<li>额度购买系统</li>
+<li>用户额度管理</li>
+</ul>
+<h3>7. 地理位置模块</h3>
+<p>#### 功能描述</p>
+<ul>
+<li>EXIF GPS信息解析</li>
+<li>城市识别</li>
+<li>中文地名映射</li>
+</ul>
+<p>---</p>
+<h2>🔄 核心业务流程</h2>
+<h3>1. 图片分类流程（优化版）</h3>
+<img src="../assets/diary/backend-arch/6.png" alt="图像分类流程" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>2. 混合推理流程</h3>
+<img src="../assets/diary/backend-arch/7.png" alt="混合推理流程" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>---</p>
+<h2>💾 数据存储设计</h2>
+<h3>1. 数据库表结构</h3>
+<p>#### 核心表</p>
+<p>1. <strong>image_classification_cache</strong> - 分类结果缓存表</p>
+<ul>
+<li><code>image_hash</code> (VARCHAR(64), UNIQUE) - SHA-256哈希</li>
+<li><code>category</code> - 分类类别</li>
+<li><code>confidence</code> - 置信度</li>
+<li><code>description</code> - 图片描述</li>
+<li><code>hit_count</code> - 命中次数</li>
+<li><code>created_at</code>, <code>last_hit_at</code> - 时间戳</li>
+</ul>
+<p>2. <strong>request_log</strong> - 请求日志表</p>
+<ul>
+<li><code>request_id</code> - 请求唯一ID</li>
+<li><code>user_id</code> - 用户ID</li>
+<li><code>ip_address</code> - IP地址</li>
+<li><code>image_hash</code> - 图片哈希</li>
+<li><code>category</code>, <code>confidence</code> - 分类结果</li>
+<li><code>from_cache</code> - 是否来自缓存</li>
+<li><code>processing_time_ms</code> - 处理耗时</li>
+<li><code>inference_method</code> - 推理方法（cache/remote/local）</li>
+</ul>
+<p>3. <strong>wechat_users</strong> - 微信用户表</p>
+<p>4. <strong>image_edit_tasks</strong> - 图像编辑任务表</p>
+<p>5. <strong>payment_records</strong> - 支付记录表</p>
+<p>6. <strong>user_credits</strong> - 用户额度表</p>
+<h3>2. 存储策略</h3>
+<p>| 数据类型 | 存储方式 | 保留时长 | 说明 |</p>
+<p>|---------|---------|---------|------|</p>
+<p>| 原始图片 | ❌ 不存储 | - | 隐私保护 |</p>
+<p>| 图片哈希 | MySQL | 永久 | 用于去重缓存 |</p>
+<p>| 分类结果 | MySQL | 永久 | 全局共享缓存 |</p>
+<p>| 请求日志 | MySQL | 可配置（默认90天） | 统计分析用 |</p>
+<p>---</p>
+<h2>⚡ 性能优化策略</h2>
+<h3>1. 带宽优化</h3>
+<p>#### 优化方案</p>
+<ul>
+<li><strong>哈希预查询</strong> - 先发送64字节哈希，命中时无需上传图片</li>
+<li><strong>客户端压缩</strong> - 图片压缩至400KB左右</li>
+<li><strong>智能缓存</strong> - 全局共享缓存，避免重复上传</li>
+</ul>
+<p>#### 效果</p>
+<ul>
+<li><strong>带宽节省</strong>：90%+</li>
+<li><strong>响应时间</strong>：缓存命中 < 1秒</li>
+</ul>
+<h3>2. 成本优化</h3>
+<p>#### 优化方案</p>
+<ul>
+<li><strong>SHA-256哈希去重</strong> - 相同图片只调用一次大模型</li>
+<li><strong>全局共享缓存</strong> - 多用户共享缓存结果</li>
+<li><strong>本地推理降级</strong> - 大模型失败时使用本地模型</li>
+</ul>
+<p>#### 效果</p>
+<ul>
+<li><strong>成本节省</strong>：30-50%</li>
+<li><strong>缓存命中率</strong>：60-80%</li>
+</ul>
+<h3>3. 性能优化</h3>
+<p>#### 优化方案</p>
+<ul>
+<li><strong>异步架构</strong> - 全异步处理，支持高并发</li>
+<li><strong>连接池</strong> - MySQL连接池管理</li>
+<li><strong>批量处理</strong> - 支持批量分类</li>
+<li><strong>分层处理</strong> - 截图检测→缓存查询→远程推理→本地降级</li>
+</ul>
+<p>#### 效果</p>
+<ul>
+<li><strong>并发能力</strong>：100+ QPS</li>
+<li><strong>响应时间</strong>：< 2秒（非缓存）</li>
+</ul>
+<p>---</p>
+<h2>🔐 安全特性</h2>
+<h3>1. 数据安全</h3>
+<ul>
+<li>✅ <strong>用户隔离</strong> - 基于用户ID的数据隔离</li>
+<li>✅ <strong>隐私保护</strong> - 不存储原始图片</li>
+<li>✅ <strong>哈希不可逆</strong> - SHA-256无法还原原图</li>
+<li>✅ <strong>HTTPS传输</strong> - 支持HTTPS加密传输</li>
+</ul>
+<h3>2. 接口安全</h3>
+<ul>
+<li>✅ <strong>输入验证</strong> - 严格的图片格式和大小验证</li>
+<li>✅ <strong>请求日志</strong> - 完整的API调用审计</li>
+<li>✅ <strong>权限控制</strong> - 管理后台JWT认证</li>
+<li>✅ <strong>数据加密</strong> - 敏感数据加密存储</li>
+</ul>
+<p>---</p>
+<h2>📊 监控与运维</h2>
+<h3>1. 健康检查</h3>
+<ul>
+<li><code>GET /api/v1/health</code> - 系统健康状态</li>
+<li>数据库连接检查</li>
+<li>大模型API可用性检查</li>
+</ul>
+<h3>2. 日志管理</h3>
+<ul>
+<li><strong>loguru</strong> - 结构化日志记录</li>
+<li><strong>日志级别</strong> - DEBUG/INFO/WARNING/ERROR</li>
+<li><strong>日志轮转</strong> - 按大小和时间轮转</li>
+<li><strong>日志保留</strong> - 可配置保留天数</li>
+</ul>
+<h3>3. 性能监控</h3>
+<ul>
+<li>请求统计接口</li>
+<li>缓存效率统计</li>
+<li>系统状态监控</li>
+</ul>
+<p>---</p>
+<h2>🚀 部署方案</h2>
+<h3>1. 开发环境</h3>
+<pre><code></code></pre>
+<h3>2. 生产环境</h3>
+<pre><code></code></pre>
+<h3>3. 容器化部署</h3>
+<ul>
+<li>Docker + Docker Compose</li>
+<li>支持Kubernetes部署</li>
+</ul>
+<h3>4. 反向代理</h3>
+<ul>
+<li>Nginx/Caddy作为反向代理</li>
+<li>HTTPS终止</li>
+<li>负载均衡</li>
+</ul>
+<p>---</p>
+<h2>📈 项目亮点</h2>
+<h3>1. 成本优化</h3>
+<ul>
+<li>✅ 智能缓存机制，节省30-50% API成本</li>
+<li>✅ 本地推理降级，降低大模型依赖</li>
+<li>✅ 全局共享缓存，最大化成本节省</li>
+</ul>
+<h3>2. 性能优化</h3>
+<ul>
+<li>✅ 哈希预查询，节省90%+上传带宽</li>
+<li>✅ 异步架构，支持高并发</li>
+<li>✅ 混合推理策略，确保服务可用性</li>
+</ul>
+<h3>3. 用户体验</h3>
+<ul>
+<li>✅ 缓存命中快速响应（< 1秒）</li>
+<li>✅ 客户端压缩减少等待时间</li>
+<li>✅ 智能降级保证服务可用</li>
+</ul>
+<h3>4. 技术架构</h3>
+<ul>
+<li>✅ 分层架构，职责清晰</li>
+<li>✅ 无状态设计，支持水平扩展</li>
+<li>✅ 完善的错误处理和日志记录</li>
+</ul>
+<p>---</p>
+<h2>🔮 扩展方向</h2>
+<h3>1. 短期优化</h3>
+<ul>
+<li>[ ] 引入Redis缓存热点数据</li>
+<li>[ ] 实现更完善的用户认证系统</li>
+<li>[ ] 支持更多大模型提供商</li>
+<li>[ ] 优化本地模型推理性能</li>
+</ul>
+<h3>2. 长期规划</h3>
+<ul>
+<li>[ ] 实现实时监控大盘</li>
+<li>[ ] 支持更多分类类别</li>
+<li>[ ] 实现图片相似度搜索</li>
+<li>[ ] 支持视频分类</li>
+</ul>
+<p>---</p>
+<h2>📚 相关文档</h2>
+<ul>
+<li><a href="./README.md">README.md</a> - 项目主文档</li>
+<li><a href="./docs/DESIGN.md">docs/DESIGN.md</a> - 详细设计文档</li>
+<li><a href="./docs/DEPLOY.md">docs/DEPLOY.md</a> - 部署指南</li>
+<li><a href="./docs/混合推理策略说明.md">docs/混合推理策略说明.md</a> - 混合推理说明</li>
+<li><strong><a href="./异步架构与高并发技术说明.md">异步架构与高并发技术说明.md</a></strong> - 异步调用时序图和高并发技术详解 ⭐</li>
+</ul>
+<p>---</p>
+<p><strong>文档版本</strong>: v1.0</p>
+<p><strong>最后更新</strong>: 2025-11-17</p>
+<p><strong>维护者</strong>: 芯图相册团队</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">技术架构</span><span class="article-tag">后端开发</span><span class="article-tag">AI</span><span class="article-tag">大模型</span><span class="article-tag">研发经验</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="ai-cowoker.html" class="related-article-card">
+                    <h3>我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验</h3>
+                    <p>当几十年经验遇上零代码编写，我看到了未来的软件开发模式。</p>
+                </a>
+                <a href="arch-pe.html" class="related-article-card">
+                    <h3>如何让大模型指哪打哪：架构师的提示词工程与思维传导</h3>
+                    <p>当AI的代码能力远超人类，我们凭什么指挥它？答案是架构思维与全新的协作机制。</p>
+                </a>
+                <a href="video-002.html" class="related-article-card">
+                    <h3>和大模型探讨芯图相册的技术架构</h3>
+                    <p>分享与Cursor探讨芯图相册技术架构的实战经验，如何实现一份代码多端支持后台扫描。</p>
+                </a>
+                <a href="async-arch.html" class="related-article-card">
+                    <h3>芯图相册：异步架构与高并发技术说明</h3>
+                    <p>深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

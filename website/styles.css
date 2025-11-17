@@ -1039,6 +1039,7 @@ section {
 .footer-brand p {
     color: rgba(255, 255, 255, 0.7);
     line-height: 1.7;
+    margin-bottom: 24px;
 }
 
 .footer-links {
@@ -1069,6 +1070,42 @@ section {
 .footer-column a:hover {
     color: white;
     padding-left: 4px;
+}
+
+.footer-qrcode {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}
+
+.qrcode-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: white;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+    display: block;
+    margin-bottom: 0;
+}
+
+.qrcode-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.qrcode-text {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
 }
 
 .footer-bottom {
