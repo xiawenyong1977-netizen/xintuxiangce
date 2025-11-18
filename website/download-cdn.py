@@ -8,12 +8,11 @@ import glob
 import sys
 import cgi
 import json
-import re
 import urllib.request
 import urllib.error
 
 # CDN配置
-CDN_CONFIG_FILE = '/var/www/xintuxiangce/qiniu-config.json'
+CDN_CONFIG_FILE = '/var/www/xintuxiangce/website/qiniu-config.json'
 CDN_DOMAIN = None
 CDN_ENABLED = False
 FALLBACK_TO_SOURCE = True
@@ -46,6 +45,26 @@ def check_cdn_available(cdn_url):
     except:
         return False
 
+def get_latest_file(dir_path):
+    """获取指定目录下最新的文件"""
+    if not os.path.exists(dir_path):
+        return None
+    
+    # 支持 .zip, .exe, .apk 等文件格式
+    pattern = os.path.join(dir_path, '*.*')
+    files = glob.glob(pattern)
+    
+    # 过滤掉不是压缩包或安装文件的文件
+    ext_patterns = ['.zip', '.exe', '.apk', '.dmg', '.pkg']
+    files = [f for f in files if any(f.lower().endswith(ext) for ext in ext_patterns)]
+    
+    if not files:
+        return None
+    
+    # 按修改时间排序，获取最新的
+    latest_file = max(files, key=os.path.getmtime)
+    return latest_file
+
 def get_remote_path(file_type, filename):
     """获取CDN远程路径"""
     path_map = {
@@ -73,51 +92,33 @@ def redirect_to_cdn(cdn_url):
 </body>
 </html>""")
 
-def extract_date_from_filename(filename):
-    """从文件名中提取日期信息用于排序
+def serve_from_source(file_path, filename):
+    """从源站提供文件下载"""
+    file_size = os.path.getsize(file_path)
     
-    支持格式：
-    - xtxc202511111206.zip -> 202511111206
-    - xtxcsetup202511021528.zip -> 202511021528
-    - xuxc202510311010.apk -> 202510311010
-    """
-    # 匹配文件名中的日期时间格式：YYYYMMDDHHMM 或 YYYYMMDD
-    match = re.search(r'(\d{8})(\d{4})?', filename)
-    if match:
-        date_str = match.group(1)
-        time_str = match.group(2) if match.group(2) else '0000'
-        return int(date_str + time_str)
-    return 0
-
-def get_latest_file(dir_path):
-    """获取指定目录下最新的文件"""
-    if not os.path.exists(dir_path):
-        return None
+    # 设置下载头
+    sys.stdout.write("Content-Type: application/octet-stream\r\n")
+    sys.stdout.write(f"Content-Disposition: attachment; filename=\"{filename}\"\r\n")
+    sys.stdout.write(f"Content-Length: {file_size}\r\n")
+    sys.stdout.write("Cache-Control: no-cache, must-revalidate\r\n")
+    sys.stdout.write("Pragma: no-cache\r\n")
+    sys.stdout.write("Expires: 0\r\n")
+    sys.stdout.write("\r\n")
+    sys.stdout.flush()
     
-    # 支持 .zip, .exe, .apk 等文件格式
-    pattern = os.path.join(dir_path, '*.*')
-    files = glob.glob(pattern)
-    
-    # 过滤掉不是压缩包或安装文件的文件
-    ext_patterns = ['.zip', '.exe', '.apk', '.dmg', '.pkg']
-    files = [f for f in files if any(f.lower().endswith(ext) for ext in ext_patterns)]
-    
-    if not files:
-        return None
-    
-    # 优先按文件名中的日期排序，如果无法提取日期则按修改时间排序
-    def sort_key(filepath):
-        filename = os.path.basename(filepath)
-        date_value = extract_date_from_filename(filename)
-        if date_value > 0:
-            # 如果能从文件名提取日期，使用日期排序（大的在前，即最新的在前）
-            return (1, date_value)  # 1表示优先级高
-        else:
-            # 如果无法提取日期，使用修改时间排序
-            return (0, os.path.getmtime(filepath))  # 0表示优先级低
-    
-    files.sort(key=sort_key, reverse=True)
-    return files[0]
+    # 输出文件内容
+    try:
+        with open(file_path, 'rb') as f:
+            while True:
+                chunk = f.read(8192)
+                if not chunk:
+                    break
+                sys.stdout.buffer.write(chunk)
+    except Exception as e:
+        print("Status: 500 Internal Server Error")
+        print("Content-Type: text/html; charset=utf-8")
+        print()
+        print(f"<h1>500 - 服务器错误</h1><p>{str(e)}</p>")
 
 def main():
     # 加载CDN配置
@@ -128,7 +129,7 @@ def main():
     file_type = form.getvalue('type', 'portable').lower()
     
     # 根据类型确定目录
-    base_dir = '/var/www/xintuxiangce/website/dist'
+    base_dir = '/var/www/xintuxiangce/dist'
     dirs = {
         'portable': os.path.join(base_dir, 'pc', 'portable'),
         'setup': os.path.join(base_dir, 'pc', 'setup'),
@@ -221,31 +222,8 @@ def main():
                 return
     
     # 回退到源站下载
-    file_size = os.path.getsize(latest_file)
-    
-    # 设置下载头
-    sys.stdout.write("Content-Type: application/octet-stream\r\n")
-    sys.stdout.write(f"Content-Disposition: attachment; filename=\"{filename}\"\r\n")
-    sys.stdout.write(f"Content-Length: {file_size}\r\n")
-    sys.stdout.write("Cache-Control: no-cache, must-revalidate\r\n")
-    sys.stdout.write("Pragma: no-cache\r\n")
-    sys.stdout.write("Expires: 0\r\n")
-    sys.stdout.write("\r\n")
-    sys.stdout.flush()
-    
-    # 输出文件内容
-    try:
-        with open(latest_file, 'rb') as f:
-            while True:
-                chunk = f.read(8192)
-                if not chunk:
-                    break
-                sys.stdout.buffer.write(chunk)
-    except Exception as e:
-        print("Status: 500 Internal Server Error")
-        print("Content-Type: text/html; charset=utf-8")
-        print()
-        print(f"<h1>500 - 服务器错误</h1><p>{str(e)}</p>")
+    serve_from_source(latest_file, filename)
 
 if __name__ == '__main__':
     main()
+

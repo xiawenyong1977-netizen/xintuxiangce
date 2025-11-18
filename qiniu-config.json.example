@@ -1,0 +1,11 @@
+{
+  "access_key": "YOUR_ACCESS_KEY",
+  "secret_key": "YOUR_SECRET_KEY",
+  "bucket_name": "xintuxiangce-downloads",
+  "domain": "https://download.xintuxiangce.top",
+  "region": "z0",
+  "base_path": "dist",
+  "cdn_enabled": true,
+  "fallback_to_source": true
+}
+

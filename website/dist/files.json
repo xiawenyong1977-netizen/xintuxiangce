@@ -1,16 +1,22 @@
 {
-  "latest": "xtxc202510151254.zip",
+  "latest": "xtxc202511182130.zip",
   "files": [
+    {
+      "filename": "xtxc202511182130.zip",
+      "version": "v1.0.2",
+      "date": "2025-11-18",
+      "size": "313MB"
+    },
+    {
+      "filename": "xtxc202510221247.zip",
+      "version": "v1.0.1",
+      "date": "2025-10-22",
+      "size": "315MB"
+    },
     {
       "filename": "xtxc202510151254.zip",
       "version": "v1.0.0",
       "date": "2025-10-15",
-      "size": "275MB"
-    },
-    {
-      "filename": "xtxc202510111614.zip",
-      "version": "v0.9.0", 
-      "date": "2025-10-11",
       "size": "275MB"
     }
   ]

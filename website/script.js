@@ -384,94 +384,6 @@ window.xintuxiangce = {
     }
 };
 
-// 自动获取最新下载文件信息
-async function updateDownloadInfo() {
-    try {
-        // 智能检测最新文件 - 尝试多个可能的文件名
-        const possibleFiles = [
-            'pc/portable/xtxc202510221247.zip',  // 最新便携版文件
-            'pc/portable/xtxc202510151254.zip',  // 便携版备用文件
-            'pc/portable/xtxc202510111614.zip',  // 便携版备用文件
-            'pc/setup/xtxcsetup202510221247.zip',  // 安装版最新文件
-            'pc/portable/芯图相册-智能分类，便捷管理，仅你可见 1.0.0.exe'  // 便携版exe文件作为最后备用
-        ];
-        
-        let latestFile = null;
-        
-        // 尝试检测最新文件
-        for (const filename of possibleFiles) {
-            try {
-                const response = await fetch(`dist/${filename}`, { method: 'HEAD' });
-                if (response.ok) {
-                    latestFile = {
-                        filename: filename.split('/').pop(), // 只取文件名部分
-                        path: `dist/${filename}`,
-                        size: 315 * 1024 * 1024, // 最新文件大小
-                        version: 'v1.0.1'
-                    };
-                    break;
-                }
-            } catch (e) {
-                continue;
-            }
-        }
-        
-        // 如果没找到任何文件，使用默认的
-        if (!latestFile) {
-            latestFile = {
-                filename: possibleFiles[0].split('/').pop(), // 只取文件名部分
-                path: `dist/${possibleFiles[0]}`,
-                size: 315 * 1024 * 1024,
-                version: 'v1.0.1'
-            };
-        }
-        
-        // 更新所有下载按钮的链接（但不要覆盖指向版本选择页面、直接下载链接或CGI脚本的按钮）
-        const downloadButtons = document.querySelectorAll('.download-btn');
-        downloadButtons.forEach(btn => {
-            // 如果按钮已经指向版本选择页面、直接下载链接或CGI脚本，不要覆盖
-            if (btn.href.includes('download-select.html') || 
-                btn.href.includes('dist/pc/portable/') || 
-                btn.href.includes('dist/pc/setup/') ||
-                btn.href.includes('.py') ||
-                btn.closest('.hero-download-option')) {  // 不更新Hero区域的按钮
-                return;
-            }
-            btn.href = latestFile.path;
-            btn.download = latestFile.filename;
-        });
-        
-        // 格式化文件大小
-        const sizeFormatted = formatBytes(latestFile.size);
-        
-        // 更新页面上的文件信息
-        const versionElement = document.getElementById('file-version');
-        const versionElement2 = document.getElementById('file-version-2');
-        const sizeElement = document.getElementById('file-size');
-        const sizeElement2 = document.getElementById('file-size-2');
-        
-        if (versionElement) versionElement.textContent = latestFile.version;
-        if (versionElement2) versionElement2.textContent = '版本 ' + latestFile.version;
-        if (sizeElement) sizeElement.textContent = sizeFormatted;
-        if (sizeElement2) sizeElement2.textContent = sizeFormatted;
-        
-        console.log('下载文件信息已更新:', latestFile);
-    } catch (error) {
-        console.error('获取下载文件信息失败:', error);
-        // 如果获取失败，保持默认值
-    }
-}
-
-// 格式化字节大小
-function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
 console.log('芯图相册官网已加载完成 🎉');
 
 // 调试工具：在微信或 ?debug=1 时在页面左下角显示日志
@@ -657,7 +569,33 @@ __xt_log('script loaded');
                 if (!href) return;
                 e.preventDefault();
                 e.stopImmediatePropagation();
-                const absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
+                let absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
+                
+                // 如果是移动端（Android），且链接是下载链接，自动改为Android版本
+                const ua = navigator.userAgent || '';
+                const isAndroid = /android/i.test(ua);
+                if (isAndroid && absolute.includes('download.py')) {
+                    // 将 type 参数改为 android
+                    if (absolute.includes('type=')) {
+                        // 替换现有的 type 参数
+                        absolute = absolute.replace(/[?&]type=[^&]*/, '');
+                        // 确保有 ? 或 & 分隔符
+                        if (absolute.includes('?')) {
+                            absolute += '&type=android';
+                        } else {
+                            absolute += '?type=android';
+                        }
+                    } else {
+                        // 添加 type 参数
+                        if (absolute.includes('?')) {
+                            absolute += '&type=android';
+                        } else {
+                            absolute += '?type=android';
+                        }
+                    }
+                    __xt_log(`mobile detected, changed to android: ${absolute}`);
+                }
+                
                 openOverlay(absolute);
                 __xt_log(`intercept: ${absolute}`);
                 return false;
