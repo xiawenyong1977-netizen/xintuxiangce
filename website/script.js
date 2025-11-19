@@ -214,16 +214,6 @@ statNumbers.forEach(stat => {
     }
 });
 
-// 下载按钮点击事件追踪
-const downloadButtons = document.querySelectorAll('a[href*=".exe"], a[download]');
-downloadButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        console.log('下载按钮被点击');
-        // 这里可以添加统计代码，如 Google Analytics
-        // gtag('event', 'download', { 'event_category': 'engagement' });
-    });
-});
-
 // 防止链接默认行为（对于占位符链接）
 const placeholderLinks = document.querySelectorAll('a[href="#contact"], a[href="#feedback"], a[href="#about"], a[href="#privacy"], a[href="#terms"]');
 placeholderLinks.forEach(link => {

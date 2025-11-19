@@ -56,8 +56,65 @@ def get_remote_path(file_type, filename):
     }
     return path_map.get(file_type, '')
 
-def redirect_to_cdn(cdn_url):
-    """重定向到CDN"""
+def increment_download_count(download_type):
+    """
+    调用下载量统计接口（同步调用，超时时间短，不阻塞下载）
+    
+    注意：在 CGI 环境中，daemon 线程可能在脚本退出前被终止，
+    所以使用同步调用，但设置很短的超时时间（1秒），确保不影响下载流程。
+    
+    Args:
+        download_type: 'android' 或 'windows'
+    """
+    try:
+        api_url = f"https://api.aifuture.net.cn/api/v1/stats/download-count/increment/public?download_type={download_type}"
+        
+        req = urllib.request.Request(api_url, method='POST')
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('User-Agent', 'XintuXiangce-Download/1.0')
+        
+        # 使用较短的超时时间（2秒），确保不影响下载流程
+        with urllib.request.urlopen(req, timeout=2) as response:
+            if response.status == 200:
+                data = json.loads(response.read().decode('utf-8'))
+                if data.get('success'):
+                    print(f"# 下载量统计成功: {download_type}", file=sys.stderr)
+                    return True
+            else:
+                print(f"# 下载量统计失败: HTTP {response.status}", file=sys.stderr)
+    except urllib.error.URLError as e:
+        # 网络错误或超时，静默处理
+        print(f"# 下载量统计网络错误（不影响下载）: {str(e)}", file=sys.stderr)
+    except Exception as e:
+        # 其他异常，静默处理
+        print(f"# 下载量统计异常（不影响下载）: {str(e)}", file=sys.stderr)
+    
+    return False
+
+def get_download_type_for_stats(file_type):
+    """
+    将文件类型映射为统计接口需要的下载类型
+    
+    Args:
+        file_type: 'portable', 'setup', 'android', 'mac'
+    
+    Returns:
+        'android', 'windows', 或 None（不统计）
+    """
+    if file_type == 'android':
+        return 'android'
+    elif file_type in ('portable', 'setup'):
+        return 'windows'
+    else:
+        return None  # mac 或其他类型不统计
+
+def redirect_to_cdn(cdn_url, file_type):
+    """重定向到CDN，并统计下载量"""
+    # 统计下载量（后台执行，不阻塞）
+    download_type = get_download_type_for_stats(file_type)
+    if download_type:
+        increment_download_count(download_type)
+    
     print("Status: 302 Found")
     print(f"Location: {cdn_url}")
     print("Content-Type: text/html; charset=utf-8")
@@ -211,7 +268,7 @@ def main():
             
             # 检查CDN是否可用
             if check_cdn_available(cdn_url):
-                redirect_to_cdn(cdn_url)
+                redirect_to_cdn(cdn_url, file_type)
                 return
             elif not FALLBACK_TO_SOURCE:
                 print("Status: 503 Service Unavailable")
@@ -221,6 +278,11 @@ def main():
                 return
     
     # 回退到源站下载
+    # 统计下载量（后台执行，不阻塞）
+    download_type = get_download_type_for_stats(file_type)
+    if download_type:
+        increment_download_count(download_type)
+    
     file_size = os.path.getsize(latest_file)
     
     # 设置下载头
