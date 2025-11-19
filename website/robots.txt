@@ -3,9 +3,13 @@
 User-agent: *
 Allow: /
 
-# 禁止抓取的路径（如果有）
+# 禁止抓取的路径
 # Disallow: /admin/
 # Disallow: /private/
+
+# 禁止爬虫访问下载链接（避免消耗带宽和资源）
+# 下载链接由 download.py 处理，代码层面也会检测并阻止爬虫
+Disallow: /download.py
 
 # 网站地图
 Sitemap: https://www.xintuxiangce.top/sitemap.xml

@@ -91,6 +91,39 @@ def increment_download_count(download_type):
     
     return False
 
+def is_crawler():
+    """
+    检测当前请求是否来自爬虫
+    
+    Returns:
+        True 如果是爬虫，False 如果是正常用户
+    """
+    user_agent = os.environ.get('HTTP_USER_AGENT', '').lower()
+    
+    if not user_agent:
+        # 没有 User-Agent 的请求很可能是爬虫
+        return True
+    
+    # 常见爬虫标识
+    crawler_keywords = [
+        'bot', 'crawler', 'spider', 'scraper',
+        'googlebot', 'bingbot', 'slurp', 'duckduckbot',
+        'baiduspider', 'yandexbot', 'sogou', 'exabot',
+        'facebot', 'ia_archiver', 'archive.org_bot',
+        'msnbot', 'ahrefsbot', 'semrushbot', 'dotbot',
+        'mj12bot', 'megaindex', 'blexbot', 'petalbot',
+        'curl', 'wget', 'python-requests', 'scrapy',
+        'http', 'java', 'go-http-client', 'okhttp',
+        'apache-httpclient', 'postman', 'insomnia'
+    ]
+    
+    # 检查 User-Agent 是否包含爬虫关键词
+    for keyword in crawler_keywords:
+        if keyword in user_agent:
+            return True
+    
+    return False
+
 def get_download_type_for_stats(file_type):
     """
     将文件类型映射为统计接口需要的下载类型
@@ -110,7 +143,7 @@ def get_download_type_for_stats(file_type):
 
 def redirect_to_cdn(cdn_url, file_type):
     """重定向到CDN，并统计下载量"""
-    # 统计下载量（后台执行，不阻塞）
+    # 统计下载量（此时已确认不是爬虫）
     download_type = get_download_type_for_stats(file_type)
     if download_type:
         increment_download_count(download_type)
@@ -260,6 +293,45 @@ def main():
     
     filename = os.path.basename(latest_file)
     
+    # 如果是爬虫，返回友好提示，不提供下载
+    if is_crawler():
+        print("Status: 403 Forbidden")
+        print("Content-Type: text/html; charset=utf-8")
+        print()
+        print("""<html>
+<head>
+    <meta charset="UTF-8">
+    <title>访问受限</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        h1 { margin-bottom: 20px; }
+        p { font-size: 18px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 访问受限</h1>
+        <p>抱歉，此下载链接仅对真实用户开放。</p>
+        <p>如果您是真实用户，请使用浏览器访问我们的网站进行下载。</p>
+    </div>
+</body>
+</html>""")
+        return
+    
     # 如果CDN可用，尝试从CDN下载
     if cdn_available and CDN_DOMAIN:
         remote_path = get_remote_path(file_type, filename)
@@ -278,7 +350,7 @@ def main():
                 return
     
     # 回退到源站下载
-    # 统计下载量（后台执行，不阻塞）
+    # 统计下载量（此时已确认不是爬虫）
     download_type = get_download_type_for_stats(file_type)
     if download_type:
         increment_download_count(download_type)
