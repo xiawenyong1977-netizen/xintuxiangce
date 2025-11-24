@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>芯图相册：三层部署架构图 | 芯图日记</title>
+    <meta name="description" content="详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。">
+    <meta name="keywords" content="部署架构, 技术架构, 后端开发, 系统设计, 研发经验">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="芯图相册：三层部署架构图">
+    <meta property="og:description" content="详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。">
+    <meta property="og:image" content="/assets/diary/backend-arch/cover.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/deploy-arch.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册：三层部署架构图",
+        "description": "详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。",
+        "image": "/assets/diary/backend-arch/cover.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2025年11月24日",
+        "dateModified": "2025年11月24日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "芯图相册：三层部署架构图",
+                "item": "https://www.xintuxiangce.top/diary/deploy-arch.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>芯图相册：三层部署架构图</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月24日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 12分钟</span>
+                </div>
+                <img src="/assets/diary/backend-arch/cover.png" alt="芯图相册：三层部署架构图" class="article-cover">
+            </header>
+            
+            <div class="article-content">
+                <h2>三层部署架构图</h2>
+<img src="../assets/diary/backend-arch/deploy20251124.png" alt="三层部署架构图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>三层架构说明</h3>
+<p>#### 第一层：客户端</p>
+<ul>
+<li><strong>PC客户端</strong>：通过 <code>api.aifuture.net.cn</code> 域名直接访问第三层APP服务器</li>
+<li><strong>移动端</strong>：通过 <code>api.aifuture.net.cn</code> 域名直接访问第三层APP服务器</li>
+<li><strong>微信会员管理页面</strong>：通过 <code>m.xintuxiangce.net</code>（CDN）访问第二层WEB服务器</li>
+</ul>
+<p>#### 第二层：WEB服务层</p>
+<p>第二层包含两个平级的服务组件：</p>
+<p><strong>CDN层：</strong></p>
+<ul>
+<li><strong>CDN（青牛）</strong>：内容分发网络，域名 <code>m.xintuxiangce.net</code>，加速微信会员管理页面的访问</li>
+<li>负责静态资源的CDN加速</li>
+<li>独立服务，与WEB容器和第三层APP服务器无直接连接关系</li>
+<li><strong>APP下载</strong>：提供APP安装包下载服务</li>
+</ul>
+<p><strong>WEB服务器层：</strong></p>
+<ul>
+<li><strong>Lighttpd</strong>：Web服务器，负责处理HTTP请求和路由</li>
+<li><strong>芯图相册官网</strong>：Lighttpd配置的虚拟主机/Web模块</li>
+<li><strong>管理后台</strong>：Lighttpd配置的虚拟主机/Web模块</li>
+<li><strong>Aifuture官网</strong>：Lighttpd配置的虚拟主机/Web模块</li>
+<li>反向代理转发微信会员管理的API请求到第三层APP服务器的Gunicorn</li>
+</ul>
+<p><strong>数据库：</strong></p>
+<ul>
+<li><strong>MySQL数据库（从库）</strong>：从第三层主库同步数据，用于只读查询</li>
+</ul>
+<p><strong>职责</strong>：</p>
+<ul>
+<li>CDN层加速微信会员管理页面的静态资源访问</li>
+<li>WEB服务器层直接服务芯图相册官网、管理后台和Aifuture官网（通过虚拟主机配置）</li>
+<li>WEB服务器层反向代理转发微信会员管理的API请求到第三层APP服务器的Gunicorn</li>
+<li>提供数据库从库，支持只读查询，减轻主库压力</li>
+</ul>
+<p>#### 第三层：APP服务器</p>
+<ul>
+<li><strong>Nginx</strong>：反向代理服务器，处理所有API请求，反向代理到Gunicorn</li>
+<li><strong>Gunicorn</strong>：WSGI服务器，运行FastAPI应用</li>
+<li><strong>FastAPI应用</strong>：Python Web框架，包含所有业务逻辑</li>
+<li><strong>Service服务</strong>：业务服务模块，分为两层</li>
+<li><strong>核心服务</strong>：</li>
+<li><strong>图像分类服务（ClassifierService）</strong>：图片分类核心服务，整合缓存、大模型和本地推理</li>
+<li><strong>图像编辑服务（ImageEditService）</strong>：基于阿里云百炼的图像编辑功能</li>
+<li><strong>位置查询服务（LocationService）</strong>：基于GPS坐标的城市位置查询</li>
+<li><strong>基础服务</strong>：</li>
+<li><strong>缓存服务（CacheService）</strong>：图片分类结果缓存管理</li>
+<li><strong>大模型客户端（ModelClient）</strong>：调用阿里云通义千问等大模型API</li>
+<li><strong>统计服务（StatsService）</strong>：请求日志记录和统计数据查询</li>
+<li><strong>会员管理服务</strong>：会员相关的业务逻辑</li>
+<li><strong>额度服务（CreditService）</strong>：用户额度检查和扣减</li>
+<li><strong>订单服务（OrderService）</strong>：订单创建、支付处理</li>
+<li><strong>绑定服务（BindingService）</strong>：微信二维码与客户端绑定管理</li>
+<li><strong>MySQL数据库（主库）</strong>：数据存储，通过主从复制同步到第二层从库</li>
+</ul>
+<h3>访问路径</h3>
+<p>1. <strong>PC/Mobile → APP服务器</strong></p>
+   <pre><code></code></pre>
+<p>2. <strong>微信会员管理 → CDN → APP服务器</strong></p>
+   <pre><code></code></pre>
+<p>3. <strong>微信会员管理 → WEB服务器 → APP服务器</strong></p>
+   <pre><code></code></pre>
+<p>4. <strong>访问网站 → WEB服务器（虚拟主机）</strong></p>
+   <pre><code></code></pre>
+<h2>二维码生成与扫码关注时序图</h2>
+<h3>场景1：生成二维码流程</h3>
+<img src="../assets/diary/backend-arch/qrcode-gen20251124.png" alt="生成二维码时序图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>场景2：扫码关注流程</h3>
+<img src="../assets/diary/backend-arch/follow20251124.png" alt="扫码关注时序图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>场景3：客户端查询绑定状态</h3>
+<img src="../assets/diary/backend-arch/membership-check20251124.png" alt="会员状态查询图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>场景4：开通会员流程</h3>
+<img src="../assets/diary/backend-arch/membership-acquire20251124.png" alt="开通会员时序图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>场景5：购买额度流程</h3>
+<img src="../assets/diary/backend-arch/credits-buy20251124.png" alt="购买额度时序图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2>关键点说明</h2>
+<h3>Web服务器职责</h3>
+<ul>
+<li>✅ 只接收微信主动调用的请求（3个接口）</li>
+<li>✅ 不直接操作数据库</li>
+<li>✅ 通过HTTP调用App服务器的内部接口操作数据</li>
+</ul>
+<h3>App服务器职责</h3>
+<ul>
+<li>✅ 处理所有业务逻辑</li>
+<li>✅ 主动调用微信API（网页授权、生成二维码、统一下单等）</li>
+<li>✅ 直接操作数据库</li>
+<li>✅ 提供内部接口供Web服务器调用</li>
+</ul>
+<h3>优势</h3>
+<ul>
+<li>✅ 不需要修改微信平台配置（URL保持不变）</li>
+<li>✅ 前端代码无需修改（通过Nginx路由）</li>
+<li>✅ 职责清晰，易于维护</li>
+<li>✅ 安全性更高（Web服务器不直接操作数据库）</li>
+</ul>
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">部署架构</span><span class="article-tag">技术架构</span><span class="article-tag">后端开发</span><span class="article-tag">系统设计</span><span class="article-tag">研发经验</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="backend-arch.html" class="related-article-card">
+                    <h3>图片分类后端系统 - 芯图相册后端技术方案</h3>
+                    <p>基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。</p>
+                </a>
+                <a href="async-arch.html" class="related-article-card">
+                    <h3>芯图相册：异步架构与高并发技术说明</h3>
+                    <p>深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。</p>
+                </a>
+                <a href="video-002.html" class="related-article-card">
+                    <h3>和大模型探讨芯图相册的技术架构</h3>
+                    <p>分享与Cursor探讨芯图相册技术架构的实战经验，如何实现一份代码多端支持后台扫描。</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

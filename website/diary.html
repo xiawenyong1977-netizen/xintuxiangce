@@ -257,7 +257,9 @@
         
         async function loadDiaryData() {
             try {
-                const response = await fetch('diary-data.json');
+                // 添加时间戳防止缓存
+                const timestamp = new Date().getTime();
+                const response = await fetch(`diary-data.json?t=${timestamp}`);
                 const data = await response.json();
                 diaryData = data.articles || [];
                 // 按日期倒序排序（最新的在前）

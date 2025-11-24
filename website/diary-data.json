@@ -2,7 +2,7 @@
   "meta": {
     "title": "芯图日记 - 大模型研发经验与产品运营分享",
     "description": "分享大模型相关的研发经验、产品运营思路和技术实践，包含文章和视频内容",
-    "lastUpdated": "2025-01-20"
+    "lastUpdated": "2025-11-24"
   },
   "articles": [
     {
@@ -133,6 +133,80 @@
       "cover": "/assets/diary/backend-arch/cover.png",
       "readTime": "18分钟",
       "related": ["backend-arch", "arch-pe", "video-002"]
+    },
+    {
+      "id": "deploy-arch",
+      "type": "article",
+      "title": "芯图相册：三层部署架构图",
+      "description": "详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。",
+      "content": "diary/部署架构图.md",
+      "author": "芯图团队",
+      "date": "2025-11-24",
+      "tags": ["部署架构", "技术架构", "后端开发", "系统设计", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/backend-arch/cover.png",
+      "readTime": "12分钟",
+      "related": ["backend-arch", "async-arch", "video-002"]
+    },
+    {
+      "id": "video-004",
+      "type": "video",
+      "title": "与AI结对编程",
+      "description": "每个软件开发者心里都会有一丝恐慌：AI会不会替代我们写代码？本视频探讨AI时代程序员的定位与价值。",
+      "videoUrl": "https://www.bilibili.com/video/BV12NyTBMEuX",
+      "videoPlatform": "bilibili",
+      "duration": "0:49",
+      "author": "芯图团队",
+      "date": "2025-11-24",
+      "tags": ["AI", "研发经验", "大模型", "AI协作", "结对编程"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["video-001", "video-002", "video-003"]
+    },
+    {
+      "id": "video-005",
+      "type": "video",
+      "title": "与AI结对编程:Cursor两分钟完成技术架构梳理，解决用户体验问题",
+      "description": "Cursor在两分钟内帮我完成了后端技术架构梳理，扫清了架构问题。通过优化部署架构，最终解决了用户体验问题。",
+      "videoUrl": "https://www.bilibili.com/video/BV12NyTBMEML",
+      "videoPlatform": "bilibili",
+      "duration": "1:25",
+      "author": "芯图团队",
+      "date": "2025-11-24",
+      "tags": ["AI", "研发经验", "Cursor", "技术架构", "结对编程", "AI协作"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["video-001", "video-002", "video-003"]
+    },
+    {
+      "id": "video-006",
+      "type": "video",
+      "title": "与AI结对编程：超越ChatGPT，成为AI不可替代的四大核心能力",
+      "description": "成为AI时代的领导者，工具、思想和架构都离不开自己的技术地图。本视频分享成为AI不可替代的四大核心能力。",
+      "videoUrl": "https://www.bilibili.com/video/BV185UHBAEdP",
+      "videoPlatform": "bilibili",
+      "duration": "5:00",
+      "author": "芯图团队",
+      "date": "2025-11-24",
+      "tags": ["AI", "研发经验", "AI协作", "结对编程", "技术能力", "职业发展"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["video-001", "video-002", "video-003"]
+    },
+    {
+      "id": "video-007",
+      "type": "video",
+      "title": "与AI结对编程-技术原理：高并发是什么",
+      "description": "高并发就像春运一样的系统大考。本视频用生动的比喻详细解释高并发场景，帮助理解系统在高负载下的表现。",
+      "videoUrl": "https://www.bilibili.com/video/BV1xeUNBLEC7",
+      "videoPlatform": "bilibili",
+      "duration": "1:24",
+      "author": "芯图团队",
+      "date": "2025-11-24",
+      "tags": ["AI", "研发经验", "高并发", "技术原理", "系统架构", "结对编程"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["video-001", "video-002", "video-003"]
     }
   ]
 }

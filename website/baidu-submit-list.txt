@@ -1,0 +1,93 @@
+# 百度收录提交链接列表
+# 网站: https://www.xintuxiangce.top
+# 生成时间: 2025-11-24
+
+## ============================================
+## ✅ 已提交的页面 (9个)
+## ============================================
+
+1. https://www.xintuxiangce.top/diary.html
+2. https://www.xintuxiangce.top/diary/video-003.html
+3. https://www.xintuxiangce.top/diary/backend-arch.html
+4. https://www.xintuxiangce.top/diary/async-arch.html
+5. https://www.xintuxiangce.top/diary/deploy-arch.html
+6. https://www.xintuxiangce.top/diary/video-004.html
+7. https://www.xintuxiangce.top/diary/video-005.html
+8. https://www.xintuxiangce.top/diary/video-006.html
+9. https://www.xintuxiangce.top/diary/video-007.html
+
+## ============================================
+## ⏳ 未提交的页面 - 重要页面 (8个)
+## ============================================
+
+### 首页和主要页面
+1. https://www.xintuxiangce.top/
+   # 首页（最重要）
+
+2. https://www.xintuxiangce.top/photobetter.html
+   # 照片创玩
+
+3. https://www.xintuxiangce.top/guides.html
+   # 使用指南列表
+
+4. https://www.xintuxiangce.top/guide-quick-start.html
+   # 快速入门指南
+
+5. https://www.xintuxiangce.top/guide-permissions.html
+   # 权限设置说明
+
+6. https://www.xintuxiangce.top/guide-cleanup.html
+   # 快速清理指南
+
+7. https://www.xintuxiangce.top/faq.html
+   # 常见问题
+
+8. https://www.xintuxiangce.top/aifuture.html
+   # 联系我们
+
+## ============================================
+## ⏳ 未提交的页面 - 日记文章和视频 (6个)
+## ============================================
+
+9. https://www.xintuxiangce.top/diary/article-001.html
+   # 中年程序员的困局与大模型的破局：我的思考与实践
+
+10. https://www.xintuxiangce.top/diary/ai-cowoker.html
+    # 我和Cursor做了三个月的同事：从零到全平台交付的AI协作实验
+
+11. https://www.xintuxiangce.top/diary/arch-pe.html
+    # 如何让大模型指哪打哪：架构师的提示词工程与思维传导
+
+12. https://www.xintuxiangce.top/diary/ai-roadmap.html
+    # 我的大模型学习之路
+
+13. https://www.xintuxiangce.top/diary/video-001.html
+    # 程序员福音：大模型帮我搞定了烦人的文档
+
+14. https://www.xintuxiangce.top/diary/video-002.html
+    # 和大模型探讨芯图相册的技术架构
+
+## ============================================
+## 📋 未提交页面（纯链接格式，可直接复制）
+## ============================================
+
+### 优先提交（重要页面）
+https://www.xintuxiangce.top/
+https://www.xintuxiangce.top/photobetter.html
+https://www.xintuxiangce.top/guides.html
+https://www.xintuxiangce.top/faq.html
+
+### 日记页面
+https://www.xintuxiangce.top/diary/article-001.html
+https://www.xintuxiangce.top/diary/ai-cowoker.html
+https://www.xintuxiangce.top/diary/arch-pe.html
+https://www.xintuxiangce.top/diary/ai-roadmap.html
+https://www.xintuxiangce.top/diary/video-001.html
+https://www.xintuxiangce.top/diary/video-002.html
+
+### 其他指南页面
+https://www.xintuxiangce.top/guide-quick-start.html
+https://www.xintuxiangce.top/guide-permissions.html
+https://www.xintuxiangce.top/guide-cleanup.html
+https://www.xintuxiangce.top/aifuture.html
+
