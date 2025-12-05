@@ -294,7 +294,7 @@
 <h2>异步调用时序图</h2>
 <h3>1. 缓存查询接口流程（/api/v1/classify/check-cache）</h3>
 <p><strong>场景</strong>：客户端先发送图片哈希，查询是否有缓存结果</p>
-<img src="../assets/diary/backend-arch/1.png" alt="缓存查询" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<img src="/assets/diary/backend-arch/1.png" alt="缓存查询" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
 <p><strong>关键异步点</strong>：</p>
 <ul>
 <li>✅ 所有数据库操作都是异步的（<code>await</code>）</li>
@@ -304,7 +304,7 @@
 <p>---</p>
 <h3>2. 图片分类接口流程 - 缓存命中场景</h3>
 <p><strong>场景</strong>：图片已存在于缓存中，直接返回结果</p>
-<img src="../assets/diary/backend-arch/2.png" alt="图像分类-缓存命中" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<img src="/assets/diary/backend-arch/2.png" alt="图像分类-缓存命中" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
 <p><strong>关键异步点</strong>：</p>
 <ul>
 <li>✅ 文件读取是异步的（<code>await image.read()</code>）</li>
@@ -314,7 +314,7 @@
 <p>---</p>
 <h3>3. 图片分类接口流程 - 缓存未命中 + 大模型调用</h3>
 <p><strong>场景</strong>：缓存未命中，需要调用大模型API</p>
-<img src="../assets/diary/backend-arch/3.png" alt="图像分类-缓存未命中" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<img src="/assets/diary/backend-arch/3.png" alt="图像分类-缓存未命中" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
 <p><strong>关键异步点</strong>：</p>
 <ul>
 <li>✅ 大模型API调用是异步的（阿里云使用线程池，OpenAI/Claude使用异步HTTP）</li>
@@ -324,7 +324,7 @@
 <p>---</p>
 <h3>4. 混合推理流程 - 大模型失败降级到本地推理</h3>
 <p><strong>场景</strong>：大模型API调用失败，自动降级到本地ONNX模型</p>
-<img src="../assets/diary/backend-arch/4.png" alt="混合推理" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<img src="/assets/diary/backend-arch/4.png" alt="混合推理" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
 <p><strong>关键异步点</strong>：</p>
 <ul>
 <li>✅ 本地推理也是异步的（<code>await</code>），不阻塞事件循环</li>

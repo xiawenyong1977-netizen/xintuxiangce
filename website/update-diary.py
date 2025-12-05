@@ -222,13 +222,14 @@ def markdown_to_html(markdown_text):
     html = re.sub(r'`(.*?)`', r'<code>\1</code>', html)
     
     # 图片（必须在链接之前处理，因为图片语法类似但以!开头）
-    # 处理图片：将绝对路径 /assets/ 转换为相对路径 ../assets/
+    # 处理图片：保持绝对路径 /assets/ 不变（网站根路径）
     def process_image(match):
         alt_text = match.group(1)
         img_path = match.group(2)
-        # 如果是绝对路径 /assets/，转换为相对路径 ../assets/
-        if img_path.startswith('/assets/'):
-            img_path = '../' + img_path[1:]  # 去掉开头的 /，添加 ../
+        # 保持绝对路径不变，确保从网站根路径访问
+        # 如果路径不是以 / 开头，则添加 /
+        if not img_path.startswith('/') and not img_path.startswith('http'):
+            img_path = '/' + img_path
         return f'__IMG_TAG__<img src="{img_path}" alt="{alt_text}" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">__IMG_TAG__'
     
     html = re.sub(r'!\[(.*?)\]\((.*?)\)', process_image, html)

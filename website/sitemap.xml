@@ -48,6 +48,14 @@
         <priority>0.8</priority>
     </url>
     
+    <!-- 多维度分类功能指南 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guide-multidimensional-classification.html</loc>
+        <lastmod>2025-12-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- 常见问题 -->
     <url>
         <loc>https://www.xintuxiangce.top/faq.html</loc>
@@ -180,6 +188,30 @@
     <url>
         <loc>https://www.xintuxiangce.top/diary/video-007.html</loc>
         <lastmod>2025-11-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/ai-pair-program-intro.html</loc>
+        <lastmod>2025-12-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记视频 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/video-008.html</loc>
+        <lastmod>2025-12-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记视频 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/video-009.html</loc>
+        <lastmod>2025-12-05</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

@@ -53,4 +53,18 @@ Desktop.ini
 
 # 敏感配置文件（包含密钥）
 qiniu-config.json
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!diary-data.json
+!download-info.json
+!dist/files.json
+# Google API 密钥文件
+**/gsc_api.json
+xintualbum-*.json
+# 百度提交日志（可能包含敏感信息）
+**/baidu-submit-log.txt
+# Google 索引报告（临时文件）
+**/google-index-report-*.txt
 

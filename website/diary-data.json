@@ -135,6 +135,20 @@
       "related": ["backend-arch", "arch-pe", "video-002"]
     },
     {
+      "id": "ai-pair-program-intro",
+      "type": "article",
+      "title": "AI不会取代你，但会取代不用AI的你：开启「结对编程」的全新可能",
+      "description": "当代码生成不再是瓶颈，什么能力会变得真正稀缺？从工具使用者到技术战略家的四阶进阶路径，帮助开发者完成AI时代的关键认知升级。",
+      "content": "diary/AI不会取代你.md",
+      "author": "芯图团队",
+      "date": "2025-12-05",
+      "tags": ["AI", "结对编程", "AI协作", "职业发展", "技术能力", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-pair-program/1.png",
+      "readTime": "12分钟",
+      "related": ["ai-cowoker", "arch-pe", "video-004", "video-005", "video-006"]
+    },
+    {
       "id": "deploy-arch",
       "type": "article",
       "title": "芯图相册：三层部署架构图",
@@ -207,6 +221,36 @@
       "category": "研发经验",
       "cover": "/assets/diary/ai-program/cover.jpg",
       "related": ["video-001", "video-002", "video-003"]
+    },
+    {
+      "id": "video-008",
+      "type": "video",
+      "title": "与AI结对编程-技术地图：异步-高并发下的时间管理大师",
+      "description": "深入探讨异步编程在高并发场景下的核心价值，如何通过AI辅助理解异步模型如何成为系统的时间管理大师，提升系统并发处理能力。",
+      "videoUrl": "https://www.bilibili.com/video/BV1XxSsBLEcd",
+      "videoPlatform": "bilibili",
+      "duration": "2:21",
+      "author": "芯图团队",
+      "date": "2025-12-05",
+      "tags": ["AI", "研发经验", "AI协作", "结对编程", "异步编程", "高并发", "技术地图", "系统架构"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["ai-pair-program-intro", "video-004", "video-005", "video-006", "async-arch"]
+    },
+    {
+      "id": "video-009",
+      "type": "video",
+      "title": "AI与结对编程-技术地图：异步技术的演进之路，从\"原始部落\"到\"现代文明\"",
+      "description": "通过AI辅助梳理异步技术的发展历程，从早期的同步阻塞模型到现代的事件驱动、协程、async/await等技术演进，理解技术发展的历史脉络和未来方向。",
+      "videoUrl": "https://www.bilibili.com/video/BV1gg2jBCELH",
+      "videoPlatform": "bilibili",
+      "duration": "3:26",
+      "author": "芯图团队",
+      "date": "2025-12-05",
+      "tags": ["AI", "研发经验", "AI协作", "结对编程", "异步技术", "技术演进", "技术地图", "系统架构"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["ai-pair-program-intro", "video-004", "video-005", "video-006", "async-arch"]
     }
   ]
 }

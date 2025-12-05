@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>快速入门指南 - 芯图相册使用教程</title>
+    <meta name="description" content="芯图相册快速入门指南，从零开始学习如何使用AI技术智能分类照片，包含完整的操作步骤和功能介绍。">
+    <meta name="keywords" content="芯图相册使用指南,照片分类教程,AI照片管理,快速入门,照片整理教程">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guide-quick-start.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="快速入门指南 - 芯图相册">
+    <meta property="og:description" content="从零开始学习如何使用AI技术智能分类照片">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guide-quick-start.html">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册快速入门指南",
+        "description": "从零开始学习如何使用AI技术智能分类照片",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图相册团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025-11-13",
+        "dateModified": "2025-11-13"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="../icons/imageclassify.png">
+    
+    <style>
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .article-nav-link:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .article-header {
+                padding: 40px 24px;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+            
+            .article-body h2 {
+                font-size: 24px;
+            }
+            
+            .article-body h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#features">功能特性</a></li>
+                    <li><a href="guides.html">使用指南</a></li>
+                    <li><a href="index.html#screenshots">应用截图</a></li>
+                    <li><a href="index.html#faq">常见问题</a></li>
+                    <li><a href="index.html#download" class="btn-nav-download">立即下载</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章内容 -->
+    <div class="article-container">
+        <div class="article-content">
+            <div class="article-header">
+                <h1>快速入门指南</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月13日</span>
+                    <span>⏱️ 阅读时间：5分钟</span>
+                </div>
+            </div>
+            
+            <article class="article-body">
+                <!-- 这里将放置从公众号文章复制的内容 -->
+                <!-- 包括文案和图片 -->
+                
+                <h2>欢迎使用芯图相册</h2>
+                <p>芯图相册是一款基于AI技术的智能照片分类管理工具，通过本地AI智能识别，自动分类照片，准确率高达90%以上。所有处理完全在本地进行，无需联网，不上传任何数据，从根源上保护您的隐私安全。</p>
+                
+                <h2>第一步：连接与设置</h2>
+                <p>使用数据线连接手机与电脑，在设置页面选定需要整理的相册目录。</p>
+                <img src="/assets/设置照片目录并智能分类.jpg" alt="设置照片目录">
+                <p>支持以下目录类型：</p>
+                <ul>
+                    <li>手机相册目录</li>
+                    <li>电脑本地文件夹</li>
+                    <li>外置存储设备</li>
+                </ul>
+                
+                <h2>第二步：一键智能分类</h2>
+                <p>点击"开始智能分类"按钮，AI将自动扫描识别，首页清晰展示分类进度与图片统计。</p>
+                <img src="/assets/分类进展和统计信息.jpg" alt="智能分类进度">
+                <p>分类过程中您可以：</p>
+                <ul>
+                    <li>实时查看处理进度</li>
+                    <li>查看各类别数量统计</li>
+                    <li>随时暂停和继续</li>
+                </ul>
+                
+                <h2>第三步：便捷拣选暂存</h2>
+                <p>分类完成后，可逐类浏览，轻松勾选需要处理的照片，一键移入暂存箱。</p>
+                <img src="/assets/暂存.jpg" alt="勾选照片暂存">
+                <p>暂存功能支持：</p>
+                <ul>
+                    <li>批量选择照片</li>
+                    <li>预览大图查看</li>
+                    <li>灵活的暂存管理</li>
+                </ul>
+                
+                <h2>第四步：最终清理或归档</h2>
+                <p>进入暂存箱二次确认，无误后可以全选删除，或复制到指定文件夹完成归档。</p>
+                <img src="/assets/暂存箱处置.jpg" alt="暂存箱处理">
+                <p>清理功能特点：</p>
+                <ul>
+                    <li>删除前二次确认，防止误删</li>
+                    <li>支持复制到其他位置</li>
+                    <li>批量操作省时省力</li>
+                </ul>
+                
+                <h2>核心功能</h2>
+                <h3>AI智能识别</h3>
+                <p>采用先进的深度学习技术，自动识别照片内容、场景、人物等信息，准确率高达90%以上。支持7大内容类别识别、自动城市地点分类和相似照片智能去重。</p>
+                
+                <h3>隐私绝对安全</h3>
+                <p>所有处理完全在本地进行，无需联网，不上传任何数据，从根源上保护您的隐私。</p>
+                
+                <h3>多维度分类</h3>
+                <p>提供三大分类维度，包括按内容（截图、证件照、单人照、社会活动、风景、美食、萌宠）、按城市和按相似度分类。</p>
+                
+                <h2>使用技巧</h2>
+                <ul>
+                    <li>建议每周或每月定期使用芯图相册整理照片，避免照片积累过多</li>
+                    <li>在删除照片前，请确保重要照片已经备份到云端或其他存储设备</li>
+                    <li>虽然AI分类准确率很高，但建议在删除照片前检查分类结果，避免误删重要照片</li>
+                    <li>对于大批量照片处理，建议8GB以上内存以获得更好的体验</li>
+                </ul>
+            </article>
+            
+            <div class="article-navigation">
+                <a href="guides.html" class="article-nav-link">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    返回文章列表
+                </a>
+                <a href="index.html#download" class="article-nav-link">
+                    立即下载
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M8 4L12 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="../icons/imageclassify.png" alt="芯图相册Logo">
+                        <span>芯图相册</span>
+                    </div>
+                    <p>智能分类，便捷管理，仅你可见</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>产品</h4>
+                        <ul>
+                            <li><a href="index.html#features">功能特性</a></li>
+                            <li><a href="guides.html">使用指南</a></li>
+                            <li><a href="index.html#download">立即下载</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>支持</h4>
+                        <ul>
+                            <li><a href="index.html#faq">常见问题</a></li>
+                            <li><a href="aifuture.html">联系我们</a></li>
+                            <li><a href="index.html#feedback">意见反馈</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>关于</h4>
+                        <ul>
+                            <li><a href="index.html#about">关于我们</a></li>
+                            <li><a href="index.html#privacy">隐私政策</a></li>
+                            <li><a href="index.html#terms">使用条款</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 芯图相册. 保留所有权利.</p>
+                <p><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">粤ICP备2025481778号-1</a></p>
+                <p class="footer-tagline">让照片管理更智能，让隐私更安全</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
