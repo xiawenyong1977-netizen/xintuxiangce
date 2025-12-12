@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>与AI结对编程-技术地图：初代王者，Epoll+状态机的荣光与复杂 | 芯图日记</title>
+    <meta name="description" content="深入探讨Epoll和状态机在高并发场景下的核心价值，理解初代高并发技术的设计思想与实现细节，以及它们如何成为系统性能提升的关键技术。">
+    <meta name="keywords" content="AI, 研发经验, AI协作, 结对编程, Epoll, 状态机, 高并发, 技术地图, 系统架构">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="与AI结对编程-技术地图：初代王者，Epoll+状态机的荣光与复杂">
+    <meta property="og:description" content="深入探讨Epoll和状态机在高并发场景下的核心价值，理解初代高并发技术的设计思想与实现细节，以及它们如何成为系统性能提升的关键技术。">
+    <meta property="og:image" content="/assets/diary/ai-program/cover.jpg">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/video-010.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "与AI结对编程-技术地图：初代王者，Epoll+状态机的荣光与复杂",
+        "description": "深入探讨Epoll和状态机在高并发场景下的核心价值，理解初代高并发技术的设计思想与实现细节，以及它们如何成为系统性能提升的关键技术。",
+        "image": "/assets/diary/ai-program/cover.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2025年12月12日",
+        "dateModified": "2025年12月12日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "与AI结对编程-技术地图：初代王者，Epoll+状态机的荣光与复杂",
+                "item": "https://www.xintuxiangce.top/diary/video-010.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>与AI结对编程-技术地图：初代王者，Epoll+状态机的荣光与复杂</h1>
+                <div class="article-meta">
+                    <span>📅 2025年12月12日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 4:02</span>
+                </div>
+                
+            </header>
+            
+            <div class="article-content">
+                
+    <div class="video-container">
+        
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 20px 0;">
+                <iframe src="//player.bilibili.com/player.html?bvid=BV1Mr2kBEE8L&page=1" 
+                        scrolling="no" border="0" frameborder="no" framespacing="0" 
+                        allowfullscreen="true" 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                </iframe>
+            </div>
+            
+        <h2>视频简介</h2>
+        <p>深入探讨Epoll和状态机在高并发场景下的核心价值，理解初代高并发技术的设计思想与实现细节，以及它们如何成为系统性能提升的关键技术。</p>
+    </div>
+    
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">AI</span><span class="article-tag">研发经验</span><span class="article-tag">AI协作</span><span class="article-tag">结对编程</span><span class="article-tag">Epoll</span><span class="article-tag">状态机</span><span class="article-tag">高并发</span><span class="article-tag">技术地图</span><span class="article-tag">系统架构</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="ai-pair-program-intro.html" class="related-article-card">
+                    <h3>AI不会取代你，但会取代不用AI的你：开启「结对编程」的全新可能</h3>
+                    <p>当代码生成不再是瓶颈，什么能力会变得真正稀缺？从工具使用者到技术战略家的四阶进阶路径，帮助开发者完成AI时代的关键认知升级。</p>
+                </a>
+                <a href="video-008.html" class="related-article-card">
+                    <h3>与AI结对编程-技术地图：异步-高并发下的时间管理大师</h3>
+                    <p>深入探讨异步编程在高并发场景下的核心价值，如何通过AI辅助理解异步模型如何成为系统的时间管理大师，提升系统并发处理能力。</p>
+                </a>
+                <a href="video-009.html" class="related-article-card">
+                    <h3>AI与结对编程-技术地图：异步技术的演进之路，从"原始部落"到"现代文明"</h3>
+                    <p>通过AI辅助梳理异步技术的发展历程，从早期的同步阻塞模型到现代的事件驱动、协程、async/await等技术演进，理解技术发展的历史脉络和未来方向。</p>
+                </a>
+                <a href="async-arch.html" class="related-article-card">
+                    <h3>芯图相册：异步架构与高并发技术说明</h3>
+                    <p>深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

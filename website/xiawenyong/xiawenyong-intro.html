@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>夏文勇-简介</title>
+    <style>
+        /* CSS变量 - 参考网站风格 */
+        :root {
+            --primary-color: #2D9DA8;
+            --primary-dark: #1F7580;
+            --primary-light: #E6F7F9;
+            --secondary-color: #FF6B6B;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --text-light: #999;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero区域 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-left {
+            text-align: left;
+        }
+
+        .hero-right {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .hero .tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .hero .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero .actions {
+            margin-top: 32px;
+        }
+
+        .hero-capability {
+            margin-top: 24px;
+        }
+
+        .hero-capability h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            opacity: 0.95;
+        }
+
+        .hero-capability p {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary-color);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            margin: 0 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* 内容区域 */
+        .section {
+            padding: 60px 0;
+            background: var(--bg-white);
+        }
+
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        /* 基本信息卡片 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .info-card .label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .info-card .value {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 核心能力 */
+        .capability {
+            background: white;
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* AI实践卡片网格 */
+        .ai-practices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .ai-practice-card {
+            background: white;
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .ai-practice-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .ai-practice-card:hover::before {
+            width: 6px;
+        }
+
+        .ai-practice-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .ai-practice-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .ai-practice-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .ai-practice-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 12px;
+            transition: var(--transition);
+        }
+
+        .ai-practice-card a:hover {
+            color: white;
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* 作品展示 */
+        .portfolio-section {
+            padding: 60px 0;
+            background: var(--bg-white);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .portfolio-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .portfolio-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .portfolio-card .category {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .portfolio-card .description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-card .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            margin-top: auto;
+        }
+
+        .portfolio-card .download-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* 荣誉展示 */
+        .honors-section {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+
+        .honors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .honor-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .honor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .honor-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .honor-overlay {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .honor-overlay::after {
+            content: '🔍 点击查看大图';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 157, 168, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .honor-card:hover .honor-overlay::after {
+            opacity: 1;
+        }
+
+        /* 图片模态框 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .image-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* 工作经历卡片 */
+        .experience-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .experience-item {
+            background: white;
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 32px;
+        }
+
+        .experience-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .experience-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .experience-header .company-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 12px;
+            flex: 1;
+            justify-content: flex-start;
+        }
+
+        .experience-header .period {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .experience-header .position {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .experience-header .phase-badge {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+        }
+
+        .nasdaq-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            margin-left: 8px;
+            vertical-align: middle;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .nasdaq-badge::before {
+            content: '📈';
+            font-size: 12px;
+        }
+
+        .experience-content .description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .experience-content .achievements {
+            margin-top: 20px;
+        }
+
+        .experience-content .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-content .achievements li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .experience-content .achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .phase-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        .phase-badge.tech {
+            background: #E8F5E9;
+            color: #4CAF50;
+        }
+
+        .phase-badge.business {
+            background: #FFF3E0;
+            color: #FF9800;
+        }
+
+        /* 技术栈展示 */
+        .tech-stack {
+            margin-top: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tags span {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--primary-color);
+        }
+
+        /* 作品展示 */
+        .works-toggle {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .works-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .works-section {
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .works-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .work-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .work-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .work-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-sm);
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 28px;
+        }
+
+        .work-info h5 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .work-info p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .work-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+
+        .work-tags span {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .work-stats {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        .work-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 12px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .work-link:hover {
+            color: var(--primary-dark);
+            transform: translateX(4px);
+        }
+
+        /* 教育背景 */
+        .education-card {
+            background: white;
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .education-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .education-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .education-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .education-info-item .label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .education-info-item .value {
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-left {
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero .subtitle {
+                font-size: 16px;
+            }
+
+            .hero-right {
+                padding: 24px;
+            }
+
+
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-practices-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .honors-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .honor-image {
+                height: 250px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-item {
+                padding: 24px;
+                margin-bottom: 24px;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .experience-header h3 {
+                font-size: 20px;
+            }
+
+            .experience-header .company-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* 打印样式 */
+        @media print {
+            .hero .actions {
+                display: none;
+            }
+
+            .works-toggle {
+                display: none;
+            }
+
+            .works-section {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>夏文勇</h1>
+                    <p class="subtitle">AI技术管理 & 业务运营 | 15年+技术架构经验 | 10年+业务运营经验</p>
+                    <div class="tags">
+                        <span class="tag">AI技术管理</span>
+                        <span class="tag">大模型应用</span>
+                        <span class="tag">智能运维</span>
+                        <span class="tag">业务运营</span>
+                    </div>
+                    <div class="actions">
+                        <a href="#contact" class="btn btn-outline">联系方式</a>
+                        <a href="个人简历.md" class="btn" download>下载简历</a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="hero-capability">
+                        <h3>核心能力</h3>
+                        <p>具备深厚的技术架构与业务理解能力，在AI技术应用、技术管理、团队建设、项目管理及业务运营方面拥有复合型实战经验。专注于大模型技术落地、智能运维平台建设与AI驱动业务增长。</p>
+                    </div>
+                    <div class="hero-capability" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                        <h3>自我评价</h3>
+                        <p style="font-style: italic;">行远自迩，笃行不怠。致力于成为具备AI思维的业务与技术融合推动者，在持续学习中实现价值创造。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI领域重点实践 -->
+    <section class="section" id="ai-practices">
+        <div class="container">
+            <h2 class="section-title">AI领域重点实践</h2>
+            <div class="ai-practices-grid">
+                <div class="ai-practice-card">
+                    <div class="ai-practice-icon">🎯</div>
+                    <h3>大模型智能运维产品规划与设计</h3>
+                    <p>主导从场景分析、技术选型到产品架构的全流程设计，构建基于大模型的运维知识管理、智能问答与根因分析能力。</p>
+                    <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="/xiawenyong/works/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E8%BF%90%E7%BB%B41.8.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                                <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                            </svg>
+                            大模型助力智能运维
+                        </a>
+                        <a href="/xiawenyong/works/%E6%99%BA%E8%83%BD%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                                <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                            </svg>
+                            智能运维平台产品设计方案
+                        </a>
+                    </div>
+                </div>
+                <div class="ai-practice-card">
+                    <div class="ai-practice-icon">🏦</div>
+                    <h3>金融AI项目落地</h3>
+                    <p>作为项目负责人，推动国信证券公司智能运维平台从0到1落地，实现运维工单自动分类、变更影响智能分析、故障自愈等AI能力建设。</p>
+                    <div style="margin-top: 16px;">
+                        <a href="/xiawenyong/works/%E5%9B%BD%E4%BF%A1%E8%BF%90%E7%BB%B4%E9%A2%86%E5%9F%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93%E9%98%B6%E6%AE%B5%E6%B1%87%E6%8A%A520250528.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                                <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                            </svg>
+                            国信运维领域大模型智能体阶段汇报
+                        </a>
+                    </div>
+                </div>
+                <div class="ai-practice-card">
+                    <div class="ai-practice-icon">🔬</div>
+                    <h3>深交所AI课题研究</h3>
+                    <p>主导申报并获批深交所两项AI课题：《基于大模型的智能变更影响审核与分析》《大模型驱动下的CMDB数据治理：打造企业运维数据新生态》。</p>
+                    <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="/xiawenyong/works/%E9%99%84%E4%BB%B62%EF%BC%9A%E8%AF%81%E5%88%B8%E6%9C%9F%E8%B4%A7%E4%B8%9A%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80%E7%A0%94%E7%A9%B6%E5%8F%91%E5%B1%95%E4%B8%AD%E5%BF%83%EF%BC%88%E6%B7%B1%E5%9C%B3%EF%BC%89%E8%AF%BE%E9%A2%98%E5%BE%81%E9%9B%86%E5%8F%8D%E9%A6%88%E8%A1%A8-%E5%8D%8E%E5%AE%89%E8%AF%81%E5%88%B8.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                                <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                            </svg>
+                            基于大模型的智能变更影响审核与分析
+                        </a>
+                        <a href="/xiawenyong/works/%E9%99%84%E4%BB%B62%EF%BC%9A%E8%AF%81%E5%88%B8%E6%9C%9F%E8%B4%A7%E4%B8%9A%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80%E7%A0%94%E7%A9%B6%E5%8F%91%E5%B1%95%E4%B8%AD%E5%BF%83%EF%BC%88%E6%B7%B1%E5%9C%B3%EF%BC%89%E8%AF%BE%E9%A2%98%E5%BE%81%E9%9B%86%E5%8F%8D%E9%A6%88%E8%A1%A8-%E5%B1%B1%E8%A5%BF%E8%AF%81%E5%88%B8.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                                <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                            </svg>
+                            大模型驱动下的CMDB数据治理
+                        </a>
+                    </div>
+                </div>
+                <div class="ai-practice-card">
+                    <div class="ai-practice-icon">📚</div>
+                    <h3>AI技术内容输出</h3>
+                    <p>撰写《与AI结对编程》系列专题，分享大模型在研发提效、系统设计中的实战经验。</p>
+                    <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+                        <a href="https://b23.tv/sVWvKjD" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                                <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                            </svg>
+                            观看B站视频合集
+                        </a>
+                        <a href="https://www.xintuxiangce.top/diary.html" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: var(--primary-color); text-decoration: none; font-size: 14px; font-weight: 500; padding: 6px 12px; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 2H14V14H2V2ZM3 3V13H13V3H3ZM5 5H11V6H5V5ZM5 7H11V8H5V7ZM5 9H11V10H5V9Z" fill="currentColor"/>
+                            </svg>
+                            访问芯图日记
+                        </a>
+                    </div>
+                </div>
+                <div class="ai-practice-card">
+                    <div class="ai-practice-icon">💻</div>
+                    <h3>AI应用开发实践</h3>
+                    <p>独立开发"芯图相册"项目，基于AI技术实现智能分类、检索与展示，代码规模超10万行。</p>
+                    <a href="https://www.xintuxiangce.top" target="_blank">访问网站 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section class="section" id="experience">
+        <div class="container">
+            <h2 class="section-title">工作经历</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">
+                15年+研发与架构经验，覆盖通信、高并发系统、在线教育及AI运维等领域<br>
+                10年+业务运营经验，擅长AI技术与业务场景结合，实现效率提升与商业增长
+            </p>
+
+            <div class="experience-list">
+                <!-- 优维科技 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>优维科技</h3>
+                        <div class="company-info">
+                            <span class="position">客制化部门负责人 / 高级技术总监</span>
+                            <span class="period">2021年9月 – 2025年7月</span>
+                            <span class="phase-badge business">业务实战</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <div class="description">
+                            构建AI驱动的定制化交付体系，通过流程优化与成本管控，实现非标业务盈利。
+                        </div>
+                        <div class="achievements">
+                            <ul>
+                                <li>主导多个金融行业AI运维项目落地，累计管理AI相关项目合同额超千万元</li>
+                                <li>国信证券智能运维平台：设计并落地基于大模型的运维知识库与智能诊断系统，提升故障处理效率30%以上</li>
+                                <li>深证通数字化运维平台、深交所CMDB建设项目、山东城商行联盟云智平台、贵阳银行一体化运维平台等</li>
+                                <li>具备从售前支持、方案设计到交付落地的全链路经验</li>
+                            </ul>
+                        </div>
+                        <button class="works-toggle" onclick="toggleWorks(this, 'works-1')">
+                            <span>查看关键作品</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="works-section" id="works-1">
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E8%BF%90%E7%BB%B41.8.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>大模型助力智能运维</span>
+                                    </a>
+                                </li>
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/%E6%99%BA%E8%83%BD%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>智能运维平台产品设计方案</span>
+                                    </a>
+                                </li>
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/%E5%9B%BD%E4%BF%A1%E8%BF%90%E7%BB%B4%E9%A2%86%E5%9F%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93%E9%98%B6%E6%AE%B5%E6%B1%87%E6%8A%A520250528.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>国信运维领域大模型智能体阶段汇报</span>
+                                    </a>
+                                </li>
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/%E9%99%84%E4%BB%B62%EF%BC%9A%E8%AF%81%E5%88%B8%E6%9C%9F%E8%B4%A7%E4%B8%9A%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80%E7%A0%94%E7%A9%B6%E5%8F%91%E5%B1%95%E4%B8%AD%E5%BF%83%EF%BC%88%E6%B7%B1%E5%9C%B3%EF%BC%89%E8%AF%BE%E9%A2%98%E5%BE%81%E9%9B%86%E5%8F%8D%E9%A6%88%E8%A1%A8-%E5%8D%8E%E5%AE%89%E8%AF%81%E5%88%B8.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>基于大模型的智能变更影响审核与分析</span>
+                                    </a>
+                                </li>
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/%E9%99%84%E4%BB%B62%EF%BC%9A%E8%AF%81%E5%88%B8%E6%9C%9F%E8%B4%A7%E4%B8%9A%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80%E7%A0%94%E7%A9%B6%E5%8F%91%E5%B1%95%E4%B8%AD%E5%BF%83%EF%BC%88%E6%B7%B1%E5%9C%B3%EF%BC%89%E8%AF%BE%E9%A2%98%E5%BE%81%E9%9B%86%E5%8F%8D%E9%A6%88%E8%A1%A8-%E5%B1%B1%E8%A5%BF%E8%AF%81%E5%88%B8.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>大模型驱动下的CMDB数据治理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 欢聚集团 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div style="width: 100%;">
+                            <h3>欢聚集团（YY.com）<span class="nasdaq-badge">NASDAQ: JOYY</span></h3>
+                            <div class="company-info">
+                                <span class="period">2011年7月 – 2021年9月</span>
+                            </div>
+                            <div style="margin-top: 8px; text-align: left; font-size: 16px; line-height: 1.8;">
+                                <span style="font-weight: 600; color: var(--text-primary);">副总经理（100教育 – 在线K12教育）</span>
+                                <span style="color: var(--text-secondary); margin: 0 8px;">|</span>
+                                <span style="color: var(--primary-color); font-size: 16px; font-weight: 600;">2016年 – 2021年</span>
+                                <span class="phase-badge business" style="display: inline-block; vertical-align: middle; margin-left: 8px;">业务实战</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <div class="description">
+                            全面负责100教育子公司的战略规划与日常运营，向集团CEO汇报。统筹管理市场、销售、售后、技术研发等部门，贯穿业务全链条。
+                        </div>
+                        <div class="achievements">
+                            <h4 style="font-size: 16px; font-weight: 600; color: var(--primary-color); margin: 20px 0 12px 0;">核心业绩</h4>
+                            <ul style="margin-bottom: 20px;">
+                                <li>主导运营策略调整与落地，带领业务实现扭亏为盈</li>
+                            </ul>
+                            <h4 style="font-size: 16px; font-weight: 600; color: var(--primary-color); margin: 20px 0 12px 0;">关键运营举措</h4>
+                            <ul>
+                                <li>优化线索表单，设计分级策略，联动CRM分配机制，提升线索转化率</li>
+                                <li>设计智能话术辅助系统，为销售提供基于学生类型的沟通指引</li>
+                                <li>推出公众号自助调课服务，降低服务成本，提升效率与用户体验</li>
+                            </ul>
+                        </div>
+                        <button class="works-toggle" onclick="toggleWorks(this, 'works-2')" style="margin-top: 20px;">
+                            <span>查看关键作品</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="works-section" id="works-2">
+                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/K12在线教育运营报告20180906.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>K12在线教育运营报告</span>
+                                    </a>
+                                </li>
+                                <li style="margin-bottom: 12px;">
+                                    <a href="/xiawenyong/works/2016年竞价推广工作总结-夏文勇.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                        <span>📄</span>
+                                        <span>2016年竞价推广工作总结</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+                            <div style="margin-top: 8px; text-align: left; font-size: 16px; line-height: 1.8; margin-bottom: 16px;">
+                                <span style="font-weight: 600; color: var(--text-primary);">研发总监（YY事业部）</span>
+                                <span style="color: var(--text-secondary); margin: 0 8px;">|</span>
+                                <span style="color: var(--primary-color); font-size: 16px; font-weight: 600;">2011年 – 2016年</span>
+                                <span class="phase-badge tech" style="display: inline-block; vertical-align: middle; margin-left: 8px;">技术深耕</span>
+                            </div>
+                            <div class="description">
+                                <div class="achievements">
+                                    <ul>
+                                        <li>从零设计并构建高可用账号及安全系统，支撑YY语音千万级峰值并发，系统可用性达99.99%，保持账号安全零事故</li>
+                                        <li>该系统成为集团核心基础设施，日均处理请求超10亿</li>
+                                        <li>荣获集团"年度优秀管理者"、"年度优秀员工"及"T4专家"等技术荣誉</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-stack">
+                                    <h4 style="font-size: 16px; font-weight: 600; color: var(--primary-color); margin: 24px 0 12px 0; padding-top: 20px; border-top: 2px solid var(--border-color);">技术栈</h4>
+                                    <div class="tech-tags">
+                                        <span>Linux</span>
+                                        <span>C/C++/Java</span>
+                                        <span>自研分布式框架（epoll+消息队列+传输）</span>
+                                        <span>Storm</span>
+                                        <span>Hive</span>
+                                        <span>HDFS</span>
+                                        <span>HBase</span>
+                                        <span>Kerberos</span>
+                                        <span>oAuth</span>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px; padding: 16px; background: var(--bg-light); border-radius: var(--radius-sm); border-left: 3px solid var(--primary-color);">
+                                    <p style="color: var(--text-secondary); font-size: 14px; margin: 0; font-style: italic;">
+                                        <strong>备注：</strong>该阶段的高并发、高性能、无状态业务架构与解耦设计思路，与后期流行的微服务理念高度吻合。
+                                    </p>
+                                </div>
+                                <button class="works-toggle" onclick="toggleWorks(this, 'works-3')" style="margin-top: 20px;">
+                                    <span>查看关键作品</span>
+                                    <span>▼</span>
+                                </button>
+                                <div class="works-section" id="works-3">
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 12px;">
+                                            <a href="/xiawenyong/works/YY账号平台技术历程0806.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                                <span>📄</span>
+                                                <span>YY账号平台技术历程</span>
+                                            </a>
+                                        </li>
+                                        <li style="margin-bottom: 12px;">
+                                            <a href="/xiawenyong/works/YY帐号平台简介20170224-传音.pdf" target="_blank" style="color: var(--primary-color); text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                                <span>📄</span>
+                                                <span>YY帐号平台简介</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UT斯达康 -->
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>UT斯达康（UTStarcom）<span class="nasdaq-badge">NASDAQ: UTSI</span></h3>
+                        <div class="company-info">
+                            <span class="position">研发经理</span>
+                            <span class="period">2001年11月 – 2011年6月</span>
+                            <span class="phase-badge tech" style="margin-left: 8px;">技术深耕</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <div class="description">
+                            <div class="achievements">
+                                <ul>
+                                    <li>主导设计并核心开发3G网络Common Agent Platform</li>
+                                    <li>负责Wi-Fi接入网关（WAG）产品研发，领导团队完成接入网关及终端驱动模块开发</li>
+                                    <li>实现Wi-Fi与3G/4G网络无缝切换技术，并在电信运营商中实现商用部署</li>
+                                    <li>所负责团队及研发成果被爱立信收购，协助爱立信在深圳设立研发中心</li>
+                                    <li>多次获得公司"年度优秀管理者"与"年度优秀员工"荣誉</li>
+                                </ul>
+                            </div>
+                            <div class="tech-stack">
+                                <h4 style="font-size: 16px; font-weight: 600; color: var(--primary-color); margin: 24px 0 12px 0; padding-top: 20px; border-top: 2px solid var(--border-color);">技术栈</h4>
+                                <div class="tech-tags">
+                                    <span>CompactPCI / ATCA嵌入式硬件</span>
+                                    <span>vxWorks / Linux / Android</span>
+                                    <span>Tornado IDE</span>
+                                    <span>C/C++</span>
+                                    <span>Epoll+有限状态机</span>
+                                    <span>SNMP</span>
+                                    <span>VoIP</span>
+                                    <span>IP/IPSEC</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">作品展示</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">
+                以下是我在不同阶段的重要作品，涵盖技术架构、产品设计、运营实践等多个方面
+            </p>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">📊</div>
+                    <h4>大模型助力智能运维</h4>
+                    <div class="category">AI技术 | 智能运维</div>
+                    <div class="description">基于大模型的智能运维平台设计方案，包含知识管理、智能问答、根因分析等核心能力。</div>
+                    <a href="/xiawenyong/works/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E8%BF%90%E7%BB%B41.8.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">🎯</div>
+                    <h4>智能运维平台产品设计方案</h4>
+                    <div class="category">产品设计 | 智能运维</div>
+                    <div class="description">智能运维平台完整产品设计方案，从场景分析到技术选型，再到产品架构的全流程设计。</div>
+                    <a href="/xiawenyong/works/%E6%99%BA%E8%83%BD%E8%BF%90%E7%BB%B4%E5%B9%B3%E5%8F%B0%E4%BA%A7%E5%93%81%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">🏦</div>
+                    <h4>国信运维领域大模型智能体阶段汇报</h4>
+                    <div class="category">项目落地 | 金融科技 | 国信证券</div>
+                    <div class="description">国信证券智能运维平台项目阶段汇报，展示基于大模型的运维知识库与智能诊断系统的落地成果，提升故障处理效率30%以上。</div>
+                    <a href="/xiawenyong/works/%E5%9B%BD%E4%BF%A1%E8%BF%90%E7%BB%B4%E9%A2%86%E5%9F%9F%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%99%BA%E8%83%BD%E4%BD%93%E9%98%B6%E6%AE%B5%E6%B1%87%E6%8A%A520250528.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">🏦</div>
+                    <h4>基于大模型的智能变更影响审核与分析</h4>
+                    <div class="category">课题研究 | 金融科技 | 华安证券</div>
+                    <div class="description">深交所AI课题研究，探索大模型在金融行业变更管理中的应用，实现智能化的变更影响分析与审核。</div>
+                    <a href="/xiawenyong/works/%E9%99%84%E4%BB%B62%EF%BC%9A%E8%AF%81%E5%88%B8%E6%9C%9F%E8%B4%A7%E4%B8%9A%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80%E7%A0%94%E7%A9%B6%E5%8F%91%E5%B1%95%E4%B8%AD%E5%BF%83%EF%BC%88%E6%B7%B1%E5%9C%B3%EF%BC%89%E8%AF%BE%E9%A2%98%E5%BE%81%E9%9B%86%E5%8F%8D%E9%A6%88%E8%A1%A8-%E5%8D%8E%E5%AE%89%E8%AF%81%E5%88%B8.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">🏦</div>
+                    <h4>大模型驱动下的CMDB数据治理</h4>
+                    <div class="category">课题研究 | 金融科技 | 山西证券</div>
+                    <div class="description">深交所AI课题研究，探索大模型在CMDB数据治理中的应用，打造企业运维数据新生态。</div>
+                    <a href="/xiawenyong/works/%E9%99%84%E4%BB%B62%EF%BC%9A%E8%AF%81%E5%88%B8%E6%9C%9F%E8%B4%A7%E4%B8%9A%E9%87%91%E8%9E%8D%E7%A7%91%E6%8A%80%E7%A0%94%E7%A9%B6%E5%8F%91%E5%B1%95%E4%B8%AD%E5%BF%83%EF%BC%88%E6%B7%B1%E5%9C%B3%EF%BC%89%E8%AF%BE%E9%A2%98%E5%BE%81%E9%9B%86%E5%8F%8D%E9%A6%88%E8%A1%A8-%E5%B1%B1%E8%A5%BF%E8%AF%81%E5%88%B8.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">🔐</div>
+                    <h4>YY账号平台技术历程</h4>
+                    <div class="category">技术架构 | 高并发系统</div>
+                    <div class="description">从零构建千万级高并发账号与安全系统的技术历程，包含架构设计、技术选型、性能优化等。</div>
+                    <a href="/xiawenyong/works/YY账号平台技术历程0806.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">📱</div>
+                    <h4>YY帐号平台简介</h4>
+                    <div class="category">技术架构 | 系统设计</div>
+                    <div class="description">YY账号平台系统简介，展示高可用、无状态、解耦的技术架构设计。</div>
+                    <a href="/xiawenyong/works/YY帐号平台简介20170224-传音.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">📈</div>
+                    <h4>K12在线教育运营报告</h4>
+                    <div class="category">业务运营 | 在线教育</div>
+                    <div class="description">100教育K12在线教育运营报告，包含运营策略、数据分析、业务增长等关键内容。</div>
+                    <a href="/xiawenyong/works/K12在线教育运营报告20180906.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-icon">💼</div>
+                    <h4>2016年竞价推广工作总结</h4>
+                    <div class="category">业务运营 | 营销推广</div>
+                    <div class="description">100教育竞价推广工作总结，包含推广策略、数据分析、效果评估等运营实践。</div>
+                    <a href="/xiawenyong/works/2016年竞价推广工作总结-夏文勇.pdf" target="_blank" class="download-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 11L3 6H6V1H10V6H13L8 11Z" fill="currentColor"/>
+                            <path d="M1 13V15H15V13H16V15C16 16.1 15.1 17 14 17H2C0.9 17 0 16.1 0 15V13H1Z" fill="currentColor"/>
+                        </svg>
+                        查看PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 过去的荣誉展示 -->
+    <section class="honors-section" id="honors">
+        <div class="container">
+            <h2 class="section-title">过去的荣誉</h2>
+            <div class="honors-grid">
+                <div class="honor-card" onclick="openImageModal('https://www.xintuxiangce.top/xiawenyong/UT-1.png')">
+                    <div class="honor-overlay">
+                        <img src="https://www.xintuxiangce.top/xiawenyong/UT-1.png" alt="荣誉证书" class="honor-image" onerror="this.onerror=null; this.src='/xiawenyong/UT-1.png';">
+                    </div>
+                </div>
+                <div class="honor-card" onclick="openImageModal('https://www.xintuxiangce.top/xiawenyong/YY_1.jpg')">
+                    <div class="honor-overlay">
+                        <img src="https://www.xintuxiangce.top/xiawenyong/YY_1.jpg" alt="荣誉证书" class="honor-image" onerror="this.onerror=null; this.src='/xiawenyong/YY_1.jpg';">
+                    </div>
+                </div>
+                <div class="honor-card" onclick="openImageModal('https://www.xintuxiangce.top/xiawenyong/YY_2.jpg')">
+                    <div class="honor-overlay">
+                        <img src="https://www.xintuxiangce.top/xiawenyong/YY_2.jpg" alt="荣誉证书" class="honor-image" onerror="this.onerror=null; this.src='/xiawenyong/YY_2.jpg';">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 图片模态框 -->
+    <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+        <span class="image-modal-close" onclick="closeImageModal(event)">&times;</span>
+        <img class="image-modal-content" id="modalImage" src="" alt="荣誉证书">
+    </div>
+
+    <!-- 联系方式 -->
+    <section class="section" id="contact" style="background: var(--primary-color); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title" style="color: white;">联系方式</h2>
+            <p style="font-size: 18px; margin-bottom: 20px;">期待与您交流合作</p>
+            <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+                <div>
+                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 4px;">邮箱</div>
+                    <div style="font-weight: 600;">xiawenyong@xintuxiangce.top</div>
+                </div>
+                <div>
+                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 4px;">电话</div>
+                    <div style="font-weight: 600;">18688445211</div>
+                </div>
+                <div>
+                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 4px;">个人作品</div>
+                    <div style="font-weight: 600;"><a href="https://www.xintuxiangce.top" target="_blank" style="color: white; text-decoration: underline;">芯图相册</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleWorks(button, worksId) {
+            const worksSection = document.getElementById(worksId);
+            const isActive = worksSection.classList.contains('active');
+            
+            if (isActive) {
+                worksSection.classList.remove('active');
+                button.querySelector('span:last-child').textContent = '▼';
+            } else {
+                worksSection.classList.add('active');
+                button.querySelector('span:last-child').textContent = '▲';
+            }
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 图片模态框功能
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = imageSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        function closeImageModal(event) {
+            if (event) {
+                event.stopPropagation(); // 防止点击图片时关闭
+            }
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // 恢复滚动
+        }
+
+        // 点击模态框背景关闭
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
+</body>
+</html>
+

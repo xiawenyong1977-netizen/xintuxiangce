@@ -251,6 +251,64 @@
       "category": "研发经验",
       "cover": "/assets/diary/ai-program/cover.jpg",
       "related": ["ai-pair-program-intro", "video-004", "video-005", "video-006", "async-arch"]
+    },
+    {
+      "id": "ai-pair-tools",
+      "type": "article",
+      "title": "AI结对编程实战指南｜工具篇进阶：从\"问问题\"到\"下指令\"",
+      "description": "真正的高手，从不问AI\"能不能\"，而是告诉它\"怎么做\"。深入第一阶——工具篇，教你如何从\"问问题\"转变为\"下指令\"，掌握AI结对编程的核心协作方式。",
+      "content": "diary/工具篇.md",
+      "author": "芯图团队",
+      "date": "2025-12-12",
+      "tags": ["AI", "结对编程", "AI协作", "提示词工程", "工具篇", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "readTime": "12分钟",
+      "related": ["ai-pair-program-intro", "ai-prompt-library", "arch-pe", "video-004", "video-005", "video-006"]
+    },
+    {
+      "id": "ai-prompt-library",
+      "type": "article",
+      "title": "AI结对编程实战提示词库（完整50+模板）",
+      "description": "精心设计的提示词不是魔法咒语，而是精确的工程指令。包含60个经过验证的工程化提示词模板，覆盖需求设计、编码实现、测试质量、调试优化、部署运维等全流程。",
+      "content": "diary/AI结对编程实战提示词库.md",
+      "author": "芯图团队",
+      "date": "2025-12-12",
+      "tags": ["AI", "结对编程", "AI协作", "提示词工程", "模板库", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "readTime": "25分钟",
+      "related": ["ai-pair-tools", "ai-pair-program-intro", "arch-pe", "video-004", "video-005", "video-006"]
+    },
+    {
+      "id": "video-010",
+      "type": "video",
+      "title": "与AI结对编程-技术地图：初代王者，Epoll+状态机的荣光与复杂",
+      "description": "深入探讨Epoll和状态机在高并发场景下的核心价值，理解初代高并发技术的设计思想与实现细节，以及它们如何成为系统性能提升的关键技术。",
+      "videoUrl": "https://www.bilibili.com/video/BV1Mr2kBEE8L",
+      "videoPlatform": "bilibili",
+      "duration": "4:02",
+      "author": "芯图团队",
+      "date": "2025-12-12",
+      "tags": ["AI", "研发经验", "AI协作", "结对编程", "Epoll", "状态机", "高并发", "技术地图", "系统架构"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["ai-pair-program-intro", "video-008", "video-009", "async-arch"]
+    },
+    {
+      "id": "video-011",
+      "type": "video",
+      "title": "与AI结对编程-技术地图：智能的起点，感知机的诞生与困境",
+      "description": "追溯人工智能的起源，深入理解感知机的诞生背景、工作原理及其局限性，探索从感知机到现代深度学习的演进历程。",
+      "videoUrl": "https://www.bilibili.com/video/BV1FGmGBSENu",
+      "videoPlatform": "bilibili",
+      "duration": "4:31",
+      "author": "芯图团队",
+      "date": "2025-12-12",
+      "tags": ["AI", "研发经验", "AI协作", "结对编程", "感知机", "机器学习", "技术地图", "人工智能"],
+      "category": "研发经验",
+      "cover": "/assets/diary/ai-program/cover.jpg",
+      "related": ["ai-pair-program-intro", "video-010", "ai-roadmap"]
     }
   ]
 }

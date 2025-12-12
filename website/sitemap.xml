@@ -215,4 +215,36 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/ai-pair-tools.html</loc>
+        <lastmod>2025-12-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记文章 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/ai-prompt-library.html</loc>
+        <lastmod>2025-12-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记视频 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/video-010.html</loc>
+        <lastmod>2025-12-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图日记视频 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/video-011.html</loc>
+        <lastmod>2025-12-12</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>
