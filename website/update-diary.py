@@ -49,6 +49,30 @@ def format_date(date_str):
     except:
         return date_str
 
+def escape_json_string(text):
+    """
+    转义JSON字符串中的特殊字符
+    只转义JSON规范要求的特殊字符，中文引号等Unicode字符不需要转义
+    """
+    if not text:
+        return ''
+    
+    # 将文本转换为字符串
+    text = str(text)
+    
+    # 转义反斜杠（必须在其他转义之前）
+    text = text.replace('\\', '\\\\')
+    
+    # 只转义英文双引号（中文引号是普通Unicode字符，不需要转义）
+    text = text.replace('"', '\\"')
+    
+    # 转义其他JSON特殊字符
+    text = text.replace('\n', '\\n')
+    text = text.replace('\r', '\\r')
+    text = text.replace('\t', '\\t')
+    
+    return text
+
 def generate_article_page(article, template_path, all_articles=None):
     """生成文章详情页"""
     # 读取模板
@@ -153,11 +177,43 @@ def generate_article_page(article, template_path, all_articles=None):
         # 如果没有相关文章，移除整个条件块
         template = re.sub(r'\{\{#RELATED\}\}.*?\{\{/RELATED\}\}', '', template, flags=re.DOTALL)
     
-    # 执行其他替换
-    html = template
+    # 先处理JSON-LD中的占位符（需要转义）
+    # 找到所有JSON-LD脚本块并单独处理
+    def replace_json_ld_placeholders(match):
+        """替换JSON-LD脚本块中的占位符，并对字符串值进行转义"""
+        json_content = match.group(1)
+        
+        # 转义标题和描述（这些会出现在JSON字符串值中）
+        escaped_title = escape_json_string(article.get('title', ''))
+        escaped_description = escape_json_string(article.get('description', ''))
+        
+        # 替换占位符
+        json_content = json_content.replace('{{TITLE}}', escaped_title)
+        json_content = json_content.replace('{{DESCRIPTION}}', escaped_description)
+        json_content = json_content.replace('{{COVER}}', article.get('cover', '/icons/imageclassify.png'))
+        json_content = json_content.replace('{{DATE}}', format_date(article.get('date', '')))
+        json_content = json_content.replace('{{ID}}', article.get('id', ''))
+        
+        return f'<script type="application/ld+json">\n    {json_content}\n    </script>'
+    
+    # 替换JSON-LD脚本块中的占位符
+    html = re.sub(
+        r'<script type="application/ld\+json">\s*(.*?)\s*</script>',
+        replace_json_ld_placeholders,
+        template,
+        flags=re.DOTALL
+    )
+    
+    # 执行其他替换（HTML属性中的占位符不需要转义，HTML会自动处理）
     for key, value in replacements.items():
         if key not in ['{{#COVER}}', '{{/COVER}}', '{{#TAGS}}', '{{/TAGS}}', '{{#RELATED}}', '{{/RELATED}}', '{{RELATED_ITEMS}}']:  # 已处理的占位符
-            html = html.replace(key, str(value))
+            # HTML属性中的值需要转义HTML特殊字符
+            if key in ['{{TITLE}}', '{{DESCRIPTION}}']:
+                # 转义HTML特殊字符（但不转义JSON，因为JSON-LD已经单独处理了）
+                html_value = str(value).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+                html = html.replace(key, html_value)
+            else:
+                html = html.replace(key, str(value))
     
     return html
 
