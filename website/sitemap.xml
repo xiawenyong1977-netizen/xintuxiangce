@@ -80,6 +80,14 @@
         <priority>0.8</priority>
     </url>
     
+    <!-- 照片分类工具推荐 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/photo-classification-tools.html</loc>
+        <lastmod>2025-12-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- 常见问题 -->
     <url>
         <loc>https://www.xintuxiangce.top/faq.html</loc>

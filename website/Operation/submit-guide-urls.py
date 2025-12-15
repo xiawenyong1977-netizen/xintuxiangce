@@ -39,7 +39,8 @@ NEW_GUIDE_URLS = [
     "https://www.xintuxiangce.top/guides/multidimensional-classification.html",
     "https://www.xintuxiangce.top/guides/smart-classification.html",
     "https://www.xintuxiangce.top/guides/photo-formats.html",
-    "https://www.xintuxiangce.top/guides/photo-classification-complete-guide.html"
+    "https://www.xintuxiangce.top/guides/photo-classification-complete-guide.html",
+    "https://www.xintuxiangce.top/guides/photo-classification-tools.html"
 ]
 
 # 使用指南列表页
