@@ -26,32 +26,56 @@
     
     <!-- 快速入门指南 -->
     <url>
-        <loc>https://www.xintuxiangce.top/guide-quick-start.html</loc>
-        <lastmod>2025-01-13</lastmod>
+        <loc>https://www.xintuxiangce.top/guides/quick-start.html</loc>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- 权限设置说明 -->
     <url>
-        <loc>https://www.xintuxiangce.top/guide-permissions.html</loc>
-        <lastmod>2025-01-13</lastmod>
+        <loc>https://www.xintuxiangce.top/guides/permissions.html</loc>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- 快速清理指南 -->
     <url>
-        <loc>https://www.xintuxiangce.top/guide-cleanup.html</loc>
-        <lastmod>2025-01-13</lastmod>
+        <loc>https://www.xintuxiangce.top/guides/cleanup.html</loc>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <!-- 多维度分类功能指南 -->
     <url>
-        <loc>https://www.xintuxiangce.top/guide-multidimensional-classification.html</loc>
-        <lastmod>2025-12-05</lastmod>
+        <loc>https://www.xintuxiangce.top/guides/multidimensional-classification.html</loc>
+        <lastmod>2025-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 智能分类功能详解 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/smart-classification.html</loc>
+        <lastmod>2025-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 照片格式分类指南 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/photo-formats.html</loc>
+        <lastmod>2025-12-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 照片分类完全指南 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/photo-classification-complete-guide.html</loc>
+        <lastmod>2025-12-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>{{TITLE}} | 使用指南</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <meta name="keywords" content="{{TAGS}}">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/{{ID}}.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:image" content="{{COVER}}">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/{{ID}}.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{TITLE}}",
+        "description": "{{DESCRIPTION}}",
+        "image": "{{COVER}}",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "{{DATE}}",
+        "dateModified": "{{DATE}}"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{TITLE}}",
+                "item": "https://www.xintuxiangce.top/guides/{{ID}}.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        {{#RELATED}}
+        .related-articles {
+            max-width: 900px;
+            margin: 30px auto 40px;
+            padding: 40px 24px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        {{/RELATED}}
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>{{TITLE}}</h1>
+                <div class="article-meta">
+                    <span>📅 {{DATE}}</span>
+                    <span>✍️ {{AUTHOR}}</span>
+                    <span>⏱️ {{READTIME}}</span>
+                </div>
+                {{#COVER}}
+                <img src="{{COVER}}" alt="{{TITLE}}" class="article-cover">
+                {{/COVER}}
+            </header>
+            
+            <article class="article-body">
+                {{CONTENT}}
+            </article>
+            
+            {{#TAGS}}
+            <div class="article-content">
+                <div class="article-tags">
+                    <!-- 标签会在这里自动生成 -->
+                </div>
+            </div>
+            {{/TAGS}}
+            
+            {{#RELATED}}
+            <div class="related-articles">
+                <h2>相关文章</h2>
+                <div class="related-articles-grid">
+                    {{RELATED_ITEMS}}
+                </div>
+            </div>
+            {{/RELATED}}
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

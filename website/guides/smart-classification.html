@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>芯图相册智能分类功能介绍：一键实现照片的8个维度分类 | 使用指南</title>
+    <meta name="description" content="详细介绍芯图相册的智能分类功能：一键扫描即可自动完成照片分类，支持8大分类维度（内容、城市、颜色、存储、格式、分辨率、方向、相似组）。系统自动完成信息搜集、分类查询、智能识别、本地推理、相似度检测，90%+准确率，让照片管理更简单高效。">
+    <meta name="keywords" content="智能分类, AI技术, 分类流程, 技术原理">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/smart-classification.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="芯图相册智能分类功能介绍：一键实现照片的8个维度分类">
+    <meta property="og:description" content="详细介绍芯图相册的智能分类功能：一键扫描即可自动完成照片分类，支持8大分类维度（内容、城市、颜色、存储、格式、分辨率、方向、相似组）。系统自动完成信息搜集、分类查询、智能识别、本地推理、相似度检测，90%+准确率，让照片管理更简单高效。">
+    <meta property="og:image" content="/assets/Screenshots/PC/芯图相册-首页：按内容，城市，颜色，存储，分辨率，格式，方向，相似度分类.jpg">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/smart-classification.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册智能分类功能介绍：一键实现照片的8个维度分类",
+        "description": "详细介绍芯图相册的智能分类功能：一键扫描即可自动完成照片分类，支持8大分类维度（内容、城市、颜色、存储、格式、分辨率、方向、相似组）。系统自动完成信息搜集、分类查询、智能识别、本地推理、相似度检测，90%+准确率，让照片管理更简单高效。",
+        "image": "/assets/Screenshots/PC/芯图相册-首页：按内容，城市，颜色，存储，分辨率，格式，方向，相似度分类.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025年12月14日",
+        "dateModified": "2025年12月14日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "芯图相册智能分类功能介绍：一键实现照片的8个维度分类",
+                "item": "https://www.xintuxiangce.top/guides/smart-classification.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>芯图相册智能分类功能介绍：一键实现照片的8个维度分类</h1>
+                <div class="article-meta">
+                    <span>📅 2025年12月14日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 20分钟</span>
+                </div>
+                <img src="/assets/Screenshots/PC/芯图相册-首页：按内容，城市，颜色，存储，分辨率，格式，方向，相似度分类.jpg" alt="芯图相册智能分类功能介绍：一键实现照片的8个维度分类" class="article-cover">
+            </header>
+            
+            <article class="article-body">
+                <h2>📋 概述</h2>
+<p>芯图相册是一款基于AI技术的智能照片管理工具，通过创新的智能分类功能，让照片整理从"手动筛选"变为"自动分类"。<strong>您只需点击扫描按钮，系统会自动完成所有分类工作</strong>，无需任何手动操作。系统内部通过五个自动化步骤，结合本地算法和云端AI技术，自动完成数万张照片的智能分类，帮助您快速找到需要的照片，释放存储空间。</p>
+<h2>🚀 操作简单，一键启动</h2>
+<p>使用芯图相册进行照片分类非常简单：</p>
+<p>1. <strong>安装应用</strong>：下载并安装芯图相册（支持Windows和Android）</p>
+<p>2. <strong>进入首页</strong>：打开应用，进入主界面</p>
+<p>3. <strong>点击扫描</strong>：点击扫描按钮，启动智能分类流程</p>
+<p>4. <strong>自动完成</strong>：应用自动完成所有分类工作，无需人工干预</p>
+<p>整个过程无需任何技术背景，即使是初次使用的用户也能轻松上手。</p>
+<img src="/assets/Screenshots/PC/芯图相册-首页：按内容，城市，颜色，存储，分辨率，格式，方向，相似度分类.jpg" alt="芯图相册首页" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图1：芯图相册首页 - 展示8大分类维度（PC端）*</p>
+<h2>🔄 智能分类功能详解（系统自动完成）</h2>
+<p>当您点击扫描按钮后，芯图相册会在后台自动执行以下五个步骤，整个过程完全自动化，无需您进行任何操作。了解这些步骤，可以帮助您更好地理解智能分类功能的工作原理：</p>
+<h3>第一步：照片信息搜集</h3>
+<p><strong>功能描述</strong>：在扫描照片时，系统首先收集照片的基础信息（EXIF数据、文件属性等），并根据这些信息完成基础分类。</p>
+<p><strong>分类维度</strong>：</p>
+<ul>
+<li><strong>按城市分类</strong>：根据照片EXIF信息中的GPS坐标，自动识别拍摄城市，按地点归类旅行回忆</li>
+<li><strong>按格式分类</strong>：识别照片文件格式（JPEG、PNG、HEIC、WEBP等），方便按技术需求管理</li>
+<li><strong>按目录分类</strong>：根据照片存储位置（文件夹路径）分类，便于按来源或项目管理</li>
+<li><strong>按方向分类</strong>：识别照片宽高比（横屏、竖屏、全景、正方形），适合按用途整理</li>
+<li><strong>按分辨率分类</strong>：识别照片分辨率（4K、1080p、720p等），按画质要求筛选</li>
+</ul>
+<p><strong>技术特点</strong>：</p>
+<ul>
+<li>完全本地处理，无需联网</li>
+<li>处理速度快，几乎实时完成</li>
+<li>保护隐私，不上传任何数据</li>
+</ul>
+<img src="/assets/Screenshots/PC/按时间轴浏览分类.png" alt="按时间轴浏览分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图2：按时间轴浏览分类照片 - 支持多维度分类浏览*</p>
+<h3>第二步：分类查询</h3>
+<p><strong>功能描述</strong>：系统根据图像的Hash特征（图像指纹），向服务器查询是否已有该图片的内容分类和颜色分类标签。</p>
+<p><strong>工作流程</strong>：</p>
+<p>1. 计算照片的Hash特征值</p>
+<p>2. 向服务器发送查询请求</p>
+<p>3. 如果服务器有缓存结果，快速返回分类标签</p>
+<p>4. 如果没有缓存，进入下一步智能识别</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li><strong>快速响应</strong>：对于重复或相似照片，无需重复识别，直接使用缓存结果</li>
+<li><strong>节省资源</strong>：减少大模型API调用，降低使用成本</li>
+<li><strong>提高效率</strong>：大幅缩短分类时间，特别是对于大量相似照片的场景</li>
+</ul>
+<h3>第三步：智能识别</h3>
+<p><strong>功能描述</strong>：将照片压缩后，安全传输给云端大模型，进行内容分类和颜色分类。</p>
+<p><strong>分类内容</strong>：</p>
+<p><strong>内容分类</strong>（9大类别）：</p>
+<ul>
+<li>📱 手机截图</li>
+<li>🔲 二维码</li>
+<li>🪪 证件照片</li>
+<li>👤 单人照</li>
+<li>👥 社交活动（多人照）</li>
+<li>🏞️ 旅行风景</li>
+<li>🍔 美食记录</li>
+<li>🐱 宠物萌照</li>
+<li>📷 其它</li>
+</ul>
+<p><strong>颜色分类</strong>（7大色系）：</p>
+<ul>
+<li>🔴 红色系</li>
+<li>🟠 橙色系</li>
+<li>🟡 黄色系</li>
+<li>🟢 绿色系</li>
+<li>🔵 蓝色系</li>
+<li>🟣 紫色系</li>
+<li>⚫ 黑白灰</li>
+</ul>
+<p><strong>技术特点</strong>：</p>
+<ul>
+<li><strong>高准确率</strong>：基于先进的AI大模型技术，分类准确率达到90%以上</li>
+<li><strong>隐私保护</strong>：照片压缩后传输，处理结果保存在本地，原始照片服务器不存储</li>
+<li><strong>智能理解</strong>：能够理解照片的语义内容，而不仅仅是简单的图像识别</li>
+</ul>
+<h3>第四步：本地推理</h3>
+<p><strong>功能描述</strong>：如果大模型未能成功完成分类（网络问题、API限制、特殊照片等），系统自动切换到本地神经网络模型进行补充识别。</p>
+<p><strong>触发条件</strong>：</p>
+<ul>
+<li>网络连接不稳定</li>
+<li>大模型API调用失败</li>
+<li>照片格式特殊，大模型无法识别</li>
+<li>用户选择离线模式</li>
+</ul>
+<p><strong>技术优势</strong>：</p>
+<ul>
+<li><strong>离线可用</strong>：完全本地处理，无需联网</li>
+<li><strong>隐私安全</strong>：所有处理都在本地完成，不上传任何数据</li>
+<li><strong>补充保障</strong>：确保即使大模型失败，也能完成基本分类</li>
+</ul>
+<p><strong>分类能力</strong>：</p>
+<ul>
+<li>物体检测：识别照片中的主要物体</li>
+<li>场景识别：识别照片的拍摄场景</li>
+<li>基础分类：完成基本的照片分类</li>
+</ul>
+<h3>第五步：相似度检测</h3>
+<p><strong>功能描述</strong>：根据照片的基础信息（拍摄时间、文件大小）或图像特征（颜色直方图），对照片按时间窗口进行相似度检测，识别重复或相似照片。</p>
+<p><strong>检测方法</strong>：</p>
+<ul>
+<li><strong>时间窗口</strong>：将拍摄时间接近的照片分组</li>
+<li><strong>颜色直方图</strong>：比较照片的颜色分布特征</li>
+<li><strong>文件大小</strong>：相似大小的照片可能相似</li>
+<li><strong>Hash特征</strong>：精确识别完全相同的照片</li>
+</ul>
+<p><strong>应用场景</strong>：</p>
+<ul>
+<li><strong>连拍照片</strong>：识别同一场景的连拍照片</li>
+<li><strong>重复照片</strong>：找出完全重复的照片</li>
+<li><strong>相似照片</strong>：识别内容相似的照片组</li>
+</ul>
+<p><strong>使用价值</strong>：</p>
+<ul>
+<li>快速清理重复照片，释放存储空间</li>
+<li>保留最佳照片，删除相似照片</li>
+<li>整理连拍照片，选择最满意的一张</li>
+</ul>
+<img src="/assets/Screenshots/PC/相似照片检测.png" alt="相似照片检测" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图3：相似照片检测 - 自动识别重复和相似照片*</p>
+<h2>⏱️ 分类性能</h2>
+<h3>处理速度</h3>
+<p>根据实际测试，芯图相册的分类速度与照片数量相关：</p>
+<ul>
+<li><strong>1万张照片</strong>：约30-50分钟</li>
+<li><strong>5万张照片</strong>：约2-4小时</li>
+<li><strong>10万张照片</strong>：约4-8小时</li>
+</ul>
+<p><strong>影响因素</strong>：</p>
+<ul>
+<li>照片数量</li>
+<li>网络速度（影响大模型API调用）</li>
+<li>服务器响应速度（影响分类查询）</li>
+<li>本地计算能力（影响本地推理）</li>
+</ul>
+<h3>优化建议</h3>
+<ul>
+<li><strong>网络环境</strong>：建议在稳定的网络环境下使用，以获得最佳的大模型识别效果</li>
+<li><strong>分批处理</strong>：对于超大量照片，可以分批扫描，避免一次性处理过多照片</li>
+<li><strong>会员权益</strong>：开通会员后，可以无限制扫描和分类所有照片</li>
+</ul>
+<h2>⚙️ 个性化设置</h2>
+<h3>自定义分类显示</h3>
+<p>在设置页面，您可以根据自己的需求，控制首页显示哪些分类维度：</p>
+<p><strong>可配置的分类维度</strong>：</p>
+<ul>
+<li>✅ 按内容分类（AI分类）</li>
+<li>✅ 按城市分类（本地算法）</li>
+<li>✅ 按颜色分类（AI分类）</li>
+<li>✅ 按存储分类（本地算法）</li>
+<li>✅ 按格式分类（本地算法）</li>
+<li>✅ 按分辨率分类（本地算法）</li>
+<li>✅ 按方向分类（本地算法）</li>
+<li>✅ 相似组分类（本地算法）</li>
+</ul>
+<p><strong>设置方法</strong>：</p>
+<p>1. 进入应用设置页面</p>
+<p>2. 找到"分类显示设置"</p>
+<p>3. 勾选需要显示的分类维度</p>
+<p>4. 保存设置，首页将只显示选中的分类</p>
+<img src="/assets/Screenshots/PC/设置页面.png" alt="设置页面" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图4：设置页面 - 可自定义显示分类维度和照片目录*</p>
+<p><strong>使用建议</strong>：</p>
+<ul>
+<li>根据使用习惯选择最常用的分类维度</li>
+<li>避免选择过多分类，保持界面简洁</li>
+<li>可以随时调整，不影响已分类的数据</li>
+</ul>
+<h2>🆚 与其他相册软件的差异</h2>
+<h3>1. 分类技术架构</h3>
+<p><strong>芯图相册</strong>：</p>
+<ul>
+<li>✅ 五步智能流程，结合本地算法和云端AI</li>
+<li>✅ 多维度分类（8大分类维度）</li>
+<li>✅ 本地+云端混合处理，兼顾速度和准确率</li>
+<li>✅ 智能缓存机制，避免重复识别</li>
+</ul>
+<p><strong>传统相册软件</strong>：</p>
+<ul>
+<li>❌ 单一分类方式（通常只有时间或文件夹）</li>
+<li>❌ 缺乏AI智能识别</li>
+<li>❌ 需要手动整理和分类</li>
+<li>❌ 无法理解照片内容</li>
+</ul>
+<h3>2. 分类准确率</h3>
+<p><strong>芯图相册</strong>：</p>
+<ul>
+<li>✅ AI大模型识别，准确率90%+</li>
+<li>✅ 本地算法补充，确保分类完成</li>
+<li>✅ 多维度交叉验证，提高准确性</li>
+</ul>
+<p><strong>传统相册软件</strong>：</p>
+<ul>
+<li>❌ 仅基于文件信息，无法理解内容</li>
+<li>❌ 准确率低，需要大量手动调整</li>
+<li>❌ 无法识别照片语义内容</li>
+</ul>
+<h3>3. 隐私保护</h3>
+<p><strong>芯图相册</strong>：</p>
+<ul>
+<li>✅ 本地算法完全本地处理</li>
+<li>✅ 大模型处理结果保存在本地</li>
+<li>✅ 原始照片服务器不存储</li>
+<li>✅ 支持完全离线模式</li>
+</ul>
+<p><strong>传统相册软件</strong>：</p>
+<ul>
+<li>⚠️ 部分软件需要上传照片到云端</li>
+<li>⚠️ 隐私保护程度不一</li>
+<li>⚠️ 离线功能有限</li>
+</ul>
+<h3>4. 分类维度</h3>
+<p><strong>芯图相册</strong>：</p>
+<ul>
+<li>✅ 8大分类维度（内容、城市、颜色、存储、格式、分辨率、方向、相似组）</li>
+<li>✅ AI智能分类 + 本地算法分类</li>
+<li>✅ 支持多维度组合查询</li>
+</ul>
+<p><strong>传统相册软件</strong>：</p>
+<ul>
+<li>❌ 通常只有时间、文件夹等基础分类</li>
+<li>❌ 缺乏智能分类维度</li>
+<li>❌ 无法按内容、颜色等智能分类</li>
+</ul>
+<h3>5. 处理效率</h3>
+<p><strong>芯图相册</strong>：</p>
+<ul>
+<li>✅ 智能缓存机制，避免重复识别</li>
+<li>✅ 本地算法快速处理基础分类</li>
+<li>✅ 批量处理，一次扫描完成所有分类</li>
+</ul>
+<p><strong>传统相册软件</strong>：</p>
+<ul>
+<li>❌ 需要逐个手动分类</li>
+<li>❌ 处理效率低</li>
+<li>❌ 无法批量智能处理</li>
+</ul>
+<h3>6. 用户体验</h3>
+<p><strong>芯图相册</strong>：</p>
+<ul>
+<li>✅ 一键启动，自动完成</li>
+<li>✅ 无需技术背景，简单易用</li>
+<li>✅ 个性化设置，灵活配置</li>
+</ul>
+<p><strong>传统相册软件</strong>：</p>
+<ul>
+<li>❌ 需要学习使用</li>
+<li>❌ 操作复杂</li>
+<li>❌ 自定义选项有限</li>
+</ul>
+<h2>💡 使用建议</h2>
+<h3>首次使用</h3>
+<p>1. <strong>设置照片目录</strong>：在设置页面配置要扫描的照片目录</p>
+<p>2. <strong>选择分类维度</strong>：根据需求选择要显示的分类维度</p>
+<p>3. <strong>开始扫描</strong>：点击扫描按钮，等待分类完成</p>
+<p>4. <strong>查看结果</strong>：在首页查看各个分类的结果</p>
+<h3>日常使用</h3>
+<p>1. <strong>定期扫描</strong>：建议每月扫描一次，保持分类最新</p>
+<p>2. <strong>清理照片</strong>：利用相似组分类，定期清理重复照片</p>
+<p>3. <strong>查找照片</strong>：使用多维度分类，快速找到需要的照片</p>
+<p>4. <strong>调整设置</strong>：根据使用习惯，随时调整分类显示设置</p>
+<img src="/assets/Screenshots/PC/分类区批量操作.png" alt="分类区批量操作" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图5：分类区批量操作 - 支持多选照片进行批量处理*</p>
+<img src="/assets/Screenshots/PC/暂存箱浏览.png" alt="暂存箱浏览" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图6：暂存箱功能 - 安全管理待删除或待处理的照片*</p>
+<h3>高级技巧</h3>
+<p>1. <strong>组合查询</strong>：使用多个分类维度组合，精确定位照片</p>
+<p>2. <strong>批量操作</strong>：在分类页面进行批量操作，提高效率</p>
+<p>3. <strong>离线模式</strong>：网络不稳定时，使用离线模式完成基本分类</p>
+<p>4. <strong>会员权益</strong>：开通会员，享受无限制扫描和分类</p>
+<img src="/assets/Screenshots/PC/单张照片处理-手动调整分类,暂存，复制到剪贴板，复制到文件管理器,AI修图.png" alt="单张照片处理" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图7：单张照片处理 - 支持手动调整分类、暂存、复制、AI修图等多种操作*</p>
+<img src="/assets/Screenshots/PC/照片分类目录设置和自定义显示分类维度.png" alt="照片分类目录设置" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*图8：照片分类目录设置 - 可自定义扫描目录和显示分类维度*</p>
+<h2>🎯 总结</h2>
+<p>芯图相册的智能分类功能通过创新的五步流程，结合本地算法和云端AI技术，实现了高效、准确、隐私安全的照片分类。相比传统相册软件，芯图相册在分类技术、准确率、隐私保护、分类维度等方面都有显著优势。</p>
+<p><strong>核心优势</strong>：</p>
+<ul>
+<li>🚀 <strong>操作简单</strong>：一键启动，自动完成</li>
+<li>🎯 <strong>分类准确</strong>：AI大模型识别，准确率90%+</li>
+<li>🔒 <strong>隐私安全</strong>：本地处理为主，云端结果不存储原始照片</li>
+<li>📊 <strong>多维度分类</strong>：8大分类维度，满足不同需求</li>
+<li>⚡ <strong>高效处理</strong>：智能缓存机制，避免重复识别</li>
+<li>🎨 <strong>个性化设置</strong>：灵活配置，满足个人需求</li>
+</ul>
+<p>无论您是摄影爱好者、普通用户，还是需要管理大量照片的专业人士，芯图相册都能帮助您轻松管理照片，让照片整理变得简单高效。</p>
+<p>---</p>
+<p><strong>开始使用</strong>：访问 <a href="https://www.xintuxiangce.top">www.xintuxiangce.top</a> 下载芯图相册，体验智能分类功能。</p>
+            </article>
+            
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">智能分类</span><span class="article-tag">AI技术</span><span class="article-tag">分类流程</span><span class="article-tag">技术原理</span>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

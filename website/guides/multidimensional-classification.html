@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片 | 使用指南</title>
+    <meta name="description" content="详细介绍8大分类维度：按内容、按城市、按颜色、按存储、按格式、按分辨率、按方向、相似组分类。包含AI分类和本地算法分类，支持移动端和PC端。">
+    <meta name="keywords" content="多维度分类, AI分类, 照片管理">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/multidimensional-classification.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片">
+    <meta property="og:description" content="详细介绍8大分类维度：按内容、按城市、按颜色、按存储、按格式、按分辨率、按方向、相似组分类。包含AI分类和本地算法分类，支持移动端和PC端。">
+    <meta property="og:image" content="/assets/classify/cover.jpg">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/multidimensional-classification.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片",
+        "description": "详细介绍8大分类维度：按内容、按城市、按颜色、按存储、按格式、按分辨率、按方向、相似组分类。包含AI分类和本地算法分类，支持移动端和PC端。",
+        "image": "/assets/classify/cover.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025年11月16日",
+        "dateModified": "2025年11月16日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片",
+                "item": "https://www.xintuxiangce.top/guides/multidimensional-classification.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月16日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 15分钟</span>
+                </div>
+                <img src="/assets/classify/cover.jpg" alt="芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片" class="article-cover">
+            </header>
+            
+            <article class="article-body">
+                <p>详细介绍8大分类维度：按内容、按城市、按颜色、按存储、按格式、按分辨率、按方向、相似组分类。包含AI分类和本地算法分类，支持移动端和PC端。</p>
+<h2>🎯 多维度分类概述</h2>
+<p>芯图相册提供8大分类维度，让您从多个角度智能管理和查找照片：</p>
+<p>1. <strong>按内容分类</strong>（AI分类）</p>
+<p>2. <strong>按城市分类</strong>（本地算法）</p>
+<p>3. <strong>按颜色分类</strong>（AI分类）</p>
+<p>4. <strong>按存储分类</strong>（本地算法）</p>
+<p>5. <strong>按格式分类</strong>（本地算法）</p>
+<p>6. <strong>按分辨率分类</strong>（本地算法）</p>
+<p>7. <strong>按方向分类</strong>（本地算法）</p>
+<p>8. <strong>相似组分类</strong>（本地算法）</p>
+<h2>📷 1. 按内容分类（AI分类）</h2>
+<p>使用AI大模型智能识别照片内容，支持9大内容类别：</p>
+<ul>
+<li>📱 手机截图</li>
+<li>🔲 二维码</li>
+<li>🪪 证件照片</li>
+<li>👤 单人照</li>
+<li>👥 社交活动（多人照）</li>
+<li>🏞️ 旅行风景</li>
+<li>🍔 美食记录</li>
+<li>🐱 宠物萌照</li>
+<li>📷 其它</li>
+</ul>
+<p><strong>使用方法</strong>：</p>
+<p>1. 扫描照片后，AI自动识别内容</p>
+<p>2. 在首页点击对应的内容分类卡片</p>
+<p>3. 查看该类型的所有照片</p>
+<h2>🏙️ 2. 按城市分类（本地算法）</h2>
+<p>根据照片EXIF信息中的GPS坐标，通过本地数据库自动匹配城市，按拍摄地点归类您的旅行回忆。</p>
+<p><strong>使用方法</strong>：</p>
+<p>1. 确保照片包含GPS信息（大部分手机拍摄的照片都包含）</p>
+<p>2. 扫描后自动按城市分类</p>
+<p>3. 点击"城市分类"查看各个城市的照片</p>
+<p><strong>优势</strong>：</p>
+<ul>
+<li>完全本地处理，保护隐私</li>
+<li>无需联网即可识别城市</li>
+<li>自动整理旅行照片</li>
+</ul>
+<h2>🎨 3. 按颜色分类（AI分类）</h2>
+<p>AI识别照片的主色调（背景颜色），按颜色主题分类，适合按风格整理照片。</p>
+<p><strong>颜色分类包括</strong>：</p>
+<ul>
+<li>🔴 红色系</li>
+<li>🟠 橙色系</li>
+<li>🟡 黄色系</li>
+<li>🟢 绿色系</li>
+<li>🔵 蓝色系</li>
+<li>🟣 紫色系</li>
+<li>⚫ 黑白灰</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>按风格整理照片</li>
+<li>制作主题相册</li>
+<li>查找特定色调的照片</li>
+</ul>
+<h2>📁 4. 按存储分类（本地算法）</h2>
+<p>根据照片的存储位置（文件夹路径）分类，方便按来源或项目管理照片。</p>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>按应用分类（微信、QQ、相机等）</li>
+<li>按项目分类</li>
+<li>按时间分类（如果文件夹按时间命名）</li>
+</ul>
+<h2>🖼️ 5. 按格式分类（本地算法）</h2>
+<p>根据文件格式（JPEG、PNG、HEIC、WEBP等）自动分类，适合按技术需求管理照片。</p>
+<p><strong>支持的格式</strong>：</p>
+<ul>
+<li>JPEG/JPG</li>
+<li>PNG</li>
+<li>HEIC/HEIF</li>
+<li>WEBP</li>
+<li>GIF</li>
+<li>BMP</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>查找特定格式的照片</li>
+<li>批量转换格式前筛选</li>
+<li>按格式管理照片</li>
+</ul>
+<h2>📐 6. 按分辨率分类（本地算法）</h2>
+<p>智能识别照片分辨率（4K、1080p、720p等），按画质要求筛选照片。</p>
+<p><strong>分辨率分类</strong>：</p>
+<ul>
+<li>4K及以上</li>
+<li>1080p</li>
+<li>720p</li>
+<li>480p及以下</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>查找高清照片</li>
+<li>筛选低分辨率照片进行清理</li>
+<li>按画质要求整理</li>
+</ul>
+<h2>🔄 7. 按方向分类（本地算法）</h2>
+<p>根据照片宽高比自动分类为横屏、竖屏、全景、正方形，适合按用途（壁纸、社交媒体）整理。</p>
+<p><strong>方向分类</strong>：</p>
+<ul>
+<li>📐 横屏（16:9、4:3等）</li>
+<li>📱 竖屏（9:16、3:4等）</li>
+<li>🖼️ 全景（超宽）</li>
+<li>⬜ 正方形（1:1）</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>查找适合做壁纸的照片</li>
+<li>筛选社交媒体照片</li>
+<li>按用途整理照片</li>
+</ul>
+<h2>🔗 8. 相似组分类（本地算法）</h2>
+<p>使用颜色直方图、时间窗口、文本相似度等算法，智能识别重复或相似的照片，帮您快速清理，释放存储空间。</p>
+<p><strong>识别方式</strong>：</p>
+<ul>
+<li>颜色相似度</li>
+<li>拍摄时间接近</li>
+<li>文件大小相似</li>
+<li>内容相似度</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ul>
+<li>找出重复照片</li>
+<li>清理连拍照片</li>
+<li>释放存储空间</li>
+</ul>
+<h2>💡 使用技巧</h2>
+<h3>技巧1：组合使用多个维度</h3>
+<p>可以同时使用多个分类维度，更精确地找到需要的照片。例如：先按城市分类，再按内容分类。</p>
+<h3>技巧2：定期清理相似组</h3>
+<p>定期查看相似组分类，删除重复照片，释放存储空间。</p>
+<h3>技巧3：利用城市分类回忆旅行</h3>
+<p>使用城市分类功能，快速查看各个城市的旅行照片，回忆美好时光。</p>
+<h3>技巧4：按颜色制作主题相册</h3>
+<p>使用颜色分类，制作特定主题的相册，如"蓝色系风景"、"红色系美食"等。</p>
+<h2>📊 分类准确率</h2>
+<ul>
+<li><strong>AI分类</strong>（内容、颜色）：90%+ 准确率</li>
+<li><strong>本地算法分类</strong>（城市、格式等）：95%+ 准确率</li>
+</ul>
+<h2>❓ 常见问题</h2>
+<h3>Q: 所有分类都需要联网吗？</h3>
+<p>A: 不是。只有AI分类（内容、颜色）需要联网，其他分类都是本地算法，无需联网。</p>
+<h3>Q: 可以手动调整分类结果吗？</h3>
+<p>A: 可以。所有分类结果都支持手动调整，您可以根据需要修改分类。</p>
+<h3>Q: 分类会占用很多存储空间吗？</h3>
+<p>A: 不会。分类结果只占用很小的存储空间（几MB），不会影响手机存储。</p>
+<p>---</p>
+<p><strong>提示</strong>：充分利用8大分类维度，让照片管理变得轻松高效！</p>
+            </article>
+            
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">多维度分类</span><span class="article-tag">AI分类</span><span class="article-tag">照片管理</span>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

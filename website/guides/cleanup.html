@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>告别手动整理！芯图相册AI技术，7大分类助你高效清理照片 | 使用指南</title>
+    <meta name="description" content="详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。">
+    <meta name="keywords" content="照片清理, AI分类, 存储优化">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/cleanup.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="告别手动整理！芯图相册AI技术，7大分类助你高效清理照片">
+    <meta property="og:description" content="详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。">
+    <meta property="og:image" content="/assets/3.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/cleanup.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "告别手动整理！芯图相册AI技术，7大分类助你高效清理照片",
+        "description": "详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。",
+        "image": "/assets/3.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025年11月15日",
+        "dateModified": "2025年11月15日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "告别手动整理！芯图相册AI技术，7大分类助你高效清理照片",
+                "item": "https://www.xintuxiangce.top/guides/cleanup.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>告别手动整理！芯图相册AI技术，7大分类助你高效清理照片</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月15日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 10分钟</span>
+                </div>
+                <img src="/assets/3.png" alt="告别手动整理！芯图相册AI技术，7大分类助你高效清理照片" class="article-cover">
+            </header>
+            
+            <article class="article-body">
+                <p>详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。</p>
+<h2>🎯 为什么需要清理照片？</h2>
+<p>随着手机拍照功能的不断提升，我们的相册中积累了大量的照片。据统计，普通用户手机中平均有3000-5000张照片，其中很多是：</p>
+<ul>
+<li>重复照片</li>
+<li>模糊废片</li>
+<li>临时截图</li>
+<li>不需要的照片</li>
+</ul>
+<p>这些照片占用了大量存储空间，手动整理既耗时又容易遗漏。</p>
+<h2>🤖 AI智能分类功能</h2>
+<p>芯图相册提供7大智能分类，帮助您快速识别和清理照片：</p>
+<h3>1. 手机截图分类</h3>
+<p>自动识别所有截图，方便您批量删除不需要的截图。</p>
+<h3>2. 二维码分类</h3>
+<p>识别所有二维码图片，可以快速清理验证码等临时二维码。</p>
+<h3>3. 证件照片分类</h3>
+<p>自动识别身份证、护照等证件照片，方便单独管理。</p>
+<h3>4. 单人照分类</h3>
+<p>识别单人照片，方便按人物整理。</p>
+<h3>5. 社交活动分类</h3>
+<p>识别多人合影、聚会照片等。</p>
+<h3>6. 旅行风景分类</h3>
+<p>识别风景照片，方便按地点整理。</p>
+<h3>7. 美食记录分类</h3>
+<p>识别美食照片，方便按主题整理。</p>
+<h2>📋 清理流程</h2>
+<h3>第一步：扫描照片</h3>
+<p>1. 打开芯图相册</p>
+<p>2. 点击"开始扫描"</p>
+<p>3. 等待AI自动分类完成</p>
+<h3>第二步：查看分类结果</h3>
+<p>1. 在首页查看各个分类</p>
+<p>2. 点击进入具体分类</p>
+<p>3. 浏览分类结果</p>
+<h3>第三步：清理照片</h3>
+<p>1. <strong>删除重复照片</strong>：</p>
+<ul>
+<li>进入"相似组分类"</li>
+<li>查看相似照片组</li>
+<li>选择保留的照片，删除其他</li>
+</ul>
+<p>2. <strong>删除截图</strong>：</p>
+<ul>
+<li>进入"手机截图分类"</li>
+<li>批量选择不需要的截图</li>
+<li>点击删除</li>
+</ul>
+<p>3. <strong>删除模糊照片</strong>：</p>
+<ul>
+<li>手动浏览各个分类</li>
+<li>识别模糊、光线不好的照片</li>
+<li>批量删除</li>
+</ul>
+<h3>第四步：使用暂存箱</h3>
+<p>1. 将需要删除的照片移到"暂存箱"</p>
+<p>2. 确认后再彻底删除</p>
+<p>3. 避免误删重要照片</p>
+<h2>💡 清理技巧</h2>
+<h3>技巧1：定期清理</h3>
+<p>建议每月清理一次，避免照片积压过多。</p>
+<h3>技巧2：先备份再删除</h3>
+<p>重要照片建议先备份到云端或电脑，再删除手机中的副本。</p>
+<h3>技巧3：利用AI分类</h3>
+<p>充分利用AI分类功能，快速定位需要清理的照片类型。</p>
+<h3>技巧4：使用暂存箱</h3>
+<p>不确定是否删除的照片，先移到暂存箱，过一段时间再决定。</p>
+<h2>📊 清理效果</h2>
+<p>使用AI智能分类清理后：</p>
+<ul>
+<li>✅ 释放存储空间：平均可释放20-30%的存储空间</li>
+<li>✅ 提高查找效率：分类后找照片更快</li>
+<li>✅ 节省时间：AI自动分类，无需手动整理</li>
+</ul>
+<h2>❓ 常见问题</h2>
+<h3>Q: AI分类准确吗？</h3>
+<p>A: 准确率可以达到90%以上。如果不准确可以手动调整。</p>
+<h3>Q: 删除的照片可以恢复吗？</h3>
+<p>A: 移到暂存箱的照片可以恢复，彻底删除的照片无法恢复。建议重要照片先备份。</p>
+<h3>Q: 清理需要多长时间？</h3>
+<p>A: 取决于照片数量。1万张照片大约需要10-20分钟扫描分类，之后就可以快速清理了。</p>
+<p>---</p>
+<p><strong>提示</strong>：定期清理照片，保持相册整洁，让AI帮您管理照片！</p>
+            </article>
+            
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">照片清理</span><span class="article-tag">AI分类</span><span class="article-tag">存储优化</span>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

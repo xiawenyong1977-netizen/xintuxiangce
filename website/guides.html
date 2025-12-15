@@ -16,14 +16,22 @@
     <meta property="og:description" content="完整的使用指南文章列表，教您如何使用AI技术智能分类照片">
     <meta property="og:url" content="https://www.xintuxiangce.top/guides.html">
     
-    <!-- 结构化数据 -->
+    <!-- 结构化数据 - Blog -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "CollectionPage",
+        "@type": "Blog",
         "name": "芯图相册使用指南",
-        "description": "完整的使用教程文章列表",
-        "url": "https://www.xintuxiangce.top/guides.html"
+        "description": "完整的使用教程文章列表，教您如何使用AI技术智能分类照片",
+        "url": "https://www.xintuxiangce.top/guides.html",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        }
     }
     </script>
     
@@ -162,56 +170,6 @@
             
             <div class="guides-grid" id="guides-list">
                 <!-- 文章卡片将通过JavaScript动态加载 -->
-                <div class="guide-card">
-                    <div class="guide-card-image"></div>
-                    <div class="guide-card-content">
-                        <h3 class="guide-card-title">芯图相册使用指南：快速掌握PC端与移动端照片管理技巧</h3>
-                        <p class="guide-card-description">从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。</p>
-                        <div class="guide-card-meta">
-                            <span>阅读时间：5分钟</span>
-                            <a href="guide-quick-start.html" class="guide-card-link">
-                                阅读全文
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="guide-card">
-                    <div class="guide-card-image"></div>
-                    <div class="guide-card-content">
-                        <h3 class="guide-card-title">掌握芯图相册权限设置：保护隐私同时享受智能分类功能</h3>
-                        <p class="guide-card-description">详细说明Android版本需要哪些权限、这些权限的用途，以及如何设置这些权限，帮助您正确配置应用权限。</p>
-                        <div class="guide-card-meta">
-                            <span>阅读时间：8分钟</span>
-                            <a href="guide-permissions.html" class="guide-card-link">
-                                阅读全文
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="guide-card">
-                    <div class="guide-card-image"></div>
-                    <div class="guide-card-content">
-                        <h3 class="guide-card-title">告别手动整理！芯图相册AI技术，7大分类助你高效清理照片</h3>
-                        <p class="guide-card-description">详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。</p>
-                        <div class="guide-card-meta">
-                            <span>阅读时间：10分钟</span>
-                            <a href="guide-cleanup.html" class="guide-card-link">
-                                阅读全文
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -228,57 +186,49 @@
     <script src="script.js"></script>
     
     <script>
-        // 文章列表数据
-        const guides = [
-            {
-                id: 'quick-start',
-                title: '芯图相册使用指南：快速掌握PC端与移动端照片管理技巧',
-                description: '从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。',
-                image: '/assets/1.png',
-                readTime: '5分钟',
-                url: 'guide-quick-start.html'
-            },
-            {
-                id: 'permissions',
-                title: '掌握芯图相册权限设置：保护隐私同时享受智能分类功能',
-                description: '详细说明Android版本需要哪些权限、这些权限的用途，以及如何设置这些权限，帮助您正确配置应用权限。',
-                image: '/assets/2.png',
-                readTime: '8分钟',
-                url: 'guide-permissions.html'
-            },
-            {
-                id: 'cleanup',
-                title: '告别手动整理！芯图相册AI技术，7大分类助你高效清理照片',
-                description: '详细说明如何使用AI智能分类功能快速清理手机照片，释放存储空间，包含7个智能分类介绍和完整的清理流程。',
-                image: '/assets/3.png',
-                readTime: '10分钟',
-                url: 'guide-cleanup.html'
-            },
-            {
-                id: 'multidimensional-classification',
-                title: '芯图相册多维度分类功能完整指南：8大分类维度助您高效管理照片',
-                description: '详细介绍8大分类维度：按内容、按城市、按颜色、按存储、按格式、按分辨率、按方向、相似组分类。包含AI分类和本地算法分类，支持移动端和PC端。',
-                image: '/assets/classify/cover.jpg',
-                readTime: '15分钟',
-                url: 'guide-multidimensional-classification.html'
+        // 加载指南数据
+        let guidesData = [];
+        
+        async function loadGuidesData() {
+            try {
+                // 添加时间戳防止缓存
+                const timestamp = new Date().getTime();
+                const response = await fetch(`guides-data.json?t=${timestamp}`);
+                const data = await response.json();
+                guidesData = data.articles || [];
+                // 按日期倒序排序（最新的在前）
+                guidesData.sort((a, b) => {
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    return dateB - dateA; // 倒序：最新的在前
+                });
+                renderGuides(guidesData);
+            } catch (error) {
+                console.error('加载指南数据失败:', error);
+                document.getElementById('guides-list').innerHTML = 
+                    '<div style="text-align: center; padding: 40px;"><p>加载失败，请稍后重试</p></div>';
             }
-            // 可以在这里添加更多文章
-        ];
+        }
         
         // 渲染文章列表
-        function renderGuides() {
+        function renderGuides(guides) {
             const container = document.getElementById('guides-list');
             if (!container) return;
             
+            if (guides.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 40px;"><p>暂无内容</p></div>';
+                return;
+            }
+            
             container.innerHTML = guides.map(guide => `
                 <div class="guide-card">
-                    ${guide.image ? `<img src="${guide.image}" alt="${guide.title}" class="guide-card-image">` : '<div class="guide-card-image"></div>'}
+                    ${guide.cover ? `<img src="${guide.cover}" alt="${guide.title}" class="guide-card-image">` : '<div class="guide-card-image"></div>'}
                     <div class="guide-card-content">
                         <h3 class="guide-card-title">${guide.title}</h3>
                         <p class="guide-card-description">${guide.description}</p>
                         <div class="guide-card-meta">
-                            <span>阅读时间：${guide.readTime}</span>
-                            <a href="${guide.url}" class="guide-card-link">
+                            <span>阅读时间：${guide.readTime || ''}</span>
+                            <a href="guides/${guide.id}.html" class="guide-card-link">
                                 阅读全文
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -290,9 +240,9 @@
             `).join('');
         }
         
-        // 页面加载时渲染
+        // 页面加载时获取数据
         document.addEventListener('DOMContentLoaded', function() {
-            renderGuides();
+            loadGuidesData();
             
             // 处理导航栏中的active状态
             const navLinks = document.querySelectorAll('.nav-links a');

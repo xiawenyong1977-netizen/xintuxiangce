@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>芯图相册使用指南：快速掌握PC端与移动端照片管理技巧 | 使用指南</title>
+    <meta name="description" content="从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。">
+    <meta name="keywords" content="快速入门, 使用教程, PC端, 移动端">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/quick-start.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="芯图相册使用指南：快速掌握PC端与移动端照片管理技巧">
+    <meta property="og:description" content="从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。">
+    <meta property="og:image" content="/assets/1.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/quick-start.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册使用指南：快速掌握PC端与移动端照片管理技巧",
+        "description": "从零开始，快速了解如何使用芯图相册进行智能照片分类和管理，包含完整的操作步骤和功能介绍。",
+        "image": "/assets/1.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2025年11月13日",
+        "dateModified": "2025年11月13日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "芯图相册使用指南：快速掌握PC端与移动端照片管理技巧",
+                "item": "https://www.xintuxiangce.top/guides/quick-start.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>芯图相册使用指南：快速掌握PC端与移动端照片管理技巧</h1>
+                <div class="article-meta">
+                    <span>📅 2025年11月13日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 5分钟</span>
+                </div>
+                <img src="/assets/1.png" alt="芯图相册使用指南：快速掌握PC端与移动端照片管理技巧" class="article-cover">
+            </header>
+            
+            <article class="article-body">
+                <h2>📥 安装应用</h2>
+<h3>下载地址</h3>
+<p>请访问官方网站 <strong>www.xintuxiangce.top</strong> 下载最新版本。</p>
+<h3>PC端（Windows）</h3>
+<p>PC端提供两种版本供您选择：</p>
+<p><strong>1. 安装包</strong></p>
+<ul>
+<li>需要安装到系统</li>
+<li>安装后会在开始菜单和桌面创建快捷方式</li>
+<li>适合长期使用，方便快速启动</li>
+</ul>
+<p><strong>2. 便携包</strong></p>
+<ul>
+<li>无需安装，解压即用</li>
+<li>可以放在任意位置（如U盘、移动硬盘）</li>
+<li>适合临时使用或不想在系统安装软件的用户</li>
+</ul>
+<h3>移动端（Android）</h3>
+<p>1. 下载Android安装包（.apk格式）</p>
+<p>2. 在手机上打开下载的安装包</p>
+<p>3. <strong>重要提示</strong>：由于目前受软件著作权申请流程影响，应用尚未上架到应用商店，因此安装时系统会显示"安全风险提示"</p>
+<p>4. 这是正常现象，请点击"继续安装"或"允许安装此应用"</p>
+<p>5. 安装完成后，在应用列表中找到"芯图相册"图标启动应用</p>
+<h2>⚙️ 初始设置</h2>
+<h3>设置照片目录（可选）</h3>
+<p>安装并运行应用后，建议先进入设置页面配置照片扫描目录。</p>
+<p>#### PC端（Windows）</p>
+<p>1. 启动应用后，点击右上角的<strong>设置</strong>按钮（⚙️图标）</p>
+<p>2. 在设置页面找到"照片目录"设置项</p>
+<p>3. <strong>默认设置</strong>：应用会自动初始化为用户文档的图片目录（如：<code>C:\Users\用户名\Pictures</code>）</p>
+<p>4. 您可以根据需要修改为其他目录：</p>
+<ul>
+<li>点击"选择目录"按钮</li>
+<li>在文件浏览器中选择您想要扫描的照片文件夹</li>
+<li>可以添加多个目录</li>
+</ul>
+<p>5. 设置完成后，点击"添加"</p>
+<p>#### 移动端（Android）</p>
+<p>1. 启动应用后，点击底部导航栏的<strong>设置</strong>标签</p>
+<p>2. 在设置页面找到"照片目录"设置项</p>
+<p>3. <strong>默认设置</strong>：移动端初始化为空，表示不限制扫描范围</p>
+<p>4. <strong>如果不设置目录</strong>：点击扫描按钮时，应用会对手机的所有照片进行扫描</p>
+<p>5. <strong>如果设置目录</strong>：应用只会扫描您指定的目录中的照片</p>
+<p><strong>快捷目录功能</strong>：</p>
+<ul>
+<li><strong>💬 微信目录</strong>：一键添加微信图片目录（适合只想整理微信图片的用户）</li>
+<li><strong>💬 QQ目录</strong>：一键添加QQ图片目录</li>
+<li><strong>📷 相册目录</strong>：一键添加相机相册目录</li>
+<li><strong>📸 截图目录</strong>：一键添加截图目录</li>
+</ul>
+<h2>🔍 开始扫描</h2>
+<h3>扫描步骤</h3>
+<p>1. 在首页点击右下角的<strong>扫描按钮</strong>（🔄图标）</p>
+<p>2. 应用会开始扫描您设置的照片目录（或全部照片）</p>
+<p>3. 扫描过程中会显示进度信息</p>
+<p>4. 扫描完成后，照片会自动分类显示</p>
+<h3>非会员限制说明</h3>
+<p><strong>重要提示</strong>：非会员用户每次扫描只会对<strong>最近的100张照片</strong>进行分类处理。</p>
+<ul>
+<li>如果您有大量照片需要整理，建议先开通会员（详见下方"成为会员"章节）</li>
+<li>会员用户可以无限制扫描和分类所有照片</li>
+</ul>
+<h2>💎 成为会员</h2>
+<h3>会员权益</h3>
+<p>开通会员后，您将享受以下权益：</p>
+<ul>
+<li>✅ <strong>无限制扫描</strong>：可以扫描和分类所有照片，不受100张限制</li>
+<li>✅ <strong>无限制分类</strong>：所有照片都能享受AI智能分类</li>
+<li>✅ <strong>完整功能</strong>：解锁所有高级功能</li>
+<li>✅ <strong>终身会员</strong>：一次开通，终身使用</li>
+</ul>
+<h3>如何开通会员</h3>
+<p>#### 方法一：通过应用内开通（推荐）</p>
+<p>1. 打开应用，进入<strong>设置</strong>页面</p>
+<p>2. 找到"会员服务"区域</p>
+<p>3. 如果显示"未激活"，会显示一个二维码</p>
+<p>4. 点击二维码，应用会：</p>
+<ul>
+<li>自动保存二维码到相册</li>
+<li>尝试打开微信扫一扫功能</li>
+</ul>
+<p>5. 使用微信扫描二维码，关注"芯图相册"公众号</p>
+<p>6. 在公众号中按照提示开通会员</p>
+<p>7. 开通成功后，返回应用，会员状态会自动更新为"已激活"</p>
+<p>#### 方法二：直接关注公众号</p>
+<p>1. 打开微信，搜索并关注"芯图相册"公众号</p>
+<p>2. 在公众号菜单中找到"开通会员"</p>
+<p>3. 按照提示完成会员开通流程</p>
+<p>4. 开通成功后，在应用的设置页面刷新会员状态</p>
+<h2>📱 使用技巧</h2>
+<h3>PC端使用技巧</h3>
+<p>1. <strong>批量操作</strong>：在分类页面可以多选照片进行批量操作</p>
+<p>2. <strong>快速查找</strong>：使用首页的分类卡片快速定位特定类型的照片</p>
+<p>3. <strong>城市分类</strong>：查看按拍摄城市分类的照片，回忆旅行时光</p>
+<p>4. <strong>相似照片</strong>：找出重复或相似的照片，释放存储空间</p>
+<h3>移动端使用技巧</h3>
+<p>1. <strong>下拉刷新</strong>：在首页下拉可以刷新数据</p>
+<p>2. <strong>快捷目录</strong>：使用设置页面的快捷目录按钮快速添加常用目录</p>
+<p>3. <strong>暂存箱</strong>：将需要删除的照片先移到暂存箱，确认后再删除</p>
+<p>4. <strong>手势操作</strong>：在照片预览页面可以左右滑动切换照片</p>
+<h2>❓ 常见问题</h2>
+<h3>Q: 为什么移动端安装时显示安全风险提示？</h3>
+<p>A: 由于应用正在申请软件著作权，尚未上架到应用商店，因此系统会显示安全提示。这是正常现象，应用本身是安全的，可以放心安装使用。</p>
+<h3>Q: 非会员只能分类100张照片吗？</h3>
+<p>A: 是的，非会员每次扫描只处理最近的100张照片。开通会员后可以无限制扫描和分类所有照片。</p>
+<h3>Q: 扫描需要联网吗？</h3>
+<p>A: 应用支持两种模式：</p>
+<p><strong>联网模式（推荐）</strong>：</p>
+<ul>
+<li>扫描时需要联网</li>
+<li>使用云端大模型的照片理解能力对图片进行分类</li>
+<li>分类效果更准确，识别更智能</li>
+<li>所有处理结果保存在本地，原始照片服务器侧不会存储</li>
+</ul>
+<p><strong>离线模式</strong>：</p>
+<ul>
+<li>扫描时无需联网</li>
+<li>使用本地小模型进行图像识别后分类</li>
+<li>分类效果不如大模型理想，但可以满足基本需求</li>
+<li>完全本地处理，保护隐私</li>
+</ul>
+<blockquote><strong>建议</strong>：如果网络条件允许，建议使用联网模式以获得更好的分类效果。</blockquote>
+<h3>Q: 会员是永久的吗？</h3>
+<p>A: 是的，开通会员后是终身会员，一次付费，永久使用。</p>
+<p>---</p>
+<p><strong>祝您使用愉快！</strong> 🎉</p>
+            </article>
+            
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">快速入门</span><span class="article-tag">使用教程</span><span class="article-tag">PC端</span><span class="article-tag">移动端</span>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+
