@@ -88,6 +88,14 @@
         <priority>0.8</priority>
     </url>
     
+    <!-- 手机照片分类技巧 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/mobile-photo-classification.html</loc>
+        <lastmod>2025-12-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- 常见问题 -->
     <url>
         <loc>https://www.xintuxiangce.top/faq.html</loc>

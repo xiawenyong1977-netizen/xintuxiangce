@@ -1072,6 +1072,25 @@ section {
     padding-left: 4px;
 }
 
+.footer-column a.friend-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #1a1a1a;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.footer-column a.friend-link:hover {
+    background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+    color: #1a1a1a;
+    padding-left: 12px;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
 .footer-qrcode {
     margin-top: 0;
     display: flex;
