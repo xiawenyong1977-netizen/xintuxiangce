@@ -370,3 +370,6 @@
 - [照片格式分类指南](/guides/photo-formats.html) - 了解按格式分类照片的方法
 - [多维度分类功能完整指南](/guides/multidimensional-classification.html) - 深入了解8大分类维度
 
+
+
+
