@@ -1,0 +1,24 @@
+---
+部署配置信息：
+- 服务器地址：root@web
+- 部署目录：/var/www/xintuxiangce/website
+- Web服务器：lighttpd
+- 文件所有者：lighttpd:lighttpd
+
+部署命令示例：
+```bash
+# 上传单个文件
+scp website/index.html root@web:/var/www/xintuxiangce/website/
+
+# 上传多个文件
+scp website/index.html website/styles.css root@web:/var/www/xintuxiangce/website/
+
+# 上传整个目录
+scp -r website/diary root@web:/var/www/xintuxiangce/website/
+
+# 修复权限（如果需要）
+ssh root@web "chown -R lighttpd:lighttpd /var/www/xintuxiangce/website/; chmod -R 755 /var/www/xintuxiangce/website/"
+```
+
+alwaysApply: true
+---
