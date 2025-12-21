@@ -19,7 +19,7 @@
     <!-- 使用指南列表 -->
     <url>
         <loc>https://www.xintuxiangce.top/guides.html</loc>
-        <lastmod>2025-01-13</lastmod>
+        <lastmod>2025-12-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -96,6 +96,22 @@
         <priority>0.8</priority>
     </url>
     
+    <!-- 按内容分类照片：AI智能识别9大内容类别 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/content-classification.html</loc>
+        <lastmod>2025-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 如何整理照片？30多种分类方法帮你高效管理数千张照片 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/30-ways-to-organize-photos.html</loc>
+        <lastmod>2025-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- 常见问题 -->
     <url>
         <loc>https://www.xintuxiangce.top/faq.html</loc>
@@ -115,7 +131,7 @@
     <!-- 芯图日记列表页 -->
     <url>
         <loc>https://www.xintuxiangce.top/diary.html</loc>
-        <lastmod>2025-11-24</lastmod>
+        <lastmod>2025-12-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -286,5 +302,21 @@
         <lastmod>2025-12-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图相册国际化技术实现总结 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/i18n-implementation.html</loc>
+        <lastmod>2025-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 芯图相册正式上架微软应用市场 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/microsoft-store-launch.html</loc>
+        <lastmod>2025-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
 </urlset>

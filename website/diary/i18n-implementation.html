@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>芯图相册国际化技术实现总结 | 芯图日记</title>
+    <meta name="description" content="全面总结芯图相册（XinTu Album）的国际化（i18n）技术实现方案，涵盖用户界面、动态内容、原生代码和跨平台一致性等各个方面，包含PC端和移动端的完整实现细节。">
+    <meta name="keywords" content="国际化, i18n, 前端开发, React Native, Electron, 技术实现, 研发经验">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="芯图相册国际化技术实现总结">
+    <meta property="og:description" content="全面总结芯图相册（XinTu Album）的国际化（i18n）技术实现方案，涵盖用户界面、动态内容、原生代码和跨平台一致性等各个方面，包含PC端和移动端的完整实现细节。">
+    <meta property="og:image" content="/assets/Screenshots/PC-english/照片按内容，城市，颜色智能分类.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/i18n-implementation.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册国际化技术实现总结",
+        "description": "全面总结芯图相册（XinTu Album）的国际化（i18n）技术实现方案，涵盖用户界面、动态内容、原生代码和跨平台一致性等各个方面，包含PC端和移动端的完整实现细节。",
+        "image": "/assets/Screenshots/PC-english/照片按内容，城市，颜色智能分类.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2025年12月19日",
+        "dateModified": "2025年12月19日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "芯图相册国际化技术实现总结",
+                "item": "https://www.xintuxiangce.top/diary/i18n-implementation.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>芯图相册国际化技术实现总结</h1>
+                <div class="article-meta">
+                    <span>📅 2025年12月19日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 20分钟</span>
+                </div>
+                <img src="/assets/Screenshots/PC-english/照片按内容，城市，颜色智能分类.png" alt="芯图相册国际化技术实现总结" class="article-cover">
+            </header>
+            
+            <div class="article-content">
+                <h2>📋 概述</h2>
+<p>本文档全面总结了芯图相册（XinTu Album）的国际化（i18n）技术实现方案，涵盖用户界面、动态内容、原生代码和跨平台一致性等各个方面。</p>
+<p><strong>技术栈</strong>：</p>
+<ul>
+<li><strong>i18n 库</strong>: <code>i18next</code> + <code>react-i18next</code></li>
+<li><strong>支持语言</strong>: 中文（zh）、英文（en）</li>
+<li><strong>存储方案</strong>: 语言设置存储在 <code>ImageStorageService</code> 中，统一管理应用配置</li>
+<li><strong>平台支持</strong>: PC端（Electron）和移动端（React Native Android）</li>
+</ul>
+<p>---</p>
+<h2>🏗️ 基本实现方案</h2>
+<h3>1.1 核心架构</h3>
+<p>#### 1.1.1 i18n 初始化配置</p>
+<p><strong>文件位置</strong>: <code>src/i18n/index.js</code></p>
+<pre><code></code></pre>
+<p><strong>关键特性</strong>：</p>
+<ul>
+<li><strong>同步初始化</strong>：使用 <code>getSavedLanguageSync()</code> 同步读取语言设置，确保应用启动时语言正确</li>
+<li><strong>异步加载</strong>：应用启动后通过 <code>loadSavedLanguage()</code> 异步加载保存的语言设置，支持 <code>react-native-localize</code></li>
+<li><strong>语言持久化</strong>：语言设置存储在 <code>ImageStorageService</code> 的 <code>app_language</code> 字段中</li>
+</ul>
+<p>#### 1.1.2 语言检测机制</p>
+<p><strong>系统语言检测</strong>：</p>
+<p>1. <strong>Web/Desktop 环境</strong>：</p>
+   <pre><code></code></pre>
+<p>2. <strong>React Native 环境</strong>：</p>
+   <pre><code></code></pre>
+<p><strong>语言设置管理</strong>：</p>
+<ul>
+<li><strong>读取</strong>：<code>getCurrentLanguageAsync()</code> - 从 <code>ImageStorageService</code> 读取保存的语言设置</li>
+<li><strong>保存</strong>：<code>changeLanguage(lng)</code> - 保存语言设置到 <code>ImageStorageService</code> 并切换 i18n 语言</li>
+<li><strong>验证</strong>：切换语言后会验证保存是否成功，确保数据一致性</li>
+</ul>
+<p>---</p>
+<h3>1.2 翻译资源组织</h3>
+<p><strong>文件结构</strong>：</p>
+<pre><code></code></pre>
+<p><strong>命名空间</strong>：</p>
+<ul>
+<li><code>common</code>: 通用翻译命名空间（默认）</li>
+<li>所有翻译键都使用 <code>common</code> 命名空间，通过 <code>useTranslation('common')</code> 使用</li>
+</ul>
+<p><strong>翻译键命名规范</strong>：</p>
+<ul>
+<li><code>app.*</code>: 应用基础信息（如 <code>app.name</code>）</li>
+<li><code>home.*</code>: 首页相关翻译（如 <code>home.ready</code>, <code>home.scanning</code>）</li>
+<li><code>category.*</code>: 分类相关翻译（如 <code>category.noImages</code>）</li>
+<li><code>imagePreview.*</code>: 图片预览相关翻译（如 <code>imagePreview.detectionResult</code>）</li>
+<li><code>settings.*</code>: 设置页面相关翻译（如 <code>settings.memberActivated</code>）</li>
+<li><code>common.*</code>: 通用翻译（如 <code>common.success</code>, <code>common.cancel</code>）</li>
+</ul>
+<p>---</p>
+<h2>🎨 用户可见界面信息的国际化</h2>
+<h3>2.1 界面基础文本国际化</h3>
+<p>#### 2.1.1 React 组件中的使用</p>
+<p><strong>标准用法</strong>：</p>
+<pre><code></code></pre>
+<p><strong>关键 API</strong>：</p>
+<ul>
+<li><code>t(key, options)</code>: 翻译函数，根据当前语言返回对应的翻译文本</li>
+<li><code>i18n.language</code>: 获取当前语言代码（'zh' 或 'en'）</li>
+<li><code>i18n.t(key, { lng: 'en' })</code>: 指定语言进行翻译（用于动态切换）</li>
+</ul>
+<p>#### 2.1.2 常见界面元素翻译</p>
+<p>| 翻译键 | 中文 | 英文 | 使用位置 |</p>
+<p>|--------|------|------|----------|</p>
+<p>| <code>app.name</code> | 芯图相册 | Xintu Album | 应用标题 |</p>
+<p>| <code>home.ready</code> | 图片分类应用已就绪 | Image classification app is ready | 首页状态 |</p>
+<p>| <code>home.scanning</code> | 扫描中... | Scanning... | 扫描状态 |</p>
+<p>| <code>home.scanComplete</code> | 扫描完成 | Scan complete | 扫描完成提示 |</p>
+<p>| <code>home.smartScan</code> | 智能扫描 | Smart Scan | 扫描按钮 |</p>
+<p>| <code>category.noImages</code> | 暂无图片 | No images | 空状态提示 |</p>
+<p>| <code>common.success</code> | 成功 | Success | 通用成功提示 |</p>
+<p>| <code>common.cancel</code> | 取消 | Cancel | 取消按钮 |</p>
+<p><strong>英文界面效果展示</strong>：</p>
+<img src="/assets/Screenshots/PC-english/照片按内容，城市，颜色智能分类.png" alt="PC端英文首页" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：按内容、城市、颜色智能分类*</p>
+<img src="/assets/Screenshots/Mobile-english/首页自动显示按内容，按城市，按颜色分类的维度.jpg" alt="移动端英文首页" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：首页自动显示按内容、按城市、按颜色分类的维度*</p>
+<p>---</p>
+<h3>2.2 弹窗（Alert）国际化</h3>
+<p>#### 2.2.1 标准弹窗实现</p>
+<p><strong>基础用法</strong>：</p>
+<pre><code></code></pre>
+<p>#### 2.2.2 动态语言弹窗（重要）</p>
+<p><strong>问题场景</strong>：在异步回调（如 <code>setInterval</code>）中，<code>t</code> 函数可能使用的是闭包中的旧语言值。</p>
+<p><strong>解决方案</strong>：使用 <code>i18n.t()</code> 并显式指定语言参数：</p>
+<pre><code></code></pre>
+<p><strong>实现位置</strong>：</p>
+<ul>
+<li><code>src/screens/mobile/SettingsScreen.mobile.js</code></li>
+<li><code>src/screens/desktop/SettingsScreen.desktop.js</code></li>
+</ul>
+<p><strong>关键代码</strong>：</p>
+<pre><code></code></pre>
+<p>---</p>
+<h2>🌍 城市信息的国际化</h2>
+<h3>3.1 实现策略</h3>
+<p><strong>核心原则</strong>：在扫描时根据用户语言配置保存对应语言的城市名称，而不是在显示时翻译。</p>
+<p>#### 3.1.1 数据来源</p>
+<p>1. <strong>远程API</strong>（优先）：</p>
+<ul>
+<li>返回字段：<code>name</code>（英文）、<code>name_zh</code>（中文）、<code>admin1</code>（省份英文）、<code>admin1_zh</code>（省份中文）</li>
+<li>API: <code>https://api.bigdatacloud.net/data/reverse-geocode-client</code></li>
+</ul>
+<p>2. <strong>本地数据</strong>（降级）：</p>
+<ul>
+<li>仅包含中文城市名称</li>
+<li>文件：<code>src/data/cities.json</code></li>
+</ul>
+<p>#### 3.1.2 JavaScript 实现</p>
+<p><strong>文件位置</strong>: <code>src/services/CityLocationService.js</code></p>
+<p><strong>关键方法</strong>：</p>
+<pre><code></code></pre>
+<p><strong>远程API调用</strong>：</p>
+<pre><code></code></pre>
+<p><strong>使用位置</strong>: <code>src/services/GalleryScannerService.js</code></p>
+<pre><code></code></pre>
+<p>#### 3.1.3 Android 原生实现</p>
+<p><strong>文件位置</strong>: <code>android/app/src/main/java/com/imageclassifier/v2/GalleryScanService.java</code></p>
+<p><strong>关键代码</strong>（第839-866行）：</p>
+<pre><code></code></pre>
+<p><strong>语言参数来源</strong>：</p>
+<ul>
+<li>Android 原生代码从 <code>ImageStorageService</code> 读取 <code>app_language</code> 设置</li>
+<li>在扫描时传递语言参数给城市查询方法</li>
+</ul>
+<p>---</p>
+<h3>3.2 显示逻辑</h3>
+<p><strong>直接显示</strong>：城市名称在扫描时已根据用户语言配置保存，显示时直接使用数据库中存储的值，无需额外翻译。</p>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>✅ <strong>已存储的数据不会自动更新</strong>：如果用户切换语言，已扫描的图片的城市名称不会自动更新，需要重新扫描</li>
+<li>✅ <strong>降级处理</strong>：如果远程API失败，降级到本地查询时只能保存中文名称（本地数据只有中文）</li>
+<li>✅ <strong>缓存机制</strong>：使用包含语言的缓存键，确保不同语言的结果分别缓存</li>
+</ul>
+<p>---</p>
+<h2>📂 内容类别信息的国际化</h2>
+<h3>4.1 实现策略</h3>
+<p><strong>核心原则</strong>：从配置文件中读取中英文名称，动态选择显示，而不是存储在 i18n JSON 文件中。</p>
+<p>#### 4.1.1 数据来源</p>
+<p><strong>配置文件</strong>: <code>public/initialSettings.json</code></p>
+<pre><code></code></pre>
+<p>#### 4.1.2 JavaScript 实现</p>
+<p><strong>文件位置</strong>: <code>src/services/ConfigService.js</code></p>
+<p><strong>关键方法</strong>：</p>
+<pre><code></code></pre>
+<p><strong>使用位置</strong>: <code>src/screens/desktop/HomeScreen.desktop.js</code></p>
+<pre><code></code></pre>
+<p><strong>图片预览页面</strong>: <code>src/screens/desktop/ImagePreviewScreen.desktop.js</code></p>
+<pre><code></code></pre>
+<p>---</p>
+<h3>4.2 设计优势</h3>
+<p>1. <strong>单一数据源</strong>：分类名称只在一个地方维护（<code>initialSettings.json</code>），避免重复</p>
+<p>2. <strong>自动回退</strong>：如果首选语言不存在，自动使用另一种语言</p>
+<p>3. <strong>灵活性</strong>：支持动态添加新分类，只需更新配置文件</p>
+<p>4. <strong>性能优化</strong>：不需要在 i18n JSON 中维护大量分类名称</p>
+<p><strong>分类信息国际化效果展示</strong>：</p>
+<img src="/assets/Screenshots/PC-english/照片按内容，城市，颜色智能分类.png" alt="PC端英文分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：按内容、城市、颜色智能分类*</p>
+<img src="/assets/Screenshots/Mobile-english/照片按内容分类（长图）.jpg" alt="移动端英文分类-内容" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：按内容分类*</p>
+<img src="/assets/Screenshots/Mobile-english/照片按城市分类（长图）.jpg" alt="移动端英文分类-城市" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：按城市分类*</p>
+<img src="/assets/Screenshots/Mobile-english/照片按颜色分类（长图）.jpg" alt="移动端英文分类-颜色" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：按颜色分类*</p>
+<p>---</p>
+<h2>🤖 智能检测信息的国际化</h2>
+<h3>5.1 扫描进度消息</h3>
+<p>#### 5.1.1 实现位置</p>
+<p><strong>JavaScript 版本</strong>: <code>src/services/GalleryScannerService.js</code></p>
+<p><strong>Android 原生版本</strong>: <code>src/services/GalleryScannerService.android.js</code></p>
+<p>#### 5.1.2 翻译键定义</p>
+<p>| 翻译键 | 中文 | 英文 |</p>
+<p>|--------|------|------|</p>
+<p>| <code>home.scanProgress.initScanning</code> | 初始化扫描: 准备扫描环境 | Initializing scan: Preparing scan environment |</p>
+<p>| <code>home.scanProgress.scanningFiles</code> | 扫描文件: {{processed}}/{{total}} | Scanning files: {{processed}}/{{total}} |</p>
+<p>| <code>home.scanProgress.categoryQuery</code> | 查询分类: {{processed}}/{{total}} | Querying categories: {{processed}}/{{total}} |</p>
+<p>| <code>home.scanProgress.smartRecognitionStart</code> | 开始智能识别 {{count}} 张图片 | Starting smart recognition for {{count}} images |</p>
+<p>| <code>home.scanProgress.smartRecognition</code> | 智能识别: {{processed}}/{{total}} | Smart recognition: {{processed}}/{{total}} |</p>
+<p>| <code>home.scanProgress.localRecognitionStart</code> | 开始本地识别 {{count}} 张图片 | Starting local recognition for {{count}} images |</p>
+<p>| <code>home.scanProgress.localRecognition</code> | 本地识别: {{processed}}/{{total}} | Local recognition: {{processed}}/{{total}} |</p>
+<p>| <code>home.scanProgress.locationEnrichmentStart</code> | 开始位置信息丰富 {{count}} 张图片 | Starting location enrichment for {{count}} images |</p>
+<p>| <code>home.scanProgress.locationEnrichment</code> | 位置信息丰富: {{processed}}/{{total}} | Location enrichment: {{processed}}/{{total}} |</p>
+<p>| <code>home.scanProgress.similarityDetectionStart</code> | 开始相似度检测 | Starting similarity detection |</p>
+<p>| <code>home.scanProgress.similarityDetectionProgress</code> | 相似度检测: {{processed}}/{{total}} ({{groups}} 组) | Similarity detection: {{processed}}/{{total}} ({{groups}} groups) |</p>
+<p>| <code>home.scanProgress.removingFiles</code> | 移除文件: {{count}} | Removing files: {{count}} |</p>
+<p>| <code>home.scanProgress.completed</code> | 扫描完成 | Scan completed |</p>
+<p>#### 5.1.3 实现示例</p>
+<p><strong>JavaScript 版本</strong>：</p>
+<pre><code></code></pre>
+<p><strong>Android 原生版本</strong>（类似实现，但支持更多阶段）：</p>
+<pre><code></code></pre>
+<p><strong>扫描进度消息国际化效果展示</strong>：</p>
+<img src="/assets/Screenshots/Mobile-english/首页-照片扫描进展显示.jpg" alt="移动端扫描进度" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：照片扫描进展显示*</p>
+<p>---</p>
+<h3>5.2 检测结果标签</h3>
+<p>#### 5.2.1 翻译键定义</p>
+<p>| 翻译键 | 中文 | 英文 |</p>
+<p>|--------|------|------|</p>
+<p>| <code>imagePreview.detectionResult</code> | 检测结果 | Detection Result |</p>
+<p>| <code>imagePreview.classificationComplete</code> | 分类完成 | Classification Complete |</p>
+<p>| <code>imagePreview.objects</code> | 个对象 | objects |</p>
+<p>| <code>imagePreview.idCardDetection</code> | 身份证检测 | ID Card Detection |</p>
+<p>| <code>imagePreview.idCardFront</code> | 身份证正面 | ID Card Front |</p>
+<p>| <code>imagePreview.idCardBack</code> | 身份证背面 | ID Card Back |</p>
+<p>| <code>imagePreview.generalDetection</code> | 通用物体检测 | General Object Detection |</p>
+<p>| <code>imagePreview.uncategorizedCategory</code> | 未分类 | Uncategorized |</p>
+<p>| <code>imagePreview.unknownCategoryName</code> | 未知分类 | Unknown Category |</p>
+<p>#### 5.2.2 使用示例</p>
+<p><strong>文件位置</strong>: <code>src/screens/desktop/ImagePreviewScreen.desktop.js</code></p>
+<pre><code></code></pre>
+<p><strong>检测结果国际化效果展示</strong>：</p>
+<img src="/assets/Screenshots/PC-english/照片预览以及信息查看.png" alt="PC端照片预览" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：照片预览以及信息查看*</p>
+<img src="/assets/Screenshots/Mobile-english/单照片预览.jpg" alt="移动端照片预览" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：单照片预览*</p>
+<img src="/assets/Screenshots/Mobile-english/查看单照片的详细信息.jpg" alt="移动端照片详细信息" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：查看单照片的详细信息*</p>
+<img src="/assets/Screenshots/Mobile-english/照片相似组检测.jpg" alt="移动端相似照片检测" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：照片相似组检测*</p>
+<p>---</p>
+<h2>💻 原生代码和JS代码的国际化</h2>
+<h3>6.1 JavaScript 代码国际化</h3>
+<p>#### 6.1.1 标准实现</p>
+<p><strong>导入和使用</strong>：</p>
+<pre><code></code></pre>
+<p>#### 6.1.2 异步语言获取</p>
+<p><strong>场景</strong>：在非 React 组件中（如 Service 类）需要获取当前语言。</p>
+<p><strong>实现</strong>：</p>
+<pre><code></code></pre>
+<p>---</p>
+<h3>6.2 Android 原生代码国际化</h3>
+<p>#### 6.2.1 语言参数传递</p>
+<p><strong>实现位置</strong>: <code>android/app/src/main/java/com/imageclassifier/v2/GalleryScanService.java</code></p>
+<p><strong>关键步骤</strong>：</p>
+<p>1. <strong>读取语言设置</strong>：</p>
+   <pre><code></code></pre>
+<p>2. <strong>传递语言参数</strong>：</p>
+   <pre><code></code></pre>
+<p>3. <strong>根据语言返回对应文本</strong>：</p>
+   <pre><code></code></pre>
+<p>#### 6.2.2 原生代码限制</p>
+<p><strong>当前实现</strong>：</p>
+<ul>
+<li>✅ <strong>城市名称</strong>：原生代码根据语言设置返回对应语言的城市名称</li>
+<li>✅ <strong>国家名称</strong>：根据语言返回 "China" 或 "中国"</li>
+<li>❌ <strong>其他文本</strong>：原生代码中的其他文本（如错误消息）目前未国际化</li>
+</ul>
+<p><strong>未来改进建议</strong>：</p>
+<ul>
+<li>考虑使用 Android 的 <code>Resources</code> 系统进行国际化</li>
+<li>或者将更多文本逻辑移到 JavaScript 层处理</li>
+</ul>
+<p>---</p>
+<h2>🔄 PC端和移动端国际化的一致性</h2>
+<h3>7.1 共享配置</h3>
+<p>#### 7.1.1 统一的 i18n 配置</p>
+<p><strong>文件位置</strong>: <code>src/i18n/index.js</code></p>
+<p><strong>关键特性</strong>：</p>
+<ul>
+<li>✅ <strong>跨平台兼容</strong>：使用 <code>compatibilityJSON: 'v3'</code> 确保 React Native 兼容性</li>
+<li>✅ <strong>统一语言资源</strong>：PC端和移动端使用相同的翻译文件</li>
+<li>✅ <strong>统一语言设置</strong>：语言设置存储在 <code>ImageStorageService</code> 中，PC端使用 IndexedDB，移动端使用 SQLite</li>
+</ul>
+<p>#### 7.1.2 统一的语言设置管理</p>
+<p><strong>存储方案</strong>：</p>
+<ul>
+<li><strong>PC端</strong>: <code>ImageStorageService</code> → <code>IndexedDB</code> → <code>settings.app_language</code></li>
+<li><strong>移动端</strong>: <code>ImageStorageService</code> → <code>SQLite</code> → <code>settings.app_language</code></li>
+</ul>
+<p><strong>读取和保存</strong>：</p>
+<pre><code></code></pre>
+<p>---</p>
+<h3>7.2 组件实现一致性</h3>
+<p>#### 7.2.1 相同的翻译键</p>
+<p><strong>PC端和移动端使用相同的翻译键</strong>：</p>
+<ul>
+<li><code>src/screens/desktop/HomeScreen.desktop.js</code></li>
+<li><code>src/screens/mobile/HomeScreen.mobile.js</code></li>
+</ul>
+<p>两者都使用相同的翻译键，如：</p>
+<ul>
+<li><code>home.ready</code></li>
+<li><code>home.scanning</code></li>
+<li><code>category.noImages</code></li>
+<li><code>imagePreview.detectionResult</code></li>
+</ul>
+<p>#### 7.2.2 相同的实现模式</p>
+<p><strong>分类名称处理</strong>：</p>
+<pre><code></code></pre>
+<p><strong>颜色名称翻译</strong>：</p>
+<pre><code></code></pre>
+<p><strong>PC端和移动端国际化一致性展示</strong>：</p>
+<img src="/assets/Screenshots/PC-english/照片按内容，城市，颜色智能分类.png" alt="PC端分类展示" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：按内容、城市、颜色智能分类*</p>
+<img src="/assets/Screenshots/Mobile-english/首页自动显示按内容，按城市，按颜色分类的维度.jpg" alt="移动端分类展示" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：首页自动显示按内容、按城市、按颜色分类的维度*</p>
+<img src="/assets/Screenshots/PC-english/照片自动按存储，格式，分辨率分类.png" alt="PC端格式分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：照片自动按存储、格式、分辨率分类*</p>
+<img src="/assets/Screenshots/Mobile-english/照片按格式，分辨率，和拍摄方向分类.jpg" alt="移动端格式分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：照片按格式、分辨率和拍摄方向分类*</p>
+<p>---</p>
+<h3>7.3 数据一致性</h3>
+<p>#### 7.3.1 城市信息</p>
+<p><strong>PC端和移动端</strong>：</p>
+<ul>
+<li>✅ 使用相同的 <code>CityLocationService</code></li>
+<li>✅ 使用相同的远程API和本地数据</li>
+<li>✅ 根据相同的语言设置保存城市名称</li>
+</ul>
+<p><strong>城市信息国际化效果展示</strong>：</p>
+<img src="/assets/Screenshots/Mobile-english/照片按城市分类（长图）.jpg" alt="移动端城市分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：照片按城市分类*</p>
+<p>#### 7.3.2 分类信息</p>
+<p><strong>PC端和移动端</strong>：</p>
+<ul>
+<li>✅ 使用相同的 <code>ConfigService</code></li>
+<li>✅ 读取相同的 <code>initialSettings.json</code></li>
+<li>✅ 使用相同的分类名称映射逻辑</li>
+</ul>
+<p><strong>分类信息一致性展示</strong>：</p>
+<img src="/assets/Screenshots/Mobile-english/照片社交活动类别浏览（长图）.jpg" alt="移动端社交活动分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：照片社交活动类别浏览*</p>
+<p>---</p>
+<h2>🔧 动态内容的处理方案</h2>
+<h3>8.1 服务器返回内容的国际化</h3>
+<p>#### 8.1.1 颜色名称翻译</p>
+<p><strong>问题</strong>：服务器API返回的颜色名称可能是中文或英文，需要根据用户语言设置翻译。</p>
+<p><strong>解决方案</strong>：使用颜色名称映射表。</p>
+<p><strong>实现位置</strong>: <code>src/i18n/index.js</code></p>
+<pre><code></code></pre>
+<p><strong>使用位置</strong>: <code>src/screens/desktop/HomeScreen.desktop.js</code></p>
+<pre><code></code></pre>
+<p>#### 8.1.2 方向名称翻译</p>
+<p><strong>类似实现</strong>：使用方向名称映射表。</p>
+<p><strong>实现位置</strong>: <code>src/i18n/index.js</code></p>
+<pre><code></code></pre>
+<p>---</p>
+<h3>8.2 动态消息的国际化</h3>
+<p>#### 8.2.1 带参数的翻译</p>
+<p><strong>实现</strong>：使用 i18n 的插值功能。</p>
+<pre><code></code></pre>
+<p>#### 8.2.2 AI 描述消息</p>
+<p><strong>问题</strong>：AI 返回的描述消息可能是中文或英文，需要根据用户语言设置处理。</p>
+<p><strong>当前实现</strong>：</p>
+<ul>
+<li>AI 描述消息直接显示，不做翻译（因为 AI 本身会根据上下文生成对应语言的描述）</li>
+<li>如果 AI 返回的消息不符合用户语言设置，可能需要改进 AI 提示词</li>
+</ul>
+<p><strong>未来改进建议</strong>：</p>
+<ul>
+<li>在 AI 请求时传递语言参数，确保返回对应语言的描述</li>
+<li>或者在后端进行翻译</li>
+</ul>
+<p>---</p>
+<h2>📝 最佳实践总结</h2>
+<h3>9.1 翻译键命名规范</h3>
+<p>1. <strong>使用有意义的命名空间</strong>：<code>home.*</code>, <code>category.*</code>, <code>imagePreview.*</code></p>
+<p>2. <strong>使用描述性的键名</strong>：<code>home.scanComplete</code> 而不是 <code>home.msg1</code></p>
+<p>3. <strong>保持一致性</strong>：PC端和移动端使用相同的翻译键</p>
+<h3>9.2 动态内容处理</h3>
+<p>1. <strong>服务器返回内容</strong>：使用映射表进行翻译（如颜色名称、方向名称）</p>
+<p>2. <strong>配置数据</strong>：从配置文件读取中英文名称，动态选择（如分类名称）</p>
+<p>3. <strong>扫描时保存</strong>：根据用户语言设置保存对应语言的数据（如城市名称）</p>
+<h3>9.3 语言设置管理</h3>
+<p>1. <strong>统一存储</strong>：使用 <code>ImageStorageService</code> 统一管理语言设置</p>
+<p>2. <strong>异步读取</strong>：在 Service 类中使用 <code>getCurrentLanguageAsync()</code> 异步读取</p>
+<p>3. <strong>验证保存</strong>：切换语言后验证保存是否成功</p>
+<h3>9.4 弹窗和异步回调</h3>
+<p>1. <strong>使用当前语言</strong>：在异步回调中使用 <code>i18n.t(key, { lng: currentLang })</code> 而不是闭包中的 <code>t</code> 函数</p>
+<p>2. <strong>显式指定语言</strong>：确保使用最新的语言值</p>
+<p><strong>功能操作国际化效果展示</strong>：</p>
+<img src="/assets/Screenshots/PC-english/照片批量选择.png" alt="PC端批量操作" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：照片批量选择*</p>
+<img src="/assets/Screenshots/Mobile-english/照片批量选中.jpg" alt="移动端批量操作" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：照片批量选中*</p>
+<img src="/assets/Screenshots/PC-english/ai修图-色彩优化（一键操作）.png" alt="PC端AI修图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*PC端英文界面：AI修图-色彩优化（一键操作）*</p>
+<img src="/assets/Screenshots/Mobile-english/单照片AI修图-处理中.jpg" alt="移动端AI修图" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>*移动端英文界面：单照片AI修图-处理中*</p>
+<p>---</p>
+<h2>🚀 未来改进建议</h2>
+<h3>10.1 已实现功能</h3>
+<ul>
+<li>✅ 基础界面文本国际化</li>
+<li>✅ 弹窗国际化（包括动态语言切换）</li>
+<li>✅ 城市信息国际化（扫描时保存）</li>
+<li>✅ 分类信息国际化（配置文件读取）</li>
+<li>✅ 智能检测信息国际化（扫描进度、检测结果）</li>
+<li>✅ 颜色名称翻译（映射表）</li>
+<li>✅ 方向名称翻译（映射表）</li>
+<li>✅ PC端和移动端一致性</li>
+</ul>
+<h3>10.2 待改进功能</h3>
+<p>1. <strong>城市名称映射表</strong>：</p>
+<ul>
+<li>考虑创建城市名称映射表，支持已存储数据的国际化显示</li>
+<li>避免重新扫描才能看到对应语言的城市名称</li>
+</ul>
+<p>2. <strong>Android 原生代码国际化</strong>：</p>
+<ul>
+<li>使用 Android <code>Resources</code> 系统进行更全面的国际化</li>
+<li>或者将更多文本逻辑移到 JavaScript 层</li>
+</ul>
+<p>3. <strong>AI 描述消息</strong>：</p>
+<ul>
+<li>在 AI 请求时传递语言参数</li>
+<li>确保返回对应语言的描述</li>
+</ul>
+<p>4. <strong>日期格式化</strong>：</p>
+<ul>
+<li>使用 i18n 的日期格式化功能</li>
+<li>统一日期显示格式</li>
+</ul>
+<p>5. <strong>数字格式化</strong>：</p>
+<ul>
+<li>根据语言设置格式化数字（如千位分隔符）</li>
+</ul>
+<p>---</p>
+<h2>📚 相关文件清单</h2>
+<h3>核心文件</h3>
+<ul>
+<li><code>src/i18n/index.js</code> - i18n 配置和工具函数</li>
+<li><code>src/i18n/locales/zh/common.json</code> - 中文翻译资源</li>
+<li><code>src/i18n/locales/en/common.json</code> - 英文翻译资源</li>
+</ul>
+<h3>服务文件</h3>
+<ul>
+<li><code>src/services/ImageStorageService.js</code> - 语言设置存储</li>
+<li><code>src/services/CityLocationService.js</code> - 城市信息国际化</li>
+<li><code>src/services/ConfigService.js</code> - 分类信息国际化</li>
+<li><code>src/services/GalleryScannerService.js</code> - 扫描进度消息国际化</li>
+</ul>
+<h3>原生代码</h3>
+<ul>
+<li><code>android/app/src/main/java/com/imageclassifier/v2/GalleryScanService.java</code> - Android 原生城市信息国际化</li>
+</ul>
+<h3>配置文件</h3>
+<ul>
+<li><code>public/initialSettings.json</code> - 分类名称配置</li>
+</ul>
+<p>---</p>
+<h2>📖 参考资料</h2>
+<ul>
+<li><a href="https://www.i18next.com/">i18next 官方文档</a></li>
+<li><a href="https://react.i18next.com/">react-i18next 官方文档</a></li>
+<li><a href="https://reactnative.dev/docs/internationalization">React Native 国际化最佳实践</a></li>
+</ul>
+<p>---</p>
+<p><strong>文档版本</strong>: 1.0.0</p>
+<p><strong>最后更新</strong>: 2025-01-20</p>
+<p><strong>维护者</strong>: 芯图相册开发团队</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">国际化</span><span class="article-tag">i18n</span><span class="article-tag">前端开发</span><span class="article-tag">React Native</span><span class="article-tag">Electron</span><span class="article-tag">技术实现</span><span class="article-tag">研发经验</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="backend-arch.html" class="related-article-card">
+                    <h3>图片分类后端系统 - 芯图相册后端技术方案</h3>
+                    <p>基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。</p>
+                </a>
+                <a href="async-arch.html" class="related-article-card">
+                    <h3>芯图相册：异步架构与高并发技术说明</h3>
+                    <p>深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。</p>
+                </a>
+                <a href="deploy-arch.html" class="related-article-card">
+                    <h3>芯图相册：三层部署架构图</h3>
+                    <p>详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+
