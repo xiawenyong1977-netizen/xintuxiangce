@@ -72,7 +72,30 @@ def escape_json_string(text):
     
     return text
 
-def generate_article_page(article, template_path, all_articles=None):
+def extract_existing_meta_description(html_file_path):
+    """
+    从现有HTML文件中提取meta description
+    如果文件不存在或无法提取，返回None
+    """
+    if not os.path.exists(html_file_path):
+        return None
+    
+    try:
+        with open(html_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 使用正则表达式提取meta description
+        # 匹配 <meta name="description" content="...">
+        match = re.search(r'<meta\s+name=["\']description["\']\s+content=["\']([^"\']+)["\']', content)
+        if match:
+            return match.group(1)
+        
+        return None
+    except Exception as e:
+        print(f"警告: 无法读取现有文件 {html_file_path}: {e}")
+        return None
+
+def generate_article_page(article, template_path, all_articles=None, output_path=None):
     """生成文章详情页"""
     # 读取模板
     try:
@@ -82,10 +105,19 @@ def generate_article_page(article, template_path, all_articles=None):
         print(f"警告: 模板文件不存在 {template_path}")
         return None
     
+    # 检查是否有手动调整的meta description
+    description = article.get('description', '')
+    if output_path:
+        existing_description = extract_existing_meta_description(output_path)
+        if existing_description and existing_description != description:
+            # 如果现有文件的description与JSON中的不同，说明是手动调整过的，保留手动版本
+            print(f"  检测到手动调整的meta description，保留现有版本（长度: {len(existing_description)}字符）")
+            description = existing_description
+    
     # 替换占位符
     replacements = {
         '{{TITLE}}': article.get('title', ''),
-        '{{DESCRIPTION}}': article.get('description', ''),
+        '{{DESCRIPTION}}': description,  # 使用可能被手动调整过的description
         '{{TAGS}}': ', '.join(article.get('tags', [])),
         '{{COVER}}': article.get('cover', '/icons/imageclassify.png'),
         '{{ID}}': article.get('id', ''),
@@ -185,8 +217,9 @@ def generate_article_page(article, template_path, all_articles=None):
         json_content = match.group(1)
         
         # 转义标题和描述（这些会出现在JSON字符串值中）
+        # JSON-LD中使用手动调整过的description（如果存在）
         escaped_title = escape_json_string(article.get('title', ''))
-        escaped_description = escape_json_string(article.get('description', ''))
+        escaped_description = escape_json_string(description)  # 使用可能被手动调整过的description
         
         # 替换占位符
         json_content = json_content.replace('{{TITLE}}', escaped_title)
@@ -430,9 +463,9 @@ def main():
         if not article_id:
             continue
         
-        html = generate_article_page(article, template_path, all_articles=articles)
+        output_path = os.path.join(GUIDES_DIR, f"{article_id}.html")
+        html = generate_article_page(article, template_path, all_articles=articles, output_path=output_path)
         if html:
-            output_path = os.path.join(GUIDES_DIR, f"{article_id}.html")
             save_file(output_path, html)
     
     # 4. 更新sitemap

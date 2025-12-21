@@ -22,6 +22,9 @@ TEMPLATE_DIR = 'diary'
 SITEMAP_FILE = 'sitemap.xml'
 BASE_URL = 'https://www.xintuxiangce.top'
 
+# 图片路径模式：'relative' 用于本地预览，'absolute' 用于服务器部署
+IMAGE_PATH_MODE = 'absolute'  # 可选值：'relative' 或 'absolute'
+
 def load_json(filepath):
     """加载JSON文件"""
     try:
@@ -73,7 +76,30 @@ def escape_json_string(text):
     
     return text
 
-def generate_article_page(article, template_path, all_articles=None):
+def extract_existing_meta_description(html_file_path):
+    """
+    从现有HTML文件中提取meta description
+    如果文件不存在或无法提取，返回None
+    """
+    if not os.path.exists(html_file_path):
+        return None
+    
+    try:
+        with open(html_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 使用正则表达式提取meta description
+        # 匹配 <meta name="description" content="...">
+        match = re.search(r'<meta\s+name=["\']description["\']\s+content=["\']([^"\']+)["\']', content)
+        if match:
+            return match.group(1)
+        
+        return None
+    except Exception as e:
+        print(f"警告: 无法读取现有文件 {html_file_path}: {e}")
+        return None
+
+def generate_article_page(article, template_path, all_articles=None, output_path=None):
     """生成文章详情页"""
     # 读取模板
     try:
@@ -83,10 +109,19 @@ def generate_article_page(article, template_path, all_articles=None):
         print(f"警告: 模板文件不存在 {template_path}")
         return None
     
+    # 检查是否有手动调整的meta description
+    description = article.get('description', '')
+    if output_path:
+        existing_description = extract_existing_meta_description(output_path)
+        if existing_description and existing_description != description:
+            # 如果现有文件的description与JSON中的不同，说明是手动调整过的，保留手动版本
+            print(f"  检测到手动调整的meta description，保留现有版本（长度: {len(existing_description)}字符）")
+            description = existing_description
+    
     # 替换占位符
     replacements = {
         '{{TITLE}}': article.get('title', ''),
-        '{{DESCRIPTION}}': article.get('description', ''),
+        '{{DESCRIPTION}}': description,  # 使用可能被手动调整过的description
         '{{TAGS}}': ', '.join(article.get('tags', [])),
         '{{COVER}}': article.get('cover', '/icons/imageclassify.png'),
         '{{ID}}': article.get('id', ''),
@@ -106,7 +141,8 @@ def generate_article_page(article, template_path, all_articles=None):
                 # 移除第一个h1标题（因为header中已经有标题了）
                 content = re.sub(r'^#\s+.*?\n', '', content, count=1, flags=re.MULTILINE)
                 # 简单的Markdown到HTML转换（基础版）
-                content = markdown_to_html(content)
+                # HTML文件在diary目录下，所以相对路径是diary/
+                content = markdown_to_html(content, html_relative_path='diary/')
         else:
             content = article.get('description', '')
     elif article.get('type') == 'video':
@@ -132,7 +168,18 @@ def generate_article_page(article, template_path, all_articles=None):
         # 视频页面移除封面图片
         template = re.sub(r'\{\{#COVER\}\}.*?\{\{/COVER\}\}', '', template, flags=re.DOTALL)
     elif article.get('cover'):
-        cover_html = f'<img src="{article["cover"]}" alt="{article["title"]}" class="article-cover">'
+        # 根据IMAGE_PATH_MODE决定封面图片路径
+        cover_path = article["cover"]
+        if IMAGE_PATH_MODE == 'relative':
+            # 相对路径模式：用于本地预览
+            if cover_path.startswith('/'):
+                cover_path = '../' + cover_path[1:]  # /assets/ -> ../assets/
+        else:
+            # 绝对路径模式：用于服务器部署（默认）
+            # 确保路径以 / 开头
+            if not cover_path.startswith('/') and not cover_path.startswith('http'):
+                cover_path = '/' + cover_path
+        cover_html = f'<img src="{cover_path}" alt="{article["title"]}" class="article-cover">'
         # 替换条件块：{{#COVER}}...{{/COVER}} 替换为图片
         template = re.sub(r'\{\{#COVER\}\}.*?\{\{/COVER\}\}', cover_html, template, flags=re.DOTALL)
     else:
@@ -184,13 +231,18 @@ def generate_article_page(article, template_path, all_articles=None):
         json_content = match.group(1)
         
         # 转义标题和描述（这些会出现在JSON字符串值中）
+        # JSON-LD中使用手动调整过的description（如果存在）
         escaped_title = escape_json_string(article.get('title', ''))
-        escaped_description = escape_json_string(article.get('description', ''))
+        escaped_description = escape_json_string(description)  # 使用可能被手动调整过的description
+        
+        # 转换封面图片路径为相对路径（用于本地预览，但JSON-LD通常使用绝对URL）
+        # 这里保持绝对路径，因为JSON-LD主要用于SEO，需要完整URL
+        cover_path = article.get('cover', '/icons/imageclassify.png')
         
         # 替换占位符
         json_content = json_content.replace('{{TITLE}}', escaped_title)
         json_content = json_content.replace('{{DESCRIPTION}}', escaped_description)
-        json_content = json_content.replace('{{COVER}}', article.get('cover', '/icons/imageclassify.png'))
+        json_content = json_content.replace('{{COVER}}', cover_path)
         json_content = json_content.replace('{{DATE}}', format_date(article.get('date', '')))
         json_content = json_content.replace('{{ID}}', article.get('id', ''))
         
@@ -260,8 +312,13 @@ def generate_video_content(article):
     
     return content
 
-def markdown_to_html(markdown_text):
-    """简单的Markdown到HTML转换（基础版）"""
+def markdown_to_html(markdown_text, html_relative_path=''):
+    """简单的Markdown到HTML转换（基础版）
+    
+    Args:
+        markdown_text: Markdown文本
+        html_relative_path: HTML文件相对于网站根目录的路径（如 'diary/'），用于转换绝对路径为相对路径
+    """
     html = markdown_text
     
     # 先处理代码块（避免被其他规则误匹配）
@@ -278,14 +335,26 @@ def markdown_to_html(markdown_text):
     html = re.sub(r'`(.*?)`', r'<code>\1</code>', html)
     
     # 图片（必须在链接之前处理，因为图片语法类似但以!开头）
-    # 处理图片：保持绝对路径 /assets/ 不变（网站根路径）
+    # 处理图片：根据IMAGE_PATH_MODE决定使用相对路径还是绝对路径
     def process_image(match):
         alt_text = match.group(1)
         img_path = match.group(2)
-        # 保持绝对路径不变，确保从网站根路径访问
-        # 如果路径不是以 / 开头，则添加 /
-        if not img_path.startswith('/') and not img_path.startswith('http'):
-            img_path = '/' + img_path
+        
+        # 根据配置决定路径模式
+        if IMAGE_PATH_MODE == 'relative' and html_relative_path:
+            # 相对路径模式：用于本地预览
+            if img_path.startswith('/'):
+                # 计算需要向上几级目录
+                depth = html_relative_path.count('/') + html_relative_path.count('\\')
+                if depth > 0:
+                    # 移除开头的 /，添加相对路径前缀
+                    img_path = '../' * depth + img_path[1:]
+        else:
+            # 绝对路径模式：用于服务器部署（默认）
+            # 确保路径以 / 开头（绝对路径）
+            if not img_path.startswith('/') and not img_path.startswith('http'):
+                img_path = '/' + img_path
+        
         return f'__IMG_TAG__<img src="{img_path}" alt="{alt_text}" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">__IMG_TAG__'
     
     html = re.sub(r'!\[(.*?)\]\((.*?)\)', process_image, html)
@@ -440,9 +509,9 @@ def main():
         if not article_id:
             continue
         
-        html = generate_article_page(article, template_path, all_articles=articles)
+        output_path = os.path.join(DIARY_DIR, f"{article_id}.html")
+        html = generate_article_page(article, template_path, all_articles=articles, output_path=output_path)
         if html:
-            output_path = os.path.join(DIARY_DIR, f"{article_id}.html")
             save_file(output_path, html)
     
     # 4. 更新sitemap
