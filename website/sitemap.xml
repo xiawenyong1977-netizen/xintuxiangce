@@ -334,4 +334,20 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    
+    <!-- 芯图相册1.1新版发布 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/release-of-xintu-album-1.1.html</loc>
+        <lastmod>2026-01-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- 专业照片分类管理软件 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/professional-photo-manager-1.1.html</loc>
+        <lastmod>2026-01-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
 </urlset>

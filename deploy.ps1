@@ -216,9 +216,18 @@ function Test-GitRepository {
         $env:GIT_CONFIG_PARAMETERS = $oldConfig
         
         # 过滤掉包含警告信息的行，只保留实际的状态信息
-        $status = $statusOutput | Where-Object { 
-            $_ -and 
-            $_ -match '^[ MADRCU?]{2}'  # 只保留以 Git 状态码开头的行
+        $status = $statusOutput | ForEach-Object {
+            # 确保转换为字符串类型
+            if ($_ -is [string]) {
+                $lineStr = $_
+            } else {
+                $lineStr = $_.ToString()
+            }
+            
+            # 检查是否符合 Git 状态码格式
+            if ($lineStr -and $lineStr -match '^[ MADRCU?]{2}') {
+                $lineStr
+            }
         }
         if ($status) {
             Write-Warning "检测到未提交的更改（这些更改将被包含在部署中）："
@@ -228,12 +237,22 @@ function Test-GitRepository {
             $displayCount = [Math]::Min($status.Count, 10)
             for ($i = 0; $i -lt $displayCount; $i++) {
                 $line = $status[$i]
+                
+                # 确保 $line 是字符串且长度足够
+                if (-not $line -or $line.Length -lt 3) {
+                    continue
+                }
+                
                 $statusCode = $line.Substring(0, 2).Trim()
                 $fileName = $line.Substring(3)
                 
                 # 解析状态码
-                $staged = $statusCode[0]
-                $unstaged = $statusCode[1]
+                if ($statusCode.Length -ge 2) {
+                    $staged = $statusCode[0]
+                    $unstaged = $statusCode[1]
+                } else {
+                    continue
+                }
                 
                 $statusText = ""
                 if ($staged -eq "A") { $statusText += "[新增]" }
