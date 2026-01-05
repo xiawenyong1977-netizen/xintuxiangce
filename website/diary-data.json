@@ -337,6 +337,20 @@
       "category": "研发经验",
       "cover": "/assets/diary/ai-program/cover.jpg",
       "related": ["ai-pair-program-intro", "video-010", "ai-roadmap"]
+    },
+    {
+      "id": "ai-coder-compare",
+      "type": "article",
+      "title": "当Cursor Token耗尽后，我探索了Google AI Studio和通义灵码：AI编程体验大不同！",
+      "description": "当我的Cursor Token提前5天耗尽时，一场意外的AI编程探索之旅就此展开。我发现了Google AI Studio和阿里通义灵码这两个截然不同的工具，它们的能力差异大得惊人。",
+      "content": "diary/ai-coder-compare.md",
+      "author": "芯图团队",
+      "date": "2025-12-24",
+      "tags": ["AI", "AI编程", "Google AI Studio", "通义灵码", "Cursor", "编程工具", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/aistudio.png",
+      "readTime": "12分钟",
+      "related": ["ai-pair-program-intro", "ai-prompt-library", "arch-pe"]
     }
   ]
 }

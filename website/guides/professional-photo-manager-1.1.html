@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧 | 使用指南</title>
+    <meta name="description" content="还在为海量照片杂乱无章而烦恼？手机自带的相册分类功能不够用？芯图相册是您的专业本地照片分类与管理解决方案。基于本地AI技术，提供多达12个维度的智能分类（内容、地点、参数、相似照片等），保护隐私不上传，支持跨平台（Windows/Android），助您彻底解放相册存储空间，实现高效精准的照片查找与管理。本文详细对比芯图相册与手机自带相册的差异，介绍1.1版本新功能，包括按需分类、拍摄参数分类、本地ImageNetV3神经网络等核心特性，帮助您选择最适合的照片分类工具。">
+    <meta name="keywords" content="产品介绍, 版本更新, 照片分类, 本地AI, 隐私保护, 产品对比">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/professional-photo-manager-1.1.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧">
+    <meta property="og:description" content="还在为海量照片杂乱无章而烦恼？手机自带的相册分类功能不够用？芯图相册是您的专业本地照片分类与管理解决方案。基于本地AI技术，提供多达12个维度的智能分类（内容、地点、参数、相似照片等），保护隐私不上传，支持跨平台（Windows/Android），助您彻底解放相册存储空间，实现高效精准的照片查找与管理。本文详细对比芯图相册与手机自带相册的差异，介绍1.1版本新功能，包括按需分类、拍摄参数分类、本地ImageNetV3神经网络等核心特性，帮助您选择最适合的照片分类工具。">
+    <meta property="og:image" content="/assets/Screenshots/PC/aiclassifyondemand.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/professional-photo-manager-1.1.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧",
+        "description": "还在为海量照片杂乱无章而烦恼？手机自带的相册分类功能不够用？芯图相册是您的专业本地照片分类与管理解决方案。基于本地AI技术，提供多达12个维度的智能分类（内容、地点、参数、相似照片等），保护隐私不上传，支持跨平台（Windows/Android），助您彻底解放相册存储空间，实现高效精准的照片查找与管理。本文详细对比芯图相册与手机自带相册的差异，介绍1.1版本新功能，包括按需分类、拍摄参数分类、本地ImageNetV3神经网络等核心特性，帮助您选择最适合的照片分类工具。",
+        "image": "/assets/Screenshots/PC/aiclassifyondemand.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2026年01月05日",
+        "dateModified": "2026年01月05日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧",
+                "item": "https://www.xintuxiangce.top/guides/professional-photo-manager-1.1.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧</h1>
+                <div class="article-meta">
+                    <span>📅 2026年01月05日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 15分钟</span>
+                </div>
+                <img src="/assets/Screenshots/PC/aiclassifyondemand.png" alt="专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧" class="article-cover">
+            </header>
+            
+            <article class="article-body">
+                <h2>专业照片分类管理软件 | 芯图相册：本地AI，深度整理，隐私无忧</h2>
+<p><strong>还在为海量照片杂乱无章而烦恼？手机自带的相册分类功能不够用？</strong>芯图相册是您的专业本地照片分类与管理解决方案。基于本地AI技术，提供多达12个维度的智能分类（内容、地点、参数、相似照片等），保护隐私不上传，支持跨平台（Windows/Android），助您彻底解放相册存储空间，实现高效精准的照片查找与管理。</p>
+<p>---</p>
+<h2>一、芯图相册 vs. 手机自带相册：如何选择最适合您的照片分类工具？</h2>
+<p>面对海量照片，您需要一个"收纳盒"还是一个"整理专家"？我们为您清晰对比：</p>
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">对比维度</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">手机自带智能相册 (如华为/小米/iPhone)</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>芯图相册 (XinTu)</strong></th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;"><strong>核心优势</strong></th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>隐私安全</strong></td><td style="border: 1px solid #ddd; padding: 8px;">中/低。部分数据可能需上传云端分析，用户不可控。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>高（核心卖点）</strong>。<strong>本地AI处理</strong>，照片不上传云端，所有计算在设备本地完成，敏感资料更安心。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>芯图相册</strong></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>分类精细度</strong></td><td style="border: 1px solid #ddd; padding: 8px;">中。通常为基础的人物、地点、事物（如美食、文档）分类。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>高</strong>。支持<strong>12大维度深度分类</strong>，包括：按内容、城市、颜色、存储位置、分辨率、格式、拍摄参数（ISO/光圈/焦距/快门）、相似照片等，逻辑更专业。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>芯图相册</strong></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>适用范围</strong></td><td style="border: 1px solid #ddd; padding: 8px;">单一设备。手机管手机，电脑管电脑，跨平台协同困难。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>跨平台</strong>。同时支持 <strong>Windows 和 Android</strong> 系统，并提供便携版，U盘即插即用，方便管理电脑硬盘或移动设备中的照片。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>芯图相册</strong></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>操作便捷度</strong></td><td style="border: 1px solid #ddd; padding: 8px;">极高。系统原生集成，打开即用，自动后台运行。</td><td style="border: 1px solid #ddd; padding: 8px;">中。需要单独下载安装，部分操作需手动触发扫描或分类。</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>手机自带</strong></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>费用</strong></td><td style="border: 1px solid #ddd; padding: 8px;">免费（随系统提供）</td><td style="border: 1px solid #ddd; padding: 8px;">免费（基础功能免费）</td><td style="border: 1px solid #ddd; padding: 8px;"><strong>平手</strong></td></tr></tbody></table>### 🧐 我们的建议：
+<ul>
+<li><strong>日常随手拍、求便捷</strong>：<strong>直接使用手机自带相册</strong>。其搜索和基础分类功能已能满足"快速找到上周拍的猫"这类需求。</li>
+<li><strong>深度整理、重隐私、跨平台管理</strong>：<strong>选择芯图相册</strong>。适合照片数量庞大（如数万张）、希望彻底清理（如识别相似照片）、或在电脑上批量整理硬盘照片、格外注重隐私安全的用户。</li>
+</ul>
+<p><strong>理想配合模式：将手机自带相册作为日常"收纳盒"，芯图相册作为定期"大扫除"的专业工具，两者结合，相册管理事半功倍。</strong></p>
+<p>---</p>
+<h2>二、芯图相册发展蓝图：不止于分类，更是您照片的智能助手</h2>
+<p>我们的愿景是打造一个从智能分类到深度应用的全能照片管理生态系统：</p>
+<h3>1.0 版本 - 全能分类基石</h3>
+<p>已实现<strong>最全的照片分类维度</strong>，包括技术参数、图像特征和场景内容分类，并配备暂存箱、全局选中等高效管理功能。</p>
+<h3>2.0 版本（规划中）- 智能搜索飞跃</h3>
+<p>将支持<strong>组合查询与语义搜索</strong>。您只需用自然语言描述（如"去年秋天在西湖拍的带人物的风景照"），AI即可在本地精准找出对应照片。</p>
+<h3>3.0 版本（规划中）- 场景应用深化</h3>
+<p>探索照片的更多可能，如：<strong>即时食谱</strong>（对着美食照片生成菜谱）、<strong>构图分析</strong>（为风景照提供构图与参数优化建议）等创意功能。</p>
+<p>---</p>
+<h2>三、最新版芯图相册1.1：更智能、更高效、体验全面提升</h2>
+<p>在1.0全能分类的基础上，1.1版本聚焦体验优化与性能提升：</p>
+<h3>🔄 更灵活的分类策略</h3>
+<p>将耗时的<strong>AI内容分类</strong>与<strong>相似度检测</strong>改为"<strong>按需触发</strong>"。用户可先快速完成基础参数分类，仅在需要时进行深度场景识别与相似照片分组，大幅提升扫描效率。</p>
+<img src="/assets/Screenshots/PC/aiclassifyondemand.png" alt="ai分类按需触发" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>📊 更丰富的分类维度</h3>
+<p>新增按<strong>拍摄参数（ISO、光圈、焦距、快门）</strong> 分类，满足摄影爱好者的精细化管理需求。</p>
+<img src="/assets/Screenshots/PC/photoclassifydimensions.png" alt="12个照片分类维度" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>🧠 更强的本地AI能力</h3>
+<p>支持开启<strong>本地ImageNetV3神经网络</strong>辅助分类，在基础扫描阶段即可提供更准确的初步内容识别，结果在详情页展示。</p>
+<img src="/assets/Screenshots/PC/localclassifybyimagenetv3option.png" alt="本地AI分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>⚡ 更优的使用体验</h3>
+<p>安装包体积<strong>缩小1/3</strong>，下载安装更快捷。同时全面支持<strong>中文与英文界面</strong>，满足更多用户需求。</p>
+<p>---</p>
+<p><strong>立即下载芯图相册1.1版，开启您专业、私密、高效的照片分类整理之旅！</strong></p>
+<p>---</p>
+            </article>
+            
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">产品介绍</span><span class="article-tag">版本更新</span><span class="article-tag">照片分类</span><span class="article-tag">本地AI</span><span class="article-tag">隐私保护</span><span class="article-tag">产品对比</span>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>三体世界 V15：文明飞升版 (上帝模式)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://cdn.staticfile.org/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; font-family: 'Courier New', Courier, monospace; color: #00ff00; user-select: none; }
+        #game-container { position: absolute; top:0; left:0; width: 100%; height: 100%; z-index: 1; }
+        #screen-fx { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; opacity: 0; transition: background 0.5s, opacity 0.5s; }
+        #frost-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 51; background: radial-gradient(circle, transparent 40%, rgba(200, 240, 255, 0.8) 100%); opacity: 0; transition: opacity 1s; mix-blend-mode: hard-light; }
+        #minimap-container { position: absolute; top: 20px; left: 20px; width: 180px; height: 180px; background: rgba(0, 20, 0, 0.8); border: 2px solid #00ff00; border-radius: 50%; z-index: 200; pointer-events: none; box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); overflow: hidden; }
+        #minimap-label { position: absolute; top: 200px; left: 80px; transform: translateX(-50%); font-size: 12px; color: #00ff00; text-shadow: 0 0 5px #00ff00; z-index: 200; pointer-events: none; }
+        #loader { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .loader-text { font-size: 20px; color: #00ff00; margin-bottom: 20px; }
+        #intro { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; }
+        .intro-content { max-width: 700px; padding: 20px; text-align: center; }
+        .intro-control-group { background: rgba(0, 50, 0, 0.5); border: 1px solid #00ff00; padding: 15px; border-radius: 8px; margin: 20px auto; width: 80%; max-width: 300px; }
+        #ui-layer { position: absolute; top: 20px; left: 220px; pointer-events: none; z-index: 100; text-shadow: 0 0 4px #000; }
+        .hud-row { font-size: 16px; margin-bottom: 8px; color: rgba(255,255,255,0.9); transition: color 0.3s; }
+        .hud-val { font-weight: bold; color: #00ff00; }
+        .frozen-text { color: #AAAAAA !important; text-decoration: line-through; }
+        .frozen-val { color: #888888 !important; }
+        #speed-control { position: absolute; top: 20px; right: 20px; background: rgba(0, 30, 0, 0.8); border: 1px solid #00ff00; padding: 15px; z-index: 200; pointer-events: auto; border-radius: 8px; text-align: center; }
+        #speed-control label { display: block; color: #fff; margin-bottom: 5px; }
+        input[type=range] { width: 150px; cursor: pointer; accent-color: #00ff00; }
+        #warning-box { position: absolute; top: 15%; width: 100%; text-align: center; pointer-events: none; z-index: 90; }
+        #era-name { font-size: 24px; color: #aaa; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 10px; }
+        #status-msg { font-size: 36px; font-weight: bold; text-shadow: 0 0 20px currentColor; transition: color 0.3s; }
+        #quote-box { position: absolute; bottom: 160px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px; text-align: center; pointer-events: none; z-index: 95; opacity: 0; transition: opacity 2s; }
+        #quote-text { font-size: 20px; color: #00ffff; font-style: italic; background: rgba(0,0,0,0.7); padding: 15px; border-left: 4px solid #00ffff; }
+        #quote-author { font-size: 16px; color: #ccc; margin-top: 8px; text-align: right; margin-right: 20px;}
+        #controls { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; z-index: 200; pointer-events: auto; }
+        button { background: rgba(0, 30, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; width: 140px; height: 60px; font-size: 18px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 0, 0.3); transition: 0.2s; font-family: inherit; border-radius: 4px; }
+        button:hover { background: #006600; color: #fff; }
+        button.active { background: #00ff00; color: #000; font-weight: bold; box-shadow: 0 0 30px #00ff00; transform: scale(1.05); }
+        #startBtn { font-size: 24px; width: 240px; border-color: #fff; color: #fff; background: #222; }
+    </style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-text">物理引擎初始化中...</div></div>
+
+<div id="intro">
+    <div class="intro-content">
+        <h1 style="font-size: 60px; text-shadow: 0 0 30px #00ffff; color: white; margin: 0;">三体 3D</h1>
+        <p style="color:#00ffff; font-weight:bold;">V15 上帝模式：文明飞升</p>
+        <div style="text-align: left; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p>1. <b>科技爆炸：</b>发展速度提升 10 倍。</p>
+            <p>2. <b>生存增强：</b>高温/低温耐受度提升 5 倍。</p>
+            <p>3. <b>法则：</b>在这里，你可以给岁月以文明。</p>
+        </div>
+        <div class="intro-control-group">
+            <label>初始流速: <span id="intro-speed-val" style="color:#00ffff; font-weight:bold;">1.0x</span></label>
+            <input type="range" id="intro-speed-slider" min="0.1" max="3.0" step="0.1" value="1.0">
+        </div>
+        <button id="startBtn" style="border-color:#00ffff; color:#00ffff;">启动上帝视角</button>
+    </div>
+</div>
+
+<div id="game-container"></div>
+<div id="screen-fx"></div>
+<div id="frost-overlay"></div>
+<div id="minimap-container"><canvas id="minimap" width="180" height="180"></canvas></div>
+<div id="minimap-label">引力波雷达</div>
+
+<div id="ui-layer">
+    <div class="hud-row">文明编号: <span id="civ-id" class="hud-val">1</span></div>
+    <div class="hud-row" id="row-years">文明历程: <span id="years" class="hud-val">0</span> 年</div>
+    <div class="hud-row" id="row-pop">当前人口: <span id="population" class="hud-val">0</span></div>
+    <div class="hud-row">地表温度: <span id="temp-display" class="hud-val">288 K</span></div>
+    <div class="hud-row" id="status-hint" style="color:#aaa; font-size:14px; margin-top:10px;"></div>
+</div>
+
+<div id="speed-control">
+    <label>时间流速: <span id="speed-val">1.0x</span></label>
+    <input type="range" id="speed-slider" min="0.1" max="3.0" step="0.1" value="1.0">
+</div>
+
+<div id="warning-box">
+    <div id="era-name">石器时代</div>
+    <div id="status-msg">恒纪元</div>
+</div>
+
+<div id="quote-box">
+    <div id="quote-text"></div>
+    <div id="quote-author"></div>
+</div>
+
+<div id="controls">
+    <button id="btn-hydrate">浸泡<br><span style="font-size:12px">发展</span></button>
+    <button id="btn-dehydrate">脱水<br><span style="font-size:12px">生存</span></button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof THREE === 'undefined') { alert("3D引擎加载失败，请刷新。"); return; }
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('intro').style.display = 'flex';
+
+    // --- 上帝模式配置 ---
+    const CONFIG = { 
+        G: 120, 
+        BASE_TIME_STEP: 0.015, 
+        TEMP_INERTIA: 0.02,
+        // 下面是作弊参数
+        GROWTH_RATE: 0.03, // 人口增长极快 (原0.002)
+        HEAT_RESISTANCE: 1500, // 耐热上限 (原500)
+        COLD_RESISTANCE: 5,   // 耐寒下限 (原30)
+    };
+
+    let scene, camera, renderer, suns = [], planet;
+    let gameRunning = false, isHydrated = true;
+    let civCount = 1, years = 0, population = 100, temperature = 288, eraIndex = 0;
+    let timeMultiplier = 1.0;
+    let audioCtx = null, lastSoundTime = 0;
+    const miniCanvas = document.getElementById('minimap');
+    const miniCtx = miniCanvas.getContext('2d');
+
+    const ERAS = [
+        { name: "石器时代", threshold: 0, quote: "太阳是神的恩赐，也是神的惩罚。", author: "—— 原始部落" },
+        { name: "青铜时代", threshold: 100, quote: "我在龟甲上刻下了太阳的舞步。", author: "—— 纣王" },
+        { name: "农业时代", threshold: 300, quote: "如果能掌握太阳运行的历法，庄稼就能丰收。", author: "—— 周文王" },
+        { name: "工业时代", threshold: 600, quote: "宇宙是一台精密的机器，我们可以计算它。", author: "—— 牛顿" },
+        { name: "信息时代", threshold: 1000, quote: "给我一台足够大的计算机，我能模拟整个宇宙。", author: "—— 冯·诺依曼" },
+        { name: "宇航时代", threshold: 1800, quote: "我们的征途是星辰大海。", author: "—— 章北海" },
+        { name: "三体纪元", threshold: 3000, quote: "消灭人类暴政，世界属于三体。", author: "—— ETO" }
+    ];
+
+    document.getElementById('startBtn').onclick = startGame;
+    document.getElementById('btn-hydrate').onclick = function() { try { setState(true); } catch(e) { console.error(e); } };
+    document.getElementById('btn-dehydrate').onclick = function() { try { setState(false); } catch(e) { console.error(e); } };
+
+    const introSlider = document.getElementById('intro-speed-slider');
+    const gameSlider = document.getElementById('speed-slider');
+    const introVal = document.getElementById('intro-speed-val');
+    const gameVal = document.getElementById('speed-val');
+
+    function updateSpeed(val) {
+        timeMultiplier = parseFloat(val);
+        introSlider.value = val; gameSlider.value = val;
+        introVal.innerText = val + "x"; gameVal.innerText = val + "x";
+    }
+    introSlider.oninput = (e) => updateSpeed(e.target.value);
+    gameSlider.oninput = (e) => updateSpeed(e.target.value);
+
+    function startGame() {
+        document.getElementById('intro').style.display = 'none';
+        initAudio(); if (!scene) init3D(); resetGame();
+    }
+
+    function init3D() {
+        scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x000000, 0.0005);
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 10000);
+        camera.position.set(0, 200, 500);
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('game-container').appendChild(renderer.domElement);
+        
+        const geom = new THREE.BufferGeometry(); const verts = [];
+        for(let i=0; i<3000; i++) { verts.push(THREE.MathUtils.randFloatSpread(4000), THREE.MathUtils.randFloatSpread(4000), THREE.MathUtils.randFloatSpread(4000)); }
+        geom.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        scene.add(new THREE.Points(geom, new THREE.PointsMaterial({color: 0x888888, size: 2})));
+        scene.add(new THREE.AmbientLight(0x222222));
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    }
+
+    function createSun(color, size, x, y, z, mass) {
+        const mesh = new THREE.Mesh(new THREE.SphereGeometry(size, 32, 32), new THREE.MeshBasicMaterial({color: color}));
+        const glow = new THREE.Mesh(new THREE.SphereGeometry(size*2, 32, 32), new THREE.MeshBasicMaterial({color: color, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending}));
+        mesh.add(glow); mesh.add(new THREE.PointLight(color, 1.5, 3000));
+        mesh.position.set(x, y, z); scene.add(mesh);
+        return { mesh, mass, size, vx: 0, vy: 0, vz: 0 };
+    }
+
+    function resetGame() {
+        if(suns.length) suns.forEach(s => scene.remove(s.mesh));
+        if(planet) { scene.remove(planet.mesh); scene.remove(planet.trail); }
+        suns = [];
+        suns.push(createSun(0xffaa00, 45, 200, 0, 0, 2000));
+        suns.push(createSun(0xff5500, 35, -200, 150, -100, 1600));
+        suns.push(createSun(0xffffee, 28, 0, -300, 50, 1200));
+        suns[0].vy = 2.0; suns[0].vz = 0.5; suns[1].vy = -1.5; suns[1].vx = 0.5; suns[2].vx = 2.5; suns[2].vz = -1.0;
+
+        const pGeo = new THREE.SphereGeometry(10, 32, 32);
+        const pMat = new THREE.MeshPhongMaterial({color: 0x00aaff, emissive: 0x001133});
+        const pMesh = new THREE.Mesh(pGeo, pMat); pMesh.position.set(0, 300, 300); scene.add(pMesh);
+        const tGeo = new THREE.BufferGeometry(); const tPos = new Float32Array(500 * 3); tGeo.setAttribute('position', new THREE.BufferAttribute(tPos, 3));
+        const tLine = new THREE.Line(tGeo, new THREE.LineBasicMaterial({color: 0x00aaff, opacity: 0.5, transparent: true}));
+        scene.add(tLine);
+        planet = { mesh: pMesh, trail: tLine, trailIdx: 0, mass: 1, vx: 2.5, vy: -1.0, vz: 0 };
+
+        years = 0; population = 100; temperature = 280; eraIndex = 0;
+        gameRunning = true; setState(true);
+        safeSetText('civ-id', civCount); safeSetText('era-name', ERAS[0].name);
+        if(document.getElementById('quote-box')) document.getElementById('quote-box').style.opacity = 0;
+        requestAnimationFrame(animate);
+    }
+
+    function safeSetText(id, text) { const el = document.getElementById(id); if (el) el.innerText = text; }
+
+    function drawMinimap() {
+        miniCtx.clearRect(0, 0, 180, 180);
+        miniCtx.strokeStyle = 'rgba(0, 255, 0, 0.2)'; miniCtx.beginPath(); miniCtx.arc(90, 90, 40, 0, Math.PI * 2); miniCtx.arc(90, 90, 80, 0, Math.PI * 2); miniCtx.stroke();
+        miniCtx.fillStyle = '#00aaff'; miniCtx.beginPath(); miniCtx.arc(90, 90, 4, 0, Math.PI*2); miniCtx.fill();
+        const scale = 0.12; 
+        suns.forEach(sun => {
+            let dx = (sun.mesh.position.x - planet.mesh.position.x) * scale;
+            let dy = (sun.mesh.position.z - planet.mesh.position.z) * scale;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist > 85) { const angle = Math.atan2(dy, dx); dx = Math.cos(angle) * 85; dy = Math.sin(angle) * 85; }
+            miniCtx.fillStyle = '#ffaa00'; miniCtx.beginPath(); miniCtx.arc(90 + dx, 90 + dy, 5, 0, Math.PI*2); miniCtx.fill();
+        });
+    }
+
+    function updatePhysics() {
+        const bodies = [...suns, planet];
+        const dt = CONFIG.BASE_TIME_STEP * timeMultiplier;
+        for(let i=0; i<bodies.length; i++) {
+            for(let j=i+1; j<bodies.length; j++) {
+                const b1 = bodies[i], b2 = bodies[j];
+                const dx = b2.mesh.position.x - b1.mesh.position.x;
+                const dy = b2.mesh.position.y - b1.mesh.position.y;
+                const dz = b2.mesh.position.z - b1.mesh.position.z;
+                const distSq = dx*dx + dy*dy + dz*dz; const dist = Math.sqrt(distSq);
+                if ((b1===planet || b2===planet)) {
+                    const sun = (b1===planet) ? b2 : b1;
+                    if (dist < sun.size + 8) { gameOver("行星撞击恒星"); return; }
+                }
+                const f = (CONFIG.G * b1.mass * b2.mass) / distSq;
+                const ax = f*dx/dist, ay = f*dy/dist, az = f*dz/dist;
+                b1.vx += ax/b1.mass*dt; b1.vy += ay/b1.mass*dt; b1.vz += az/b1.mass*dt;
+                b2.vx -= ax/b2.mass*dt; b2.vy -= ay/b2.mass*dt; b2.vz -= az/b2.mass*dt;
+            }
+        }
+        bodies.forEach(b => {
+            const d = b.mesh.position.length(); const cf = 0.0002 * d; 
+            b.vx -= b.mesh.position.x/d*cf*dt; b.vy -= b.mesh.position.y/d*cf*dt; b.vz -= b.mesh.position.z/d*cf*dt;
+            b.mesh.position.x += b.vx; b.mesh.position.y += b.vy; b.mesh.position.z += b.vz;
+        });
+        const pos = planet.trail.geometry.attributes.position.array; const idx = planet.trailIdx * 3;
+        pos[idx] = planet.mesh.position.x; pos[idx+1] = planet.mesh.position.y; pos[idx+2] = planet.mesh.position.z;
+        planet.trailIdx = (planet.trailIdx+1)%500; planet.trail.geometry.attributes.position.needsUpdate = true;
+    }
+
+    function updateGame() {
+        if(!gameRunning) return;
+        let totalRad = 0; suns.forEach(s => totalRad += (3500000 / planet.mesh.position.distanceToSquared(s.mesh.position)));
+        const targetTemp = 3 + totalRad; temperature += (targetTemp - temperature) * (CONFIG.TEMP_INERTIA * timeMultiplier);
+
+        let status = "恒纪元", color = "#fff", fxC = "transparent", fxOp = 0, frostOp = 0;
+        if (temperature > 380) { status = "乱纪元：烈焰"; color = "#ff3300"; fxC="red"; fxOp = Math.min((temperature-380)/300, 0.6); if(Date.now()-lastSoundTime>1500) playSound('alarm'); } 
+        else if (temperature < 80) {
+            if (temperature < 40) { status = "乱纪元：绝对零度"; color = "#d0e0ff"; fxC="#88aaff"; fxOp = 0.3; frostOp = 0.8; } 
+            else { status = "乱纪元：永夜"; color = "#0088ff"; fxC="blue"; fxOp = Math.min((100-temperature)/100, 0.4); }
+        }
+        safeSetText('temp-display', Math.floor(temperature) + " K"); document.getElementById('temp-display').style.color = color;
+        safeSetText('status-msg', status); document.getElementById('status-msg').style.color = color;
+        const fx = document.getElementById('screen-fx'); fx.style.backgroundColor = fxC; fx.style.opacity = fxOp;
+        document.getElementById('frost-overlay').style.opacity = frostOp;
+
+        let hintText = isHydrated ? "文明高速发展中..." : "干仓休眠中";
+        safeSetText('status-hint', hintText);
+
+        if(isHydrated) {
+            years += 0.5 * timeMultiplier; // 时间流逝更快
+            population += Math.ceil(population * CONFIG.GROWTH_RATE * timeMultiplier); // 人口爆炸
+            if (eraIndex < ERAS.length - 1 && years >= ERAS[eraIndex + 1].threshold) { eraIndex++; showQuote(ERAS[eraIndex]); playSound('levelup'); }
+            if(temperature > 350) planet.mesh.material.color.setHex(0xff5500);
+            else if(temperature < 100) planet.mesh.material.color.setHex(0xaaddff);
+            else planet.mesh.material.color.setHex(0x00aaff);
+            
+            // 宽松的死亡判定
+            if(temperature > CONFIG.HEAT_RESISTANCE) gameOver("高温蒸发");
+            else if(temperature < CONFIG.COLD_RESISTANCE) gameOver("绝对零度冻结");
+        } else {
+            if(temperature > 5000) gameOver("行星熔解");
+        }
+        safeSetText('era-name', ERAS[eraIndex].name); safeSetText('years', Math.floor(years)); safeSetText('population', formatPop(population));
+        const ct = planet.mesh.position.clone(); ct.z += 400; ct.y += 150; camera.position.lerp(ct, 0.05); camera.lookAt(planet.mesh.position);
+    }
+
+    function setState(state) {
+        if(!gameRunning) return; isHydrated = state;
+        const bh = document.getElementById('btn-hydrate'), bd = document.getElementById('btn-dehydrate');
+        const rowYears = document.getElementById('row-years'), rowPop = document.getElementById('row-pop');
+        const yearsVal = document.getElementById('years'), popVal = document.getElementById('population');
+        if(state) { 
+            bh.classList.add('active'); bd.classList.remove('active'); planet.mesh.scale.set(1,1,1); playSound('bubble'); 
+            if(rowYears) rowYears.classList.remove('frozen-text'); if(rowPop) rowPop.classList.remove('frozen-text');
+            if(yearsVal) yearsVal.classList.remove('frozen-val'); if(popVal) popVal.classList.remove('frozen-val');
+        } else { 
+            bh.classList.remove('active'); bd.classList.add('active'); planet.mesh.scale.set(0.6,0.6,0.6); planet.mesh.material.color.setHex(0x555555); playSound('noise');
+            if(rowYears) rowYears.classList.add('frozen-text'); if(rowPop) rowPop.classList.add('frozen-text');
+            if(yearsVal) yearsVal.classList.add('frozen-val'); if(popVal) popVal.classList.add('frozen-val');
+        }
+    }
+
+    function showQuote(era) {
+        const box = document.getElementById('quote-box');
+        safeSetText('quote-text', era.quote); safeSetText('quote-author', era.author);
+        box.style.opacity = 1; setTimeout(() => { box.style.opacity = 0; }, 8000);
+    }
+
+    function gameOver(reason) {
+        gameRunning = false;
+        setTimeout(() => {
+            alert(`【文明毁灭】\n时代：${ERAS[eraIndex].name}\n原因：${reason}\n存活：${Math.floor(years)} 文明年`);
+            civCount++; safeSetText('civ-num-intro', civCount); document.getElementById('intro').style.display = 'flex';
+        }, 100);
+    }
+
+    function animate() { if(gameRunning) { updatePhysics(); updateGame(); drawMinimap(); } renderer.render(scene, camera); requestAnimationFrame(animate); }
+    function formatPop(num) { if (num > 100000000) return (num/100000000).toFixed(2) + " 亿"; if (num > 10000) return (num/10000).toFixed(2) + " 万"; return num.toLocaleString(); }
+    function initAudio() { try { const AC = window.AudioContext||window.webkitAudioContext; if(AC) audioCtx=new AC(); } catch(e){} }
+    function playSound(t) {
+        if(!audioCtx) return; if(audioCtx.state==='suspended') audioCtx.resume();
+        const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination);
+        const now=audioCtx.currentTime;
+        if(t==='alarm'){o.type='sawtooth';o.frequency.setValueAtTime(600,now);o.frequency.linearRampToValueAtTime(800,now+0.3);g.gain.setValueAtTime(0.1,now);g.gain.linearRampToValueAtTime(0,now+0.3);o.start(now);o.stop(now+0.3);}
+        else if(t==='bubble'){o.type='sine';o.frequency.setValueAtTime(200,now);o.frequency.exponentialRampToValueAtTime(500,now+0.2);g.gain.setValueAtTime(0.2,now);g.gain.linearRampToValueAtTime(0,now+0.3);o.start(now);o.stop(now+0.3);}
+        else if(t==='noise'){o.type='square';o.frequency.setValueAtTime(100,now);g.gain.setValueAtTime(0.1,now);g.gain.exponentialRampToValueAtTime(0.01,now+0.2);o.start(now);o.stop(now+0.2);}
+        else if(t==='levelup'){o.type='triangle';o.frequency.setValueAtTime(440,now);o.frequency.setValueAtTime(880,now+0.3);g.gain.setValueAtTime(0.1,now);g.gain.linearRampToValueAtTime(0,now+1);o.start(now);o.stop(now+1);}
+    }
+});
+</script>
+</body>
+</html>

@@ -303,6 +303,59 @@ def markdown_to_html(markdown_text):
         return f'__CODE_BLOCK_{len(code_blocks)-1}__'
     html = re.sub(r'```(\w+)?\n(.*?)```', save_code_block, html, flags=re.DOTALL)
     
+    # 先处理表格（必须在其他规则之前，避免被误处理）
+    def process_table(match):
+        table_content = match.group(0)
+        lines = [line.strip() for line in table_content.split('\n') if line.strip()]
+        
+        if len(lines) < 2:
+            return table_content
+        
+        # 处理每一行，移除引用块前缀
+        processed_lines = []
+        for line in lines:
+            # 移除引用块前缀 > 
+            if line.startswith('> '):
+                line = line[2:].strip()
+            processed_lines.append(line)
+        
+        # 第一行是表头
+        header_line = processed_lines[0]
+        # 第二行是分隔符，跳过
+        # 从第三行开始是数据行
+        
+        # 提取表头单元格（Markdown表格格式：| col1 | col2 |，分割后第一个和最后一个可能是空字符串）
+        header_cells = [cell.strip() for cell in header_line.split('|')]
+        # 过滤掉空字符串
+        header_cells = [cell for cell in header_cells if cell]
+        
+        if not header_cells:
+            return table_content
+        
+        # 生成表头HTML
+        header_html = '<thead><tr style="background-color: #f2f2f2;">' + ''.join([f'<th style="border: 1px solid #ddd; padding: 8px; text-align: left;">{cell}</th>' for cell in header_cells]) + '</tr></thead>'
+        
+        # 生成表体HTML
+        body_html = '<tbody>'
+        for line in processed_lines[2:]:  # 跳过表头和分隔符
+            # 提取单元格（Markdown表格格式：| col1 | col2 |，分割后第一个和最后一个可能是空字符串）
+            cells = [cell.strip() for cell in line.split('|')]
+            # 过滤掉空字符串
+            cells = [cell for cell in cells if cell]
+            if cells:
+                # 如果列数不匹配，补齐或截断
+                while len(cells) < len(header_cells):
+                    cells.append('')
+                cells = cells[:len(header_cells)]
+                body_html += '<tr>' + ''.join([f'<td style="border: 1px solid #ddd; padding: 8px;">{cell}</td>' for cell in cells]) + '</tr>'
+        body_html += '</tbody>'
+        
+        return f'__TABLE_TAG__<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;">{header_html}{body_html}</table>__TABLE_TAG__'
+    
+    # 匹配表格：以 | 开头和结尾的行，至少3行（表头、分隔符、至少一行数据）
+    # 支持引用块内的表格（每行可能以 > 开头）
+    html = re.sub(r'(?:^> )?\|.+\|\s*\n(?:^> )?\|[:\-| ]+\|\s*\n(?:(?:^> )?\|.+\|\s*\n?)+', process_table, html, flags=re.MULTILINE)
+    
     # 粗体
     html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
     
@@ -323,9 +376,13 @@ def markdown_to_html(markdown_text):
     # 链接
     html = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', html)
     
-    # 引用块
+    # 引用块（需要排除表格行）
     def process_quote(match):
-        return f'__QUOTE_TAG__<blockquote>{match.group(1)}</blockquote>__QUOTE_TAG__'
+        content = match.group(1)
+        # 如果这行是表格的一部分，不处理
+        if content.strip().startswith('|') and '|' in content:
+            return match.group(0)
+        return f'__QUOTE_TAG__<blockquote>{content}</blockquote>__QUOTE_TAG__'
     html = re.sub(r'^> (.*)$', process_quote, html, flags=re.MULTILINE)
     
     # 标题（必须在列表之前处理）
@@ -342,12 +399,88 @@ def markdown_to_html(markdown_text):
         else:
             html = html.replace(f'__CODE_BLOCK_{i}__', f'<pre><code>{code_block}</code></pre>')
     
+    # 处理表格（必须在段落处理之前）
+    def process_table_block(lines, start_idx):
+        """处理表格块，返回(表格HTML, 结束索引)"""
+        if start_idx >= len(lines):
+            return None, start_idx
+        
+        # 检查是否是表格行（以 | 开头和结尾）
+        table_lines = []
+        i = start_idx
+        in_quote = False
+        
+        while i < len(lines):
+            line = lines[i]
+            original_line = line
+            line_stripped = line.strip()
+            
+            # 检查是否在引用块中
+            if line_stripped.startswith('> '):
+                in_quote = True
+                # 移除 > 前缀和后面的空格
+                line_content = line_stripped[2:].strip()
+            else:
+                in_quote = False
+                line_content = line_stripped
+            
+            # 检查是否是表格行（必须以 | 开头）
+            if line_content.startswith('|') and line_content.count('|') >= 2:
+                table_lines.append((line_content, in_quote))
+                i += 1
+            elif i == start_idx:
+                # 第一行不是表格，直接返回
+                return None, start_idx
+            else:
+                # 遇到非表格行，停止
+                break
+        
+        if len(table_lines) < 2:  # 至少需要表头和分隔符
+            return None, start_idx
+        
+        # 解析表格
+        header_line, header_in_quote = table_lines[0]
+        separator_line, _ = table_lines[1] if len(table_lines) > 1 else ('', False)
+        data_lines = [line for line, _ in table_lines[2:]] if len(table_lines) > 2 else []
+        
+        # 提取表头单元格（Markdown表格格式：| col1 | col2 |，分割后第一个和最后一个可能是空字符串）
+        header_cells = [cell.strip() for cell in header_line.split('|')]
+        # 过滤掉空字符串
+        header_cells = [cell for cell in header_cells if cell]
+        
+        if not header_cells:
+            return None, start_idx
+        
+        # 生成表头HTML
+        header_html = '<thead><tr style="background-color: #f2f2f2;">' + ''.join([f'<th style="border: 1px solid #ddd; padding: 8px; text-align: left;">{cell}</th>' for cell in header_cells]) + '</tr></thead>'
+        
+        # 生成表体HTML
+        body_html = '<tbody>'
+        for data_line_tuple in table_lines[2:]:
+            data_line, in_quote = data_line_tuple
+            # 提取单元格（Markdown表格格式：| col1 | col2 |，分割后第一个和最后一个可能是空字符串）
+            cells = [cell.strip() for cell in data_line.split('|')]
+            # 过滤掉空字符串
+            cells = [cell for cell in cells if cell]
+            if cells:
+                # 如果列数不匹配，补齐或截断
+                while len(cells) < len(header_cells):
+                    cells.append('')
+                cells = cells[:len(header_cells)]
+                body_html += '<tr>' + ''.join([f'<td style="border: 1px solid #ddd; padding: 8px;">{cell}</td>' for cell in cells]) + '</tr>'
+        body_html += '</tbody>'
+        
+        table_html = f'<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;">{header_html}{body_html}</table>'
+        return table_html, i
+    
     # 列表和段落处理
     lines = html.split('\n')
     in_list = False
     result = []
+    i = 0
     
-    for line in lines:
+    while i < len(lines):
+        line = lines[i]
         line_stripped = line.strip()
         
         # 跳过空行
@@ -355,6 +488,17 @@ def markdown_to_html(markdown_text):
             if in_list:
                 result.append('</ul>')
                 in_list = False
+            i += 1
+            continue
+        
+        # 检查是否是表格
+        table_html, table_end_idx = process_table_block(lines, i)
+        if table_html:
+            if in_list:
+                result.append('</ul>')
+                in_list = False
+            result.append(table_html)
+            i = table_end_idx
             continue
         
         # 处理列表项
@@ -380,11 +524,19 @@ def markdown_to_html(markdown_text):
             elif '__QUOTE_TAG__' in line:
                 line = line.replace('__QUOTE_TAG__', '')
                 result.append(line)
-            elif line_stripped.startswith('<pre>') or line_stripped.startswith('<blockquote>'):
+            elif '__TABLE_TAG__' in line:
+                line = line.replace('__TABLE_TAG__', '')
                 result.append(line)
+            elif line_stripped.startswith('<pre>') or line_stripped.startswith('<blockquote>') or line_stripped.startswith('<table>'):
+                result.append(line)
+            elif line_stripped.startswith('|') and '|' in line_stripped:
+                # 可能是表格行，但没被正确识别，跳过（避免重复处理）
+                pass
             else:
                 # 普通段落
                 result.append(f'<p>{line_stripped}</p>')
+        
+        i += 1
     
     if in_list:
         result.append('</ul>')
