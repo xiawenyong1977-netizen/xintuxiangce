@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>扫描服务架构梳理：PC端与移动端扫描服务完整技术方案 | 芯图日记</title>
+    <meta name="description" content="全面梳理芯图相册扫描服务的架构设计，详细对比PC端和移动端的实现差异。涵盖扫描状态管理、进度消息更新机制、数据读写流程、界面刷新策略等核心技术细节，深入解析PC端纯JS实现和移动端三层架构（前台服务+原生层+JS层）的设计思路，帮助开发者理解扫描服务的完整技术实现。">
+    <meta name="keywords" content="技术架构, 扫描服务, PC端, 移动端, 系统设计, 研发经验">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="扫描服务架构梳理：PC端与移动端扫描服务完整技术方案">
+    <meta property="og:description" content="全面梳理芯图相册扫描服务的架构设计，详细对比PC端和移动端的实现差异。涵盖扫描状态管理、进度消息更新机制、数据读写流程、界面刷新策略等核心技术细节，深入解析PC端纯JS实现和移动端三层架构（前台服务+原生层+JS层）的设计思路，帮助开发者理解扫描服务的完整技术实现。">
+    <meta property="og:image" content="/assets/diary/backend-arch/cover.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/architecture-for-scanning.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "扫描服务架构梳理：PC端与移动端扫描服务完整技术方案",
+        "description": "全面梳理芯图相册扫描服务的架构设计，详细对比PC端和移动端的实现差异。涵盖扫描状态管理、进度消息更新机制、数据读写流程、界面刷新策略等核心技术细节，深入解析PC端纯JS实现和移动端三层架构（前台服务+原生层+JS层）的设计思路，帮助开发者理解扫描服务的完整技术实现。",
+        "image": "/assets/diary/backend-arch/cover.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2026年01月06日",
+        "dateModified": "2026年01月06日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "扫描服务架构梳理：PC端与移动端扫描服务完整技术方案",
+                "item": "https://www.xintuxiangce.top/diary/architecture-for-scanning.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>扫描服务架构梳理：PC端与移动端扫描服务完整技术方案</h1>
+                <div class="article-meta">
+                    <span>📅 2026年01月06日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 25分钟</span>
+                </div>
+                <img src="/assets/diary/backend-arch/cover.png" alt="扫描服务架构梳理：PC端与移动端扫描服务完整技术方案" class="article-cover">
+            </header>
+            
+            <div class="article-content">
+                <h2>目录</h2>
+<p>1. <a href="#pc端扫描服务架构">PC端扫描服务架构</a></p>
+<p>2. <a href="#移动端扫描服务架构">移动端扫描服务架构</a></p>
+<p>3. <a href="#关键机制对比">关键机制对比</a></p>
+<p>---</p>
+<h2>PC端扫描服务架构</h2>
+<h3>1. 扫描状态管理</h3>
+<p>#### 1.1 状态变量</p>
+<ul>
+<li><strong>界面层状态</strong> (<code>HomeScreen.desktop.js</code>):</li>
+<li><code>isScanning</code>: React state，控制扫描UI状态</li>
+<li><code>globalMessage</code>: React state，显示扫描进度消息</li>
+<li><code>window.isScanning</code>: 全局变量，供其他页面检查扫描状态</li>
+</ul>
+<ul>
+<li><strong>服务层状态</strong> (<code>GalleryScannerService.js</code>):</li>
+<li><code>this.isScanning</code>: 服务内部扫描状态标志</li>
+<li><code>this.isInitialized</code>: 服务初始化标志</li>
+<li><code>this.onProgress</code>: 进度回调函数引用</li>
+</ul>
+<p>#### 1.2 状态流转</p>
+<pre><code></code></pre>
+<h3>2. 进度消息更新机制</h3>
+<p>#### 2.1 进度消息生成流程</p>
+<pre><code></code></pre>
+<p>#### 2.2 进度消息去重</p>
+<ul>
+<li>PC端使用 <code>lastProgressMessage</code> 键值去重</li>
+<li>格式：<code>${stage}_${totalFoundThisPhase}_${processedThisPhase}</code></li>
+<li>相似度检测阶段不过滤（允许频繁更新）</li>
+</ul>
+<p>#### 2.3 进度阶段定义</p>
+<ul>
+<li><code>initializing</code>: 初始化扫描</li>
+<li><code>directory_scanning</code>: 目录扫描</li>
+<li><code>file_comparison</code>: 文件比对</li>
+<li><code>screenshot_detection</code>: 截图检测</li>
+<li><code>cache_checking</code>: 缓存检查</li>
+<li><code>remote_inference</code>: 远程推理</li>
+<li><code>local_inference</code>: 本地推理</li>
+<li><code>similarity_detection</code>: 相似度检测</li>
+<li><code>location_enrichment</code>: 位置信息补全</li>
+<li><code>completed</code>: 扫描完成</li>
+</ul>
+<h3>3. 数据读写机制</h3>
+<p>#### 3.1 数据写入流程（按业务流程划分）</p>
+<p>##### 3.1.1 基础扫描（JS层：从文件系统收集数据写入本地数据库）</p>
+<pre><code></code></pre>
+<p>##### 3.1.2 本地MobileNetV3推理（JS层：可选，辅助功能）</p>
+<pre><code></code></pre>
+<p>##### 3.1.3 AI分类（JS层：从后端API获取数据写入本地数据库）</p>
+<pre><code></code></pre>
+<p>##### 3.1.4 相似度检测（JS层：可选，可单独触发）</p>
+<pre><code></code></pre>
+<p>##### 3.1.5 城市信息补全（JS层：可选，可单独触发）</p>
+<pre><code></code></pre>
+<p>#### 3.2 数据缓存与界面数据交换机制</p>
+<p>##### 3.2.1 缓存优先读取机制</p>
+<pre><code></code></pre>
+<p>##### 3.2.2 数据分级策略（精简信息 vs 详细信息）</p>
+<pre><code></code></pre>
+<p>##### 3.2.3 按需加载详细信息</p>
+<pre><code></code></pre>
+<p>##### 3.2.5 多维度分类支持机制</p>
+<pre><code></code></pre>
+<p>##### 3.2.4 统一数据服务接口</p>
+<pre><code></code></pre>
+<p>#### 3.3 数据刷新策略</p>
+<ul>
+<li><strong>扫描完成时</strong>: <code>progress.shouldRefresh === true</code> 时刷新</li>
+<li><strong>位置信息补全</strong>: 每处理50张图片触发一次刷新</li>
+<li><strong>相似度检测</strong>: 每检测完一个相似组触发刷新</li>
+<li><strong>防抖机制</strong>: PC端无防抖，直接刷新</li>
+</ul>
+<h3>4. 界面数据刷新</h3>
+<p>#### 4.1 刷新触发点</p>
+<pre><code></code></pre>
+<p>#### 4.2 刷新内容</p>
+<ul>
+<li>分类统计 (<code>loadCategories()</code>)</li>
+<li>城市统计 (<code>loadCities()</code>)</li>
+<li>相似组统计 (<code>loadSimilarityGroups()</code>)</li>
+<li>最近照片 (<code>loadRecentImages()</code>)</li>
+<li>其他分类数据（颜色、目录、格式等）</li>
+</ul>
+<p>---</p>
+<h2>移动端扫描服务架构</h2>
+<h3>1. 扫描状态管理</h3>
+<p>#### 1.1 状态变量</p>
+<ul>
+<li><strong>界面层状态</strong> (<code>HomeScreen.mobile.js</code>):</li>
+<li><code>isScanning</code>: React state，控制扫描UI状态</li>
+<li><code>globalMessage</code>: React state，显示扫描进度消息</li>
+<li><code>window.isScanning</code>: 全局变量，供其他页面检查扫描状态</li>
+</ul>
+<ul>
+<li><strong>JS服务层状态</strong> (<code>GalleryScannerService.android.js</code>):</li>
+<li><code>this.isScanning</code>: JS层扫描状态标志</li>
+<li><code>this.currentScanId</code>: 当前扫描任务ID</li>
+<li><code>this.onProgress</code>: 进度回调函数引用</li>
+<li><code>this.eventEmitter</code>: 原生事件监听器</li>
+</ul>
+<ul>
+<li><strong>原生层状态</strong> (<code>GalleryScanService.java</code>):</li>
+<li>扫描任务状态（运行中/已完成/已取消）</li>
+<li>扫描进度统计（已处理/总数）</li>
+</ul>
+<p>#### 1.2 状态流转</p>
+<pre><code></code></pre>
+<h3>2. 进度消息更新机制</h3>
+<p>#### 2.1 进度消息生成流程（三层架构）</p>
+<pre><code></code></pre>
+<p>#### 2.2 前台服务通知更新</p>
+<ul>
+<li><strong>服务启动</strong>: <code>ScanService.startScanService()</code> 启动前台服务</li>
+<li><strong>进度更新</strong>: <code>ScanService.updateProgress(message, processed, total, title)</code></li>
+<li><strong>服务停止</strong>: <code>ScanService.stopScanService()</code> 停止前台服务</li>
+<li><strong>心跳机制</strong>: 每10秒更新一次通知，保持服务活跃</li>
+</ul>
+<p>#### 2.3 进度消息去重</p>
+<ul>
+<li>移动端<strong>不移除去重逻辑</strong>，允许所有进度更新通过</li>
+<li>原因：原生层已经控制更新频率，JS层不需要再次过滤</li>
+</ul>
+<h3>3. 数据读写机制</h3>
+<p>#### 3.1 原生层数据写入</p>
+<p>##### 3.1.1 基础扫描流程（独立流程）</p>
+<pre><code></code></pre>
+<p>##### 3.1.2 AI分类流程（独立流程，用户手动触发）</p>
+<pre><code></code></pre>
+<p>#### 3.2 JS层数据读取</p>
+<ul>
+<li>与PC端相同，使用 <code>UnifiedDataService</code> 统一接口</li>
+<li>支持缓存机制，减少数据库查询</li>
+</ul>
+<p>#### 3.3 数据刷新策略</p>
+<ul>
+<li><strong>防抖机制</strong>: 使用 <code>loadAllDataDebounced()</code> 防抖刷新（500ms）</li>
+<li><strong>刷新触发</strong>:</li>
+<li>扫描完成时：清除防抖定时器，延迟600ms后刷新</li>
+<li>位置信息补全：每处理50张图片触发防抖刷新</li>
+<li>相似度检测：每检测完一个相似组触发防抖刷新</li>
+</ul>
+<h3>4. 界面数据刷新</h3>
+<p>#### 4.1 刷新触发点</p>
+<pre><code></code></pre>
+<p>#### 4.2 防抖机制</p>
+<pre><code></code></pre>
+<h3>6. 移动层架构（三层）</h3>
+<p>#### 6.1 前台服务层 (<code>ScanForegroundService.java</code>)</p>
+<ul>
+<li><strong>职责</strong>: 保持应用在后台运行时继续扫描</li>
+<li><strong>机制</strong>:</li>
+<li>前台通知显示扫描进度</li>
+<li>WakeLock防止CPU休眠</li>
+<li>心跳机制（10秒）保持服务活跃</li>
+<li><strong>生命周期</strong>:</li>
+<li><code>START_SCAN</code>: 启动服务，获取WakeLock</li>
+<li><code>UPDATE_PROGRESS</code>: 更新通知内容</li>
+<li><code>STOP_SCAN</code>: 停止服务，释放WakeLock</li>
+</ul>
+<p>#### 6.2 原生层 (<code>GalleryScanService.java</code>)</p>
+<ul>
+<li><strong>职责</strong>: 执行实际的扫描和分类任务</li>
+<li><strong>机制</strong>:</li>
+<li>独立后台线程执行扫描</li>
+<li>MediaStore API扫描图片</li>
+<li>SQLite数据库批量写入</li>
+<li>MobileNetV3模型推理</li>
+<li><strong>事件通信</strong>:</li>
+<li><code>GalleryScanProgress</code>: 进度事件</li>
+<li><code>GalleryScanCompleted</code>: 完成事件</li>
+<li><code>GalleryScanError</code>: 错误事件</li>
+</ul>
+<p>#### 6.3 JS层 (<code>GalleryScannerService.android.js</code>)</p>
+<ul>
+<li><strong>职责</strong>: 协调原生层和界面层</li>
+<li><strong>机制</strong>:</li>
+<li>监听原生层事件</li>
+<li>处理进度数据国际化</li>
+<li>更新前台服务通知</li>
+<li>执行JS层后续处理（位置补全、相似度检测）</li>
+<li><strong>桥接模块</strong> (<code>ScanServiceModule.java</code>):</li>
+<li><code>startScanService()</code>: 启动前台服务</li>
+<li><code>updateScanProgress()</code>: 更新进度通知</li>
+<li><code>stopScanService()</code>: 停止前台服务</li>
+</ul>
+<p>---</p>
+<h2>关键机制对比</h2>
+<h3>1. 扫描状态管理</h3>
+<p>| 特性 | PC端 | 移动端 |</p>
+<p>|------|------|--------|</p>
+<p>| 状态变量 | <code>isScanning</code>, <code>window.isScanning</code> | <code>isScanning</code>, <code>window.isScanning</code> |</p>
+<p>| 状态设置时机 | 扫描开始时 | 扫描开始时 |</p>
+<p>| 状态清除时机 | 扫描完成/失败时 | 扫描完成/失败时 |</p>
+<p>| 全局状态 | <code>window.isScanning</code> | <code>window.isScanning</code> |</p>
+<h3>2. 进度消息更新</h3>
+<p>| 特性 | PC端 | 移动端 |</p>
+<p>|------|------|--------|</p>
+<p>| 消息生成 | JS层 <code>processProgressData()</code> | JS层 <code>processProgressData()</code> |</p>
+<p>| 消息去重 | 有（基于消息键值） | 无（原生层已控制频率） |</p>
+<p>| 通知更新 | 无（PC端不需要） | 有（前台服务通知） |</p>
+<p>| 更新频率 | 每个阶段更新 | 原生层控制频率 |</p>
+<h3>3. 数据读写</h3>
+<p>| 特性 | PC端 | 移动端 |</p>
+<p>|------|------|--------|</p>
+<p>| 扫描实现 | JS层实现 | 原生层实现 |</p>
+<p>| 数据库操作 | JS层直接操作 | 原生层批量操作 |</p>
+<p>| 数据刷新 | 直接刷新 | 防抖刷新（500ms） |</p>
+<p>| 刷新触发 | <code>shouldRefresh</code> 标志 | <code>shouldRefresh</code> 标志 |</p>
+<h3>4. 界面刷新</h3>
+<p>| 特性 | PC端 | 移动端 |</p>
+<p>|------|------|--------|</p>
+<p>| 刷新方式 | 直接调用 <code>loadData()</code> | 防抖调用 <code>loadAllDataDebounced()</code> |</p>
+<p>| 刷新时机 | 扫描完成、位置补全 | 扫描完成、位置补全、相似度检测 |</p>
+<p>| 防抖机制 | 无 | 有（500ms延迟） |</p>
+<h3>5. 新增分类处理</h3>
+<p>| 特性 | PC端 | 移动端 |</p>
+<p>|------|------|--------|</p>
+<p>| AI分类实现 | JS层MobileNetV3 | 原生层MobileNetV3 |</p>
+<p>| 批量处理 | JS层批次处理 | 原生层批次处理 |</p>
+<p>| 后续处理 | 位置补全、相似度检测 | 位置补全、相似度检测 |</p>
+<p>| 数据更新 | 直接更新数据库 | 原生层批量更新数据库 |</p>
+<h3>6. 后台执行能力</h3>
+<p>| 特性 | PC端 | 移动端 |</p>
+<p>|------|------|--------|</p>
+<p>| 后台扫描 | 支持（Electron主进程） | 支持（前台服务） |</p>
+<p>| 进程保活 | 不需要 | WakeLock + 前台服务 |</p>
+<p>| 通知显示 | 不需要 | 前台服务通知 |</p>
+<p>| 心跳机制 | 不需要 | 10秒心跳更新通知 |</p>
+<p>---</p>
+<h2>总结</h2>
+<h3>PC端特点</h3>
+<p>1. <strong>纯JS实现</strong>: 所有扫描逻辑在JS层实现</p>
+<p>2. <strong>简单直接</strong>: 状态管理和进度更新简单直接</p>
+<p>3. <strong>无后台限制</strong>: Electron主进程可以长时间运行</p>
+<p>4. <strong>无防抖</strong>: 数据刷新直接执行，无需防抖</p>
+<h3>移动端特点</h3>
+<p>1. <strong>三层架构</strong>: 前台服务 + 原生层 + JS层</p>
+<p>2. <strong>后台保活</strong>: 前台服务 + WakeLock确保后台执行</p>
+<p>3. <strong>防抖刷新</strong>: 避免频繁刷新影响性能</p>
+<p>4. <strong>原生性能</strong>: 原生层扫描和AI分类性能更好</p>
+<h3>共同点</h3>
+<p>1. <strong>统一接口</strong>: 都使用 <code>GalleryScannerService</code> 统一接口</p>
+<p>2. <strong>进度回调</strong>: 都使用 <code>onProgress</code> 回调更新UI</p>
+<p>3. <strong>数据服务</strong>: 都使用 <code>UnifiedDataService</code> 统一数据接口</p>
+<p>4. <strong>状态管理</strong>: 都使用 <code>isScanning</code> 和 <code>window.isScanning</code> 管理状态</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">技术架构</span><span class="article-tag">扫描服务</span><span class="article-tag">PC端</span><span class="article-tag">移动端</span><span class="article-tag">系统设计</span><span class="article-tag">研发经验</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="backend-arch.html" class="related-article-card">
+                    <h3>图片分类后端系统 - 芯图相册后端技术方案</h3>
+                    <p>基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。</p>
+                </a>
+                <a href="async-arch.html" class="related-article-card">
+                    <h3>芯图相册：异步架构与高并发技术说明</h3>
+                    <p>深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。</p>
+                </a>
+                <a href="deploy-arch.html" class="related-article-card">
+                    <h3>芯图相册：三层部署架构图</h3>
+                    <p>详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

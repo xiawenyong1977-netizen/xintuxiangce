@@ -351,6 +351,34 @@
       "cover": "/assets/diary/aistudio.png",
       "readTime": "12分钟",
       "related": ["ai-pair-program-intro", "ai-prompt-library", "arch-pe"]
+    },
+    {
+      "id": "architecture-for-scanning",
+      "type": "article",
+      "title": "扫描服务架构梳理：PC端与移动端扫描服务完整技术方案",
+      "description": "全面梳理芯图相册扫描服务的架构设计，详细对比PC端和移动端的实现差异。涵盖扫描状态管理、进度消息更新机制、数据读写流程、界面刷新策略等核心技术细节，深入解析PC端纯JS实现和移动端三层架构（前台服务+原生层+JS层）的设计思路，帮助开发者理解扫描服务的完整技术实现。",
+      "content": "diary/architechureforscanning.md",
+      "author": "芯图团队",
+      "date": "2026-01-06",
+      "tags": ["技术架构", "扫描服务", "PC端", "移动端", "系统设计", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/backend-arch/cover.png",
+      "readTime": "25分钟",
+      "related": ["backend-arch", "async-arch", "deploy-arch"]
+    },
+    {
+      "id": "v2-architecture",
+      "type": "article",
+      "title": "V2接口技术方案总结：大模型服务分层架构与统一缓存设计",
+      "description": "详细介绍芯图相册V2接口的技术架构设计，包括大模型服务三层架构（基础服务层、Provider层、业务层）、统一缓存架构、位置服务等核心技术方案。深入解析图像分类、颜色分类、构图分析、图像编辑、文本生成等5大核心业务功能，以及智能位置服务的多级降级策略和数据规范化机制，为图像智能处理和位置服务提供稳定、高效、可扩展的技术基础。",
+      "content": "diary/v2architechture.md",
+      "author": "芯图团队",
+      "date": "2026-01-06",
+      "tags": ["技术架构", "V2接口", "大模型", "缓存架构", "位置服务", "系统设计", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/diary/backend-arch/cover.png",
+      "readTime": "30分钟",
+      "related": ["backend-arch", "async-arch", "deploy-arch"]
     }
   ]
 }

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK - 需要替换 -->
+    <title>V2接口技术方案总结：大模型服务分层架构与统一缓存设计 | 芯图日记</title>
+    <meta name="description" content="详细介绍芯图相册V2接口的技术架构设计，包括大模型服务三层架构（基础服务层、Provider层、业务层）、统一缓存架构、位置服务等核心技术方案。深入解析图像分类、颜色分类、构图分析、图像编辑、文本生成等5大核心业务功能，以及智能位置服务的多级降级策略和数据规范化机制，为图像智能处理和位置服务提供稳定、高效、可扩展的技术基础。">
+    <meta name="keywords" content="技术架构, V2接口, 大模型, 缓存架构, 位置服务, 系统设计, 研发经验">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="V2接口技术方案总结：大模型服务分层架构与统一缓存设计">
+    <meta property="og:description" content="详细介绍芯图相册V2接口的技术架构设计，包括大模型服务三层架构（基础服务层、Provider层、业务层）、统一缓存架构、位置服务等核心技术方案。深入解析图像分类、颜色分类、构图分析、图像编辑、文本生成等5大核心业务功能，以及智能位置服务的多级降级策略和数据规范化机制，为图像智能处理和位置服务提供稳定、高效、可扩展的技术基础。">
+    <meta property="og:image" content="/assets/diary/backend-arch/cover.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/diary/v2-architecture.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "V2接口技术方案总结：大模型服务分层架构与统一缓存设计",
+        "description": "详细介绍芯图相册V2接口的技术架构设计，包括大模型服务三层架构（基础服务层、Provider层、业务层）、统一缓存架构、位置服务等核心技术方案。深入解析图像分类、颜色分类、构图分析、图像编辑、文本生成等5大核心业务功能，以及智能位置服务的多级降级策略和数据规范化机制，为图像智能处理和位置服务提供稳定、高效、可扩展的技术基础。",
+        "image": "/assets/diary/backend-arch/cover.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册"
+        },
+        "datePublished": "2026年01月06日",
+        "dateModified": "2026年01月06日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "芯图日记",
+                "item": "https://www.xintuxiangce.top/diary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "V2接口技术方案总结：大模型服务分层架构与统一缓存设计",
+                "item": "https://www.xintuxiangce.top/diary/v2-architecture.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        .article-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 40px 20px 0;
+        }
+        
+        .article-header h1 {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .article-content pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .related-articles {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-top: 3px solid #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .related-articles h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .related-article-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .related-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .related-article-card h3 {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .related-article-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            
+            .article-content {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <main>
+        <article>
+            <header class="article-header">
+                <h1>V2接口技术方案总结：大模型服务分层架构与统一缓存设计</h1>
+                <div class="article-meta">
+                    <span>📅 2026年01月06日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 30分钟</span>
+                </div>
+                <img src="/assets/diary/backend-arch/cover.png" alt="V2接口技术方案总结：大模型服务分层架构与统一缓存设计" class="article-cover">
+            </header>
+            
+            <div class="article-content">
+                <h2>一、大模型服务分层架构</h2>
+<h3>1.1 架构概览</h3>
+<p>V2接口采用分架构设计，实现了清晰的职责分离和统一的接口抽象：</p>
+<img src="/assets/diary/layeredarch/layered-arch.png" alt="分层技术架构" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3>1.2 基础服务层 (Base Service Layer)</h3>
+<p><strong>文件位置</strong>: <code>app/services/llm/base_service.py</code></p>
+<p><strong>核心职责</strong>:</p>
+<ul>
+<li>统一的错误处理和分类</li>
+<li>自动重试机制（指数退避）</li>
+<li>超时控制</li>
+<li>统一的日志记录</li>
+<li>错误类型枚举和转换</li>
+</ul>
+<p><strong>关键特性</strong>:</p>
+<ul>
+<li><strong>错误类型分类</strong>:</li>
+<li>可重试错误: <code>NETWORK_ERROR</code>, <code>SERVER_ERROR</code>, <code>RATE_LIMIT_ERROR</code>, <code>FORMAT_ERROR</code></li>
+<li>不可重试错误: <code>INPUT_ERROR</code>, <code>AUTH_ERROR</code>, <code>BUSINESS_ERROR</code></li>
+<li><strong>重试策略</strong>: 最大重试3次，指数退避延迟（1s, 2s, 3s）</li>
+<li><strong>超时控制</strong>: 根据任务类型配置超时时间（分类30s，编辑60s）</li>
+</ul>
+<p><strong>核心类</strong>:</p>
+<pre><code></code></pre>
+<h3>1.3 Provider层 (Provider Layer)</h3>
+<p><strong>文件位置</strong>: <code>app/services/llm/providers.py</code></p>
+<p><strong>核心职责</strong>:</p>
+<ul>
+<li>实现不同提供商的API调用逻辑</li>
+<li>统一接口抽象，屏蔽提供商差异</li>
+<li>提供商特定的错误码转换</li>
+</ul>
+<p><strong>支持的提供商</strong>:</p>
+<p>1. <strong>AliyunProvider</strong> (阿里云通义千问)</p>
+<ul>
+<li>分类模型: <code>qwen-vl-plus</code></li>
+<li>编辑模型: <code>qwen-image-edit</code></li>
+<li>文本生成: <code>qwen-turbo</code>, <code>qwen-plus</code>, <code>qwen-max</code></li>
+<li>API: DashScope SDK</li>
+</ul>
+<p>2. <strong>OpenAIProvider</strong></p>
+<ul>
+<li>分类模型: <code>gpt-4-vision-preview</code>, <code>gpt-4o</code></li>
+<li>编辑模型: 不支持</li>
+<li>文本生成: <code>gpt-4</code>, <code>gpt-3.5-turbo</code></li>
+<li>API: OpenAI SDK</li>
+</ul>
+<p>3. <strong>ClaudeProvider</strong></p>
+<ul>
+<li>分类模型: <code>claude-3-opus</code>, <code>claude-3-sonnet</code>, <code>claude-3-haiku</code></li>
+<li>编辑模型: 不支持</li>
+<li>文本生成: <code>claude-3-opus</code>, <code>claude-3-sonnet</code></li>
+<li>API: Anthropic SDK</li>
+</ul>
+<p>4. <strong>DeepseekProvider</strong></p>
+<ul>
+<li>分类模型: 不支持</li>
+<li>编辑模型: 不支持</li>
+<li>文本生成: <code>deepseek-chat</code></li>
+<li>API: 兼容OpenAI格式</li>
+</ul>
+<p><strong>核心接口</strong>:</p>
+<pre><code></code></pre>
+<h3>1.4 业务层 (Business Layer)</h3>
+<p><strong>文件位置</strong>: <code>app/services/llm/llm_service.py</code></p>
+<p><strong>核心职责</strong>:</p>
+<ul>
+<li>统一的业务接口入口</li>
+<li>自动选择提供商和模型</li>
+<li>集成统一缓存架构</li>
+<li>响应解析和格式化</li>
+<li>任务类型路由（分类/编辑）</li>
+</ul>
+<p><strong>核心方法</strong>:</p>
+<pre><code></code></pre>
+<p><strong>业务功能说明</strong>:</p>
+<ul>
+<li><code>LLMService</code> 是唯一的业务服务层，提供5大核心业务功能：</li>
+</ul>
+<p>1. <strong>图像分类</strong> (<code>classify_image</code>) - 内容分类（9类）+ 背景颜色识别</p>
+<p>2. <strong>颜色分类</strong> (<code>classify_color</code>) - 专门识别照片主色调/背景颜色</p>
+<p>3. <strong>构图分析</strong> (<code>analyze_composition</code>) - 分析照片构图方式，给出专业点评和建议</p>
+<p>4. <strong>图像编辑</strong> (<code>edit_image</code>) - 图像增强、背景替换、风格转换等</p>
+<p>5. <strong>文本生成</strong> (<code>generate_text</code>) - 基于文本提示词生成文本内容</p>
+<ul>
+<li>API路由层调用 <code>LLMService</code> 的相应方法，它们不是平级关系</li>
+<li>所有业务功能都集成统一缓存架构，支持自定义prompt</li>
+</ul>
+<p><strong>模型配置管理</strong> (<code>app/services/llm/model_config.py</code>):</p>
+<ul>
+<li>任务类型枚举: <code>CLASSIFICATION</code>, <code>IMAGE_EDIT</code>, <code>TEXT_GENERATION</code></li>
+<li>提供商枚举: <code>ALIYUN</code>, <code>OPENAI</code>, <code>CLAUDE</code>, <code>DEEPSEEK</code></li>
+<li>自动模型选择: 根据提供商和任务类型自动选择默认模型</li>
+<li>模型验证: 验证模型是否支持指定任务类型</li>
+</ul>
+<h2>二、统一缓存架构</h2>
+<h3>2.1 缓存设计</h3>
+<p><strong>文件位置</strong>: <code>app/services/unified_llm_cache.py</code></p>
+<p><strong>数据库表</strong>: <code>llm_inference_cache_v2</code></p>
+<p><strong>缓存键设计</strong>:</p>
+<ul>
+<li><strong>主键</strong>: <code>(prompt_hash, image_hash)</code> 组合</li>
+<li><code>prompt_hash</code>: SHA-256(prompt) - 64字符</li>
+<li><code>image_hash</code>: SHA-256(image_bytes) - 64字符</li>
+</ul>
+<p><strong>缓存值结构</strong> (JSON格式):</p>
+<pre><code></code></pre>
+<p><strong>核心特性</strong>:</p>
+<p>1. <strong>多模型结果集合</strong>: 一个图片+提示词组合可以缓存多个模型的结果</p>
+<p>2. <strong>模型键格式</strong>: <code>provider:model_id</code> 或 <code>provider:model_id:version</code></p>
+<p>3. <strong>命中计数</strong>: 自动统计缓存命中次数</p>
+<p>4. <strong>批量查询</strong>: 支持批量查询多个图片的缓存结果</p>
+<p><strong>核心方法</strong>:</p>
+<pre><code></code></pre>
+<h3>2.2 缓存流程</h3>
+<p><strong>分类服务缓存流程</strong>:</p>
+<pre><code></code></pre>
+<p><strong>批量缓存查询流程</strong>:</p>
+<pre><code></code></pre>
+<h2>三、业务层图像智能接口</h2>
+<p>LLMService 提供5大核心业务功能，所有功能都集成统一缓存架构：</p>
+<h3>3.1 图像分类 (classify_image)</h3>
+<p><strong>功能</strong>: 图像内容分类 + 背景颜色识别</p>
+<p><strong>API路径</strong>: <code>/api/v1/classify/*</code></p>
+<p><strong>接口列表</strong>:</p>
+<p>1. <strong>单个缓存查询</strong></p>
+<ul>
+<li><code>POST /api/v1/classify/check-cache</code></li>
+<li>请求: <code>{image_hash: str}</code></li>
+<li>响应: <code>{cached: bool, data: ClassificationData}</code></li>
+</ul>
+<p>2. <strong>批量缓存查询</strong></p>
+<ul>
+<li><code>POST /api/v1/classify/batch-check-cache</code></li>
+<li>请求: <code>{image_hashes: List[str]}</code></li>
+<li>响应: <code>{items: List[CacheItem], cached_count: int}</code></li>
+</ul>
+<p>3. <strong>单个图片分类</strong></p>
+<ul>
+<li><code>POST /api/v1/classify</code></li>
+<li>请求: <code>multipart/form-data</code> (image文件)</li>
+<li>响应: <code>{category, confidence, description, background_color}</code></li>
+</ul>
+<p>4. <strong>批量图片分类</strong></p>
+<ul>
+<li><code>POST /api/v1/classify/batch</code></li>
+<li>请求: <code>multipart/form-data</code> (images列表，最多20张)</li>
+<li>响应: <code>{results: List[ClassificationData]}</code></li>
+</ul>
+<p><strong>分类类别</strong> (9类):</p>
+<ul>
+<li><code>social_activities</code> - 社交活动</li>
+<li><code>pets</code> - 宠物萌照</li>
+<li><code>single_person</code> - 单人照片</li>
+<li><code>foods</code> - 美食记录</li>
+<li><code>travel_scenery</code> - 旅行风景</li>
+<li><code>screenshot</code> - 手机截图</li>
+<li><code>idcard</code> - 证件照</li>
+<li><code>qrcode</code> - 二维码</li>
+<li><code>other</code> - 其它</li>
+</ul>
+<p><strong>技术特性</strong>:</p>
+<ul>
+<li>支持自定义prompt（可选）</li>
+<li>自动缓存管理</li>
+<li>二维码快速检测（pyzbar）</li>
+<li>本地推理降级（可选）</li>
+</ul>
+<h3>3.2 颜色分类 (classify_color)</h3>
+<p><strong>功能</strong>: 专门识别照片主色调/背景颜色</p>
+<p><strong>方法</strong>: <code>llm_service.classify_color()</code></p>
+<p><strong>返回结果</strong>:</p>
+<pre><code></code></pre>
+<p><strong>技术特性</strong>:</p>
+<ul>
+<li>使用专门的颜色分类prompt</li>
+<li>集成统一缓存架构</li>
+<li>支持自定义prompt</li>
+<li>返回JSON格式的颜色信息</li>
+</ul>
+<p><strong>背景颜色类别</strong> (10种):</p>
+<ul>
+<li>橙色、蓝色、红色、绿色、紫色</li>
+<li>粉色、黄色、灰色、黑色、白色</li>
+</ul>
+<h3>3.3 构图分析 (analyze_composition)</h3>
+<p><strong>功能</strong>: 分析照片构图方式，给出专业点评和建议</p>
+<p><strong>方法</strong>: <code>llm_service.analyze_composition()</code></p>
+<p><strong>返回结果</strong>:</p>
+<pre><code></code></pre>
+<p><strong>分析维度</strong>:</p>
+<ul>
+<li><code>composition_type</code> - 构图类型（如：三分法、中心构图、对称构图等）</li>
+<li><code>subject_position</code> - 主体位置</li>
+<li><code>visual_balance</code> - 视觉平衡</li>
+<li><code>spatial_layout</code> - 空间布局</li>
+<li><code>lines_and_shapes</code> - 线条与形状</li>
+<li><code>strengths</code> - 优点列表</li>
+<li><code>suggestions</code> - 改进建议</li>
+<li><code>score</code> - 构图评分（0-10分）</li>
+<li><code>detailed_analysis</code> - 详细分析文本</li>
+</ul>
+<p><strong>技术特性</strong>:</p>
+<ul>
+<li>使用专门的构图分析prompt</li>
+<li>集成统一缓存架构</li>
+<li>支持自定义prompt</li>
+<li>返回专业的构图分析JSON</li>
+</ul>
+<h3>3.4 图像编辑 (edit_image)</h3>
+<p><strong>功能</strong>: 图像增强、背景替换、风格转换等</p>
+<h3>3.2 图像编辑接口</h3>
+<p><strong>API路径</strong>: <code>/api/v2/image-edit/*</code></p>
+<p><strong>接口列表</strong>:</p>
+<p>1. <strong>批量图像编辑（异步任务）</strong></p>
+<ul>
+<li><code>POST /api/v2/image-edit/batch</code></li>
+<li>请求: <code>multipart/form-data</code> (images列表, prompt, edit_type)</li>
+<li>响应: <code>{task_id: str, status: "pending"}</code></li>
+</ul>
+<p>2. <strong>查询任务状态</strong></p>
+<ul>
+<li><code>GET /api/v2/image-edit/task/{task_id}</code></li>
+<li>响应: <code>{status, progress, results: List[ImageEditResult]}</code></li>
+</ul>
+<p><strong>编辑类型</strong> (<code>edit_type</code>):</p>
+<ul>
+<li><code>enhance</code> - 图像增强（默认）</li>
+<li><code>remove_background</code> - 移除背景</li>
+<li><code>change_background</code> - 更换背景</li>
+<li><code>style_transfer</code> - 风格转换</li>
+</ul>
+<p><strong>技术特性</strong>:</p>
+<ul>
+<li>异步任务处理（后台处理大量图片）</li>
+<li>任务状态跟踪（pending/processing/completed/failed）</li>
+<li>七牛云OSS存储（编辑后的图片）</li>
+<li>积分扣减（每次编辑扣减积分）</li>
+<li>统一缓存集成</li>
+</ul>
+<p><strong>业务流程</strong>:</p>
+<pre><code></code></pre>
+<h3>3.5 文本生成 (generate_text)</h3>
+<p><strong>功能</strong>: 基于文本提示词生成文本内容</p>
+<p><strong>方法</strong>: <code>llm_service.generate_text()</code></p>
+<p><strong>参数</strong>:</p>
+<ul>
+<li><code>prompt</code> - 用户提示词（必需）</li>
+<li><code>system_prompt</code> - 系统提示词（可选）</li>
+<li><code>max_tokens</code> - 最大token数（可选，默认2000）</li>
+<li><code>temperature</code> - 温度参数（0-2，默认0.7）</li>
+</ul>
+<p><strong>返回结果</strong>:</p>
+<pre><code></code></pre>
+<p><strong>技术特性</strong>:</p>
+<ul>
+<li>默认使用Deepseek模型（如果配置了DEEPSEEK_API_KEY）</li>
+<li>支持其他提供商的文本生成模型（OpenAI、Claude、阿里云）</li>
+<li><strong>不使用缓存</strong>（文本生成每次都是新内容）</li>
+<li>支持自定义系统提示词</li>
+<li>支持温度参数控制生成随机性</li>
+</ul>
+<p><strong>支持的模型</strong>:</p>
+<ul>
+<li><strong>Deepseek</strong>: <code>deepseek-chat</code></li>
+<li><strong>阿里云</strong>: <code>qwen-turbo</code>, <code>qwen-plus</code>, <code>qwen-max</code></li>
+<li><strong>OpenAI</strong>: <code>gpt-4</code>, <code>gpt-3.5-turbo</code></li>
+<li><strong>Claude</strong>: <code>claude-3-opus</code>, <code>claude-3-sonnet</code></li>
+</ul>
+<h2>四、位置服务</h2>
+<h3>4.1 架构概览</h3>
+<p><strong>API路径</strong>: <code>/api/v2/location/*</code></p>
+<p><strong>核心文件</strong>:</p>
+<ul>
+<li><code>app/api/location_v2.py</code> - API路由层</li>
+<li><code>app/services/geocoding_client.py</code> - 地理编码客户端</li>
+</ul>
+<p><strong>数据库表</strong>:</p>
+<ul>
+<li><code>global_cities_v2</code> - 城市数据表（本地缓存）</li>
+<li><code>city_name_mapping</code> - 中英文名称映射表</li>
+<li><code>api_call_stats</code> - API调用统计表</li>
+</ul>
+<h3>4.2 业务流程</h3>
+<p><strong>查询流程</strong>:</p>
+<pre><code></code></pre>
+<h3>4.3 技术栈</h3>
+<img src="/assets/diary/layeredarch/tech-arch.png" alt="后端技术栈" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p><strong>后端框架</strong>:</p>
+<ul>
+<li>FastAPI - 异步Web框架</li>
+<li>uvicorn - ASGI服务器（用于运行FastAPI应用）</li>
+<li>aiomysql - 异步MySQL驱动</li>
+<li>httpx - 异步HTTP客户端</li>
+</ul>
+<p><strong>数据库</strong>:</p>
+<ul>
+<li>MySQL 8.0 - 存储城市数据和缓存</li>
+<li>连接池管理（pool_size=10, max_overflow=5）</li>
+</ul>
+<p><strong>地理计算</strong>:</p>
+<ul>
+<li>Haversine公式 - 计算两点间距离</li>
+<li>坐标范围判断 - 判断是否在中国境内</li>
+</ul>
+<h3>4.4 外部接口</h3>
+<p><strong>1. 高德地图API</strong> (中国坐标)</p>
+<ul>
+<li><strong>接口</strong>: <code>https://restapi.amap.com/v3/geocode/regeo</code></li>
+<li><strong>用途</strong>: 中国境内坐标的逆地理编码</li>
+<li><strong>频率限制</strong>: 30次/秒（使用Semaphore限制为25次/秒）</li>
+<li><strong>返回字段</strong>:</li>
+<li><code>formatted_address</code> - 格式化地址</li>
+<li><code>addressComponent</code> - 地址组件（省市区）</li>
+<li><code>adcode</code> - 行政区划代码</li>
+<li><code>citycode</code> - 城市代码</li>
+</ul>
+<p><strong>2. Nominatim API</strong> (海外坐标)</p>
+<ul>
+<li><strong>接口</strong>: <code>https://www.xintuzhaopian.com/reverse</code> (Cloudflare Worker代理)</li>
+<li><strong>用途</strong>: 海外坐标的逆地理编码</li>
+<li><strong>频率限制</strong>: 1次/秒（使用Lock控制）</li>
+<li><strong>返回字段</strong>:</li>
+<li><code>display_name</code> - 显示名称</li>
+<li><code>address</code> - 地址组件</li>
+<li><code>country_code</code> - 国家代码</li>
+<li><code>lat</code>, <code>lon</code> - 坐标</li>
+</ul>
+<p><strong>3. GeoNames数据库</strong> (降级查询)</p>
+<ul>
+<li><strong>数据源</strong>: <code>global_cities_v2</code> 表</li>
+<li><strong>用途</strong>: API失败时的降级查询</li>
+<li><strong>查询方式</strong>: 使用Haversine公式查找最近城市</li>
+</ul>
+<h3>4.5 数据规范化</h3>
+<p><strong>验证和规范化函数</strong>: <code>validate_and_normalize_location()</code></p>
+<p><strong>规范化规则</strong>:</p>
+<p>1. <strong>name_en 和 name_zh</strong>:</p>
+<ul>
+<li>如果 <code>name_zh</code> 有值，使用 <code>name_zh</code> 填充 <code>name_en</code></li>
+<li>如果 <code>name_zh</code> 为空但 <code>name_en</code> 有值，使用 <code>name_en</code> 填充 <code>name_zh</code></li>
+<li>如果两者都为空，设置 <code>name_en="Unknown"</code>, <code>name_zh="未知位置"</code></li>
+</ul>
+<p>2. <strong>country_code</strong>:</p>
+<ul>
+<li>使用实际返回的值</li>
+<li>如果未返回，整个位置信息回退到 "unknown"</li>
+</ul>
+<p>3. <strong>province</strong>:</p>
+<ul>
+<li>中国位置: 如果 <code>province</code> 缺失，数据视为错误，回退到 "unknown"</li>
+<li>海外位置: 可以使用较低级别的行政区划作为替代（state/region）</li>
+</ul>
+<p>4. <strong>整体验证</strong>:</p>
+<ul>
+<li>如果 <code>name_en</code>、<code>province</code>、<code>country_code</code> 任一无法确定，整个位置视为 "unknown"</li>
+</ul>
+<p><strong>未知位置创建</strong>: <code>create_unknown_location()</code></p>
+<pre><code></code></pre>
+<h3>4.6 API接口</h3>
+<p><strong>1. 批量查询最近城市</strong></p>
+<ul>
+<li><code>POST /api/v2/location/nearest-cities</code></li>
+<li>请求: <code>{coordinates: List[Coordinate]}</code></li>
+<li>响应: <code>{results: List[CityQueryResult], success_count, failed_count}</code></li>
+<li>限制: 最多500个坐标</li>
+</ul>
+<p><strong>2. 统计信息</strong></p>
+<ul>
+<li><code>GET /api/v2/location/stats</code></li>
+<li>响应: <code>{total_cities, cities_with_chinese, api_calls_today, ...}</code></li>
+</ul>
+<p><strong>响应模型</strong>:</p>
+<pre><code></code></pre>
+<h3>4.7 性能优化</h3>
+<p><strong>并发控制</strong>:</p>
+<ul>
+<li>高德API: Semaphore(25) - 限制并发请求数</li>
+<li>Nominatim API: Lock + 时间控制 - 限制请求频率（1次/秒）</li>
+</ul>
+<p><strong>批量查询优化</strong>:</p>
+<ul>
+<li>使用 <code>asyncio.gather()</code> 并行处理多个坐标</li>
+<li>本地数据库批量查询（IN查询）</li>
+<li>外部API并发调用（受频率限制控制）</li>
+</ul>
+<p><strong>缓存策略</strong>:</p>
+<ul>
+<li>本地数据库缓存（3km范围内）</li>
+<li>API结果自动保存到本地数据库</li>
+<li>减少重复API调用</li>
+</ul>
+<p><strong>日志记录</strong>:</p>
+<ul>
+<li>API调用统计（成功/失败）</li>
+<li>查询耗时统计</li>
+<li>数据来源追踪（local/gaode/nominatim/fallback）</li>
+</ul>
+<h2>五、技术亮点总结</h2>
+<h3>5.1 架构设计</h3>
+<ul>
+<li>✅ 三层架构清晰分离（基础服务/Provider/业务层）</li>
+<li>✅ 统一的接口抽象，易于扩展新提供商</li>
+<li>✅ 统一的错误处理和重试机制</li>
+</ul>
+<h3>5.2 缓存架构</h3>
+<ul>
+<li>✅ 多模型结果集合存储</li>
+<li>✅ 批量查询优化</li>
+<li>✅ 自动命中计数</li>
+</ul>
+<h3>5.3 位置服务</h3>
+<ul>
+<li>✅ 智能降级策略（本地DB → 外部API → v1查询）</li>
+<li>✅ 数据规范化保证数据质量</li>
+<li>✅ 并发控制和频率限制</li>
+<li>✅ 中国/海外坐标自动路由</li>
+</ul>
+<h3>5.4 性能优化</h3>
+<ul>
+<li>✅ 全异步架构（FastAPI + aiomysql + httpx）</li>
+<li>✅ 连接池管理</li>
+<li>✅ 批量处理支持</li>
+<li>✅ 智能缓存策略</li>
+</ul>
+<h3>5.5 可扩展性</h3>
+<ul>
+<li>✅ 易于添加新的大模型提供商</li>
+<li>✅ 易于添加新的任务类型</li>
+<li>✅ 配置化的模型选择</li>
+<li>✅ 统一的缓存接口</li>
+</ul>
+<h2>六、数据库设计</h2>
+<h3>6.1 大模型缓存表</h3>
+<p><strong>表名</strong>: <code>llm_inference_cache_v2</code></p>
+<p><strong>字段</strong>:</p>
+<ul>
+<li><code>prompt_hash</code> VARCHAR(64) - 提示词哈希（主键）</li>
+<li><code>image_hash</code> VARCHAR(64) - 图片哈希（主键）</li>
+<li><code>model_results</code> JSON - 多模型结果集合</li>
+<li><code>hit_count</code> INT - 命中次数</li>
+<li><code>created_at</code> DATETIME - 创建时间</li>
+<li><code>last_hit_at</code> DATETIME - 最后命中时间</li>
+</ul>
+<p><strong>索引</strong>:</p>
+<ul>
+<li>PRIMARY KEY (<code>prompt_hash</code>, <code>image_hash</code>)</li>
+<li>INDEX <code>idx_image_hash</code> (<code>image_hash</code>)</li>
+<li>INDEX <code>idx_last_hit_at</code> (<code>last_hit_at</code>)</li>
+</ul>
+<h3>6.2 位置数据表</h3>
+<p><strong>表名</strong>: <code>global_cities_v2</code></p>
+<p><strong>字段</strong>:</p>
+<ul>
+<li><code>id</code> INT - 主键</li>
+<li><code>name_en</code> VARCHAR(255) - 英文名称</li>
+<li><code>latitude</code> DECIMAL(10,7) - 纬度</li>
+<li><code>longitude</code> DECIMAL(10,7) - 经度</li>
+<li><code>country_code</code> VARCHAR(2) - 国家代码</li>
+<li><code>province</code> VARCHAR(255) - 省份/州</li>
+<li><code>city</code> VARCHAR(255) - 城市</li>
+<li><code>district</code> VARCHAR(255) - 区县</li>
+<li><code>data_source</code> VARCHAR(50) - 数据来源</li>
+<li><code>api_adcode</code> VARCHAR(20) - 高德行政区划代码</li>
+<li><code>api_city_id</code> VARCHAR(50) - API城市ID</li>
+</ul>
+<p><strong>索引</strong>:</p>
+<ul>
+<li>PRIMARY KEY (<code>id</code>)</li>
+<li>INDEX <code>idx_location</code> (<code>latitude</code>, <code>longitude</code>)</li>
+<li>INDEX <code>idx_country</code> (<code>country_code</code>)</li>
+</ul>
+<p><strong>表名</strong>: <code>city_name_mapping</code></p>
+<p><strong>字段</strong>:</p>
+<ul>
+<li><code>city_id</code> INT - 城市ID（外键）</li>
+<li><code>name_zh</code> VARCHAR(255) - 中文名称</li>
+<li><code>name_en</code> VARCHAR(255) - 英文名称</li>
+</ul>
+<p><strong>索引</strong>:</p>
+<ul>
+<li>PRIMARY KEY (<code>city_id</code>)</li>
+<li>INDEX <code>idx_name_zh</code> (<code>name_zh</code>)</li>
+</ul>
+<h2>七、配置管理</h2>
+<h3>7.1 环境变量配置</h3>
+<p><strong>大模型配置</strong> (<code>.env</code>):</p>
+<pre><code></code></pre>
+<p><strong>位置服务配置</strong> (<code>.env</code>):</p>
+<pre><code></code></pre>
+<p><strong>数据库配置</strong> (<code>.env</code>):</p>
+<pre><code></code></pre>
+<h3>7.2 密钥管理</h3>
+<p><strong>敏感信息</strong> (<code>.env.secrets</code>):</p>
+<ul>
+<li><code>LLM_API_KEY</code> - 大模型API密钥</li>
+<li><code>MYSQL_PASSWORD</code> - 数据库密码</li>
+<li><code>GAODE_API_KEY</code> - 高德API密钥</li>
+<li><code>DEEPSEEK_API_KEY</code> - Deepseek API密钥（如使用）</li>
+</ul>
+<h2>八、总结</h2>
+<p>V2接口技术方案实现了：</p>
+<p>1. <strong>清晰的分层架构</strong> - 基础服务层、Provider层、业务层职责明确</p>
+<p>2. <strong>统一的缓存架构</strong> - 支持多模型结果集合，批量查询优化</p>
+<p>3. <strong>完整的图像智能接口</strong> - 分类和编辑功能，支持自定义prompt</p>
+<p>4. <strong>智能的位置服务</strong> - 多级降级策略，数据规范化，并发控制</p>
+<p>5. <strong>高性能和可扩展性</strong> - 全异步架构，连接池管理，易于扩展</p>
+<p>该方案为图像智能处理和位置服务提供了稳定、高效、可扩展的技术基础。</p>
+            </div>
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">技术架构</span><span class="article-tag">V2接口</span><span class="article-tag">大模型</span><span class="article-tag">缓存架构</span><span class="article-tag">位置服务</span><span class="article-tag">系统设计</span><span class="article-tag">研发经验</span>
+                </div>
+            </div>
+        </article>
+        
+        
+        <div class="related-articles">
+            <h2>相关文章</h2>
+            <div class="related-articles-grid">
+                
+                <a href="backend-arch.html" class="related-article-card">
+                    <h3>图片分类后端系统 - 芯图相册后端技术方案</h3>
+                    <p>基于大模型技术的智能照片分类服务后端技术方案，包含架构设计、核心功能、性能优化等完整技术方案。</p>
+                </a>
+                <a href="async-arch.html" class="related-article-card">
+                    <h3>芯图相册：异步架构与高并发技术说明</h3>
+                    <p>深入解析图片分类后端系统的异步架构设计和高并发技术实现，包含异步调用时序图、连接池、多进程架构等核心技术详解。</p>
+                </a>
+                <a href="deploy-arch.html" class="related-article-card">
+                    <h3>芯图相册：三层部署架构图</h3>
+                    <p>详细说明芯图相册的三层部署架构设计，包含客户端、WEB服务层和APP服务器的完整架构图，以及二维码生成、扫码关注、会员开通等关键业务流程时序图。</p>
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="article-footer">
+            <a href="../diary.html" class="back-btn">← 返回日记列表</a>
+        </div>
+    </main>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+

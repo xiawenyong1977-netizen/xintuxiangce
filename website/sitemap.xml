@@ -327,6 +327,23 @@
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
+    
+    <!-- 扫描服务架构梳理 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/architecture-for-scanning.html</loc>
+        <lastmod>2026-01-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- V2接口技术方案总结 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/diary/v2-architecture.html</loc>
+        <lastmod>2026-01-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- 元旦旅行照片整理指南 -->
     <url>
         <loc>https://www.xintuxiangce.top/guides/newyearsdaytravelphotoorgnize.html</loc>
