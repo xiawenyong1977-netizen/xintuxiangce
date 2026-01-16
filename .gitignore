@@ -58,6 +58,7 @@ qiniu-config.json
 !package-lock.json
 !tsconfig.json
 !diary-data.json
+!guides-data.json
 !download-info.json
 !dist/files.json
 # Google API 密钥文件

@@ -44,6 +44,12 @@ $EXCLUDE_PATTERNS = @(
     "Thumbs.db"
 )
 
+# 强制包含的文件（即使被 .gitignore 忽略，也需要部署）
+$FORCE_INCLUDE_FILES = @(
+    "guides-data.json",
+    "diary-data.json"
+)
+
 # ==================== 颜色输出函数 ====================
 function Write-Info {
     param([string]$Message)
@@ -350,7 +356,12 @@ function Get-ChangedFiles {
             git config core.quotepath false 2>$null | Out-Null
             
             # 使用包装函数执行 Git 命令
+            # 方法1：使用 git diff HEAD 检测所有变更（包括已暂存和未暂存的）
             $changedOutput = Invoke-GitCommand -Arguments @("diff", "--name-only", "--diff-filter=ACMR", "HEAD")
+            
+            # 方法2：使用 git status --porcelain 检测所有变更（更全面）
+            # 这会检测到所有未提交的变更，包括已暂存、未暂存和未跟踪的文件
+            $statusOutput = Invoke-GitCommand -Arguments @("status", "--porcelain")
             
             # 过滤掉包含警告信息的行，只保留文件名
             $changed = $changedOutput | Where-Object { 
@@ -360,6 +371,22 @@ function Get-ChangedFiles {
             }
             if (-not $changed) {
                 $changed = @()
+            }
+            
+            # 从 git status --porcelain 中提取文件名
+            # 格式：XY filename（X=暂存区状态，Y=工作区状态）
+            $statusFiles = $statusOutput | Where-Object {
+                $_ -and 
+                $_.Trim() -ne '' -and
+                $_ -notmatch '^git:' -and
+                $_ -match '^[ MADRCU?]{2}\s+(.+)$'  # 匹配 Git 状态格式
+            } | ForEach-Object {
+                if ($_ -match '^[ MADRCU?]{2}\s+(.+)$') {
+                    $matches[1].Trim()
+                }
+            }
+            if (-not $statusFiles) {
+                $statusFiles = @()
             }
             
             # 同时获取未跟踪的新文件（Untracked files）
@@ -385,8 +412,9 @@ function Get-ChangedFiles {
             
             $env:GIT_CONFIG_PARAMETERS = $oldConfig
             
-            # 合并并去重
-            $allChanged = ($changed + $untracked) | Select-Object -Unique
+            # 合并并去重（包括 git diff 检测的变更、git status 检测的变更和未跟踪文件）
+            # 优先使用 git status 的结果，因为它更全面
+            $allChanged = ($changed + $statusFiles + $untracked) | Select-Object -Unique
             
             # 将文件路径转换为相对于目标目录的路径
             # 获取目标目录的完整路径（相对于 Git 根目录）
