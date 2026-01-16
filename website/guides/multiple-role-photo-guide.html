@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TDK -->
+    <title>芯图相册：为不同角色设计的智能照片分类管理指南 | 使用指南</title>
+    <meta name="description" content="针对不同用户角色提供精准的照片管理解决方案。本指南详细讲解普通用户的相册瘦身操作（按存储分类清理、相似照片去重）、相册整理和备份流程（AI智能内容分类、创建个性化相册目录、多维分类与暂存箱高效整理），以及设计师与自媒体工作者的素材筛选技巧（按颜色、拍摄方向、分辨率、格式分类），还有摄影师的摄影参数分类指南（按焦距、ISO、光圈、快门速度分类）。无论您是普通用户、设计师还是摄影师，都能找到适合自己使用场景的操作指南，让照片管理变得简单高效。">
+    <meta name="keywords" content="角色指南, 使用场景, 相册瘦身, 照片整理, 素材筛选, 摄影参数, 多角色指南">
+    <link rel="canonical" href="https://www.xintuxiangce.top/guides/multiple-role-photo-guide.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="芯图相册：为不同角色设计的智能照片分类管理指南">
+    <meta property="og:description" content="针对不同用户角色提供精准的照片管理解决方案。本指南详细讲解普通用户的相册瘦身操作（按存储分类清理、相似照片去重）、相册整理和备份流程（AI智能内容分类、创建个性化相册目录、多维分类与暂存箱高效整理），以及设计师与自媒体工作者的素材筛选技巧（按颜色、拍摄方向、分辨率、格式分类），还有摄影师的摄影参数分类指南（按焦距、ISO、光圈、快门速度分类）。无论您是普通用户、设计师还是摄影师，都能找到适合自己使用场景的操作指南，让照片管理变得简单高效。">
+    <meta property="og:image" content="/assets/Screenshots/PC/classifybyAI.png">
+    <meta property="og:url" content="https://www.xintuxiangce.top/guides/multiple-role-photo-guide.html">
+    
+    <!-- 结构化数据 - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "芯图相册：为不同角色设计的智能照片分类管理指南",
+        "description": "针对不同用户角色提供精准的照片管理解决方案。本指南详细讲解普通用户的相册瘦身操作（按存储分类清理、相似照片去重）、相册整理和备份流程（AI智能内容分类、创建个性化相册目录、多维分类与暂存箱高效整理），以及设计师与自媒体工作者的素材筛选技巧（按颜色、拍摄方向、分辨率、格式分类），还有摄影师的摄影参数分类指南（按焦距、ISO、光圈、快门速度分类）。无论您是普通用户、设计师还是摄影师，都能找到适合自己使用场景的操作指南，让照片管理变得简单高效。",
+        "image": "/assets/Screenshots/PC/classifybyAI.png",
+        "author": {
+            "@type": "Organization",
+            "name": "芯图团队"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "芯图相册",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.xintuxiangce.top/icons/imageclassify.png"
+            }
+        },
+        "datePublished": "2026年01月16日",
+        "dateModified": "2026年01月16日"
+    }
+    </script>
+    
+    <!-- 面包屑导航 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.xintuxiangce.top"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "使用指南",
+                "item": "https://www.xintuxiangce.top/guides.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "芯图相册：为不同角色设计的智能照片分类管理指南",
+                "item": "https://www.xintuxiangce.top/guides/multiple-role-photo-guide.html"
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="/icons/imageclassify.png">
+    
+    <!-- 组件加载器 - 必须在body之前加载 -->
+    <script src="../components-loader.js"></script>
+    
+    <style>
+        /* 覆盖全局img样式，确保移动端图片大小正确 */
+        .article-container {
+            padding: 100px 0 80px;
+            background: var(--bg-light);
+            min-height: calc(100vh - 200px);
+        }
+        
+        .article-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .article-header {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .article-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-header .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .article-cover {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .article-body {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 60px 40px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 40px 0 20px;
+            color: var(--text-primary);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin: 32px 0 16px;
+            color: var(--text-primary);
+        }
+        
+        .article-body p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .article-body img {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 32px 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 移动端截图在PC端显示为页面宽度的1/3 */
+        .article-body img[src*="android"],
+        .article-body img[alt*="Android"],
+        .article-body img[alt*="android"],
+        .article-body img[src*="membership"],
+        .article-body img[alt*="会员"],
+        .article-body img[alt*="成为会员"] {
+            width: 33.333% !important;
+            max-width: 33.333% !important;
+            margin: 20px auto !important;
+            display: block !important;
+        }
+        
+        /* 移动端设备上的样式 */
+        @media screen and (max-width: 768px) {
+            .article-content .article-body img,
+            .article-body img,
+            article.article-body img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            
+            .article-header h1 {
+                font-size: 32px;
+            }
+            
+            .article-body {
+                padding: 40px 24px;
+            }
+        }
+        
+        .article-body ul,
+        .article-body ol {
+            margin: 20px 0;
+            padding-left: 32px;
+        }
+        
+        .article-body li {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .article-body blockquote {
+            background: var(--bg-light);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+            border-radius: var(--radius-sm);
+        }
+        
+        .article-body blockquote p {
+            margin-bottom: 10px;
+        }
+        
+        .article-body code {
+            background: var(--bg-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: var(--primary-color);
+        }
+        
+        .article-body pre {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .article-body pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 30px 0;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .article-tag {
+            padding: 6px 14px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 16px;
+            font-size: 14px;
+        }
+        
+        .article-footer {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <!-- 导航栏和底部栏将通过 components-loader.js 自动加载 -->
+    
+    <div class="article-container">
+        <div class="article-content">
+            <header class="article-header">
+                <h1>芯图相册：为不同角色设计的智能照片分类管理指南</h1>
+                <div class="article-meta">
+                    <span>📅 2026年01月16日</span>
+                    <span>✍️ 芯图团队</span>
+                    <span>⏱️ 18分钟</span>
+                </div>
+                <img src="/assets/Screenshots/PC/classifybyAI.png" alt="芯图相册：为不同角色设计的智能照片分类管理指南" class="article-cover">
+            </header>
+            
+            <article class="article-body">
+                <p>芯图相册致力于通过多维分类功能，为不同用户提供精准的照片管理解决方案。以下是根据您的使用场景整理的操作指南。</p>
+<h2><strong>普通用户的相册瘦身操作指南</strong></h2>
+<p>当您的手机存储空间告急时，请按以下步骤操作：</p>
+<h3><strong>第一步：按存储分类清理</strong></h3>
+<p>1. 打开芯图相册，使用 <strong>「按存储分类」</strong> 功能。</p>
+<p>2. 系统会列出所有图片文件夹，请重点关注并找出 <strong>临时文件夹</strong>，例如：</p>
+<ul>
+<li><code>微信</code> 缓存图片</li>
+<li><code>截图</code> 文件夹</li>
+<li>其他各个 <strong>APP的图片缓存目录</strong></li>
+</ul>
+   <img src="/assets/Screenshots/PC/classifybydir.png" alt="按存储分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>3. 检查这些目录，确认无误后，可进行 <strong>直接删除</strong>。</p>
+<h3><strong>第二步：相似照片去重</strong></h3>
+<p>1. 使用 <strong>「相似组检测」</strong> 功能。</p>
+<p>2. 系统会自动扫描并分组显示高度相似或重复的照片。</p>
+<p>3. 在每一组相似照片中，选择您最满意的一张保留，然后 <strong>删除重复的照片</strong>。</p>
+   <img src="/assets/Screenshots/PC/similaritygroup.png" alt="相似照片" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2><strong>普通用户的相册整理和备份操作指南（建议在瘦身后进行）</strong></h2>
+<p>完成瘦身后，可按以下步骤系统化整理与备份您宝贵的回忆。</p>
+<h3><strong>第一步：AI智能内容分类</strong></h3>
+<p>1. 使用 <strong>「AI对相册进行按内容分类」</strong> 功能。</p>
+<p>2. 稍等片刻，您将获得一系列自动整理的相册，包括：</p>
+<ul>
+<li><strong>单人照片</strong></li>
+<li><strong>社交活动</strong></li>
+<li><strong>旅行风景</strong></li>
+<li><strong>美食记录</strong></li>
+<li><strong>宠物萌照</strong></li>
+<li><strong>证件照</strong></li>
+<li><strong>手机截图</strong>（可在此进一步删除，继续瘦身）</li>
+<li><strong>二维码</strong>（可在此进一步删除，继续瘦身）</li>
+<li><strong>其它</strong></li>
+</ul>
+   <img src="/assets/Screenshots/PC/classifybyAI.png" alt="AI分类" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3><strong>第二步：创建个性化相册目录</strong></h3>
+<p>1. 根据您的管理需求，<strong>创建自己的相册存储目录</strong>。</p>
+<p>2. 目录名称建议：</p>
+<ul>
+<li><strong>按时间</strong>：<code>2024年</code>、<code>2024年7月</code>、<code>高中</code>、<code>大学</code></li>
+<li><strong>按场景</strong>：<code>西湖-2023春</code>、<code>家庭聚会-2024春节</code></li>
+</ul>
+   <img src="/assets/Screenshots/PC/createphotodir.png" alt="创建个性化相册" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h3><strong>第三步：使用多维分类与暂存箱进行高效整理</strong></h3>
+<p>这是将照片归档至上述目录的核心步骤：</p>
+<p>1. <strong>使用多维分类快速筛选照片</strong>：在"所有照片"或分类相册中，您可以按时间、人物、地点等多种维度筛选目标照片。</p>
+   <img src="/assets/Screenshots/PC/mutidimselect.png" alt="多维筛选暂存" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>2. <strong>将选中照片放入暂存箱</strong>：</p>
+<ul>
+<li>a. 在不同维度筛选中，被您选中的照片，其 <strong>选中状态会持续保持</strong>，并有视觉提示，避免重复操作。</li>
+<li>b. 点击"放入暂存箱"，<strong>已经被放入暂存箱的照片，会有专属标签提示</strong>，方便识别。</li>
+</ul>
+    <img src="/assets/Screenshots/PC/stagedtag.png" alt="已暂存标签" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>3. <strong>批量复制到目标文件夹</strong>：</p>
+<ul>
+<li>a. 完成筛选后，进入 <strong>暂存箱</strong>，<strong>全选照片</strong>。</li>
+<li>b. 选择 <strong>批量复制到文件管理器</strong>。</li>
+</ul>
+    <img src="/assets/Screenshots/PC/copyfile.png" alt="照片复制" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<ul>
+<li>c. 在系统文件管理器中，<strong>导航到您第二步创建的目标文件夹</strong>。</li>
+<li>d. 最后，执行 <strong>一键粘贴</strong>，即可完成批量归档。</li>
+</ul>
+    <img src="/assets/Screenshots/PC/照片复制到文件管理器.png" alt="照片粘贴" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2><strong>设计师与自媒体工作者的素材筛选指南</strong></h2>
+<p>面对海量图片素材，您可以：</p>
+<ul>
+<li>使用芯图相册提供的 <strong>按颜色</strong>、<strong>按拍摄方向</strong>、<strong>按分辨率</strong>、<strong>按格式</strong> 等多维分类功能辅助快速筛选。</li>
+<li><strong>下一个版本将提供过滤矩阵</strong>，支持多条件组合筛选，从而 <strong>加速图片素材查找的效率</strong>。</li>
+</ul>
+    <img src="/assets/Screenshots/PC/照片分类目录设置和自定义显示分类维度.png" alt="素材管理者" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<h2><strong>摄影师的摄影参数分类指南</strong></h2>
+<p>如需按拍摄参数整理作品，您可以：</p>
+<ul>
+<li>使用芯图相册提供的 <strong>按焦距</strong>、<strong>按ISO</strong>、<strong>按光圈</strong>、<strong>按快门速度</strong> 等多维分类功能辅助照片筛选。</li>
+<li><strong>下一个版本将提供过滤矩阵</strong>，实现更复杂的参数交叉筛选，进一步 <strong>加速图片素材查找的效率</strong>。</li>
+</ul>
+    <img src="/assets/Screenshots/PC/photoclassifydimensions.png" alt="摄影者" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">
+<p>---</p>
+<p><strong>芯图相册，让每一张照片都物尽其用，井然有序。</strong></p>
+            </article>
+            
+            
+            <div class="article-content">
+                <div class="article-tags">
+                    <span class="article-tag">角色指南</span><span class="article-tag">使用场景</span><span class="article-tag">相册瘦身</span><span class="article-tag">照片整理</span><span class="article-tag">素材筛选</span><span class="article-tag">摄影参数</span><span class="article-tag">多角色指南</span>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="article-footer">
+                <a href="../guides.html" class="back-btn">← 返回使用指南</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚将通过 components-loader.js 自动加载 -->
+    
+    <script src="../script.js"></script>
+</body>
+</html>
+
