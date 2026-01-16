@@ -6,13 +6,19 @@
 1. 读取 guides-data.json
 2. 生成/更新指南列表页和详情页
 3. 更新 sitemap.xml
+
+使用方法：
+   全量生成：python update-guides.py
+   只生成新增：python update-guides.py --incremental
 """
 
+import argparse
 import json
 import os
 import re
 from datetime import datetime
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 # 配置
 GUIDES_DATA_FILE = 'guides-data.json'
@@ -543,59 +549,145 @@ def markdown_to_html(markdown_text):
     
     return '\n'.join(result)
 
-def update_sitemap(articles):
+def update_sitemap(articles, incremental=False):
     """更新sitemap.xml"""
     sitemap_path = SITEMAP_FILE
     
-    # 读取现有sitemap
-    existing_urls = []
-    if os.path.exists(sitemap_path):
+    if not os.path.exists(sitemap_path):
+        print(f"错误: sitemap文件不存在 {sitemap_path}")
+        return False
+    
+    try:
+        # 读取现有sitemap内容
         with open(sitemap_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-            existing_urls = re.findall(r'<loc>(.*?)</loc>', content)
-    
-    # 生成新的sitemap条目
-    today = datetime.now().strftime('%Y-%m-%d')
-    new_entries = []
-    
-    # 使用指南列表页
-    new_entries.append(f'''    <url>
-        <loc>{BASE_URL}/guides.html</loc>
-        <lastmod>{today}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>''')
-    
-    # 每篇指南
-    for article in articles:
-        new_entries.append(f'''    <url>
-        <loc>{BASE_URL}/guides/{article['id']}.html</loc>
-        <lastmod>{article.get('date', today)}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>''')
-    
-    # 合并现有URL和新URL（去重）
-    all_urls = set(existing_urls)
-    for entry in new_entries:
-        url_match = re.search(r'<loc>(.*?)</loc>', entry)
-        if url_match:
-            all_urls.add(url_match.group(1))
-    
-    # 生成完整sitemap（这里简化处理，实际应该保留原有结构）
-    print(f"提示: 请手动更新 {sitemap_path} 添加使用指南相关URL")
-    print("新增URL:")
-    for entry in new_entries:
-        print(entry)
+            sitemap_content = f.read()
+        
+        # 解析现有sitemap
+        root = ET.fromstring(sitemap_content)
+        
+        # 获取命名空间（如果有）
+        ns = {}
+        if root.tag.startswith('{'):
+            ns_uri = root.tag[1:].split('}')[0]
+            ns['sitemap'] = ns_uri
+            ns_prefix = '{' + ns_uri + '}'
+        else:
+            ns_prefix = ''
+        
+        # 获取现有的URL列表
+        existing_urls = {}
+        for url_elem in root.findall(f'.//{ns_prefix}url'):
+            loc_elem = url_elem.find(f'{ns_prefix}loc')
+            if loc_elem is not None:
+                url = loc_elem.text.strip()
+                lastmod_elem = url_elem.find(f'{ns_prefix}lastmod')
+                lastmod = lastmod_elem.text.strip() if lastmod_elem is not None else None
+                existing_urls[url] = {'elem': url_elem, 'lastmod': lastmod}
+        
+        # 生成需要添加的URL
+        today = datetime.now().strftime('%Y-%m-%d')
+        guides_list_url = f"{BASE_URL}/guides.html"
+        new_urls = []
+        updated_count = 0
+        
+        # 检查并添加使用指南列表页
+        if guides_list_url not in existing_urls:
+            url_elem = ET.SubElement(root, f'{ns_prefix}url')
+            ET.SubElement(url_elem, f'{ns_prefix}loc').text = guides_list_url
+            ET.SubElement(url_elem, f'{ns_prefix}lastmod').text = today
+            ET.SubElement(url_elem, f'{ns_prefix}changefreq').text = 'weekly'
+            ET.SubElement(url_elem, f'{ns_prefix}priority').text = '0.9'
+            new_urls.append(guides_list_url)
+            updated_count += 1
+        
+        # 添加每篇指南
+        for article in articles:
+            article_url = f"{BASE_URL}/guides/{article['id']}.html"
+            article_date = article.get('date', today)
+            
+            # 检查URL是否已存在
+            if article_url in existing_urls:
+                # 如果已存在，更新lastmod（如果不是增量模式）
+                if not incremental:
+                    url_info = existing_urls[article_url]
+                    lastmod_elem = url_info['elem'].find(f'{ns_prefix}lastmod')
+                    if lastmod_elem is not None:
+                        if lastmod_elem.text != article_date:
+                            lastmod_elem.text = article_date
+                            updated_count += 1
+                    else:
+                        ET.SubElement(url_info['elem'], f'{ns_prefix}lastmod').text = article_date
+                        updated_count += 1
+                continue
+            
+            # 添加新的URL条目
+            url_elem = ET.SubElement(root, f'{ns_prefix}url')
+            ET.SubElement(url_elem, f'{ns_prefix}loc').text = article_url
+            ET.SubElement(url_elem, f'{ns_prefix}lastmod').text = article_date
+            ET.SubElement(url_elem, f'{ns_prefix}changefreq').text = 'monthly'
+            ET.SubElement(url_elem, f'{ns_prefix}priority').text = '0.8'
+            new_urls.append(article_url)
+            updated_count += 1
+        
+        if new_urls or updated_count > 0:
+            # 保存更新后的sitemap
+            # 使用 minidom 格式化输出
+            from xml.dom import minidom
+            xml_str = ET.tostring(root, encoding='utf-8').decode('utf-8')
+            dom = minidom.parseString(xml_str)
+            formatted_xml = dom.toprettyxml(indent="    ", encoding='utf-8').decode('utf-8')
+            
+            # 移除 XML 声明后的空行
+            lines = formatted_xml.split('\n')
+            if lines[0].startswith('<?xml'):
+                formatted_xml = lines[0] + '\n' + '\n'.join(lines[1:])
+            
+            # 写入文件
+            with open(sitemap_path, 'w', encoding='utf-8') as f:
+                f.write(formatted_xml)
+            
+            if new_urls:
+                print(f"✓ 已添加 {len(new_urls)} 个新URL到sitemap:")
+                for url in new_urls[:10]:  # 只显示前10个
+                    print(f"  - {url}")
+                if len(new_urls) > 10:
+                    print(f"  ... 还有 {len(new_urls) - 10} 个URL")
+            
+            if updated_count > len(new_urls):
+                print(f"✓ 已更新 {updated_count - len(new_urls)} 个现有URL的lastmod")
+            
+            return True
+        else:
+            print("✓ sitemap无需更新")
+            return True
+            
+    except Exception as e:
+        print(f"错误: 更新sitemap失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 def main():
     """主函数"""
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(description='使用指南更新脚本')
+    parser.add_argument('--incremental', action='store_true', 
+                       help='增量模式：只生成新增的文章（跳过已存在的HTML文件）')
+    parser.add_argument('--full', action='store_true',
+                       help='全量模式：重新生成所有文章（默认）')
+    args = parser.parse_args()
+    
+    # 确定模式
+    incremental = args.incremental and not args.full
+    
     print("=" * 50)
     print("使用指南更新脚本")
     print("=" * 50)
+    print(f"模式: {'增量生成（只生成新增）' if incremental else '全量生成（重新生成所有）'}")
+    print()
     
     # 1. 加载数据
-    print("\n1. 加载指南数据...")
+    print("1. 加载指南数据...")
     data = load_json(GUIDES_DATA_FILE)
     if not data:
         return
@@ -607,8 +699,15 @@ def main():
     os.makedirs(GUIDES_DIR, exist_ok=True)
     
     # 3. 生成详情页
-    print("\n2. 生成详情页...")
+    print(f"\n2. 生成详情页（{'增量' if incremental else '全量'}模式）...")
     template_path = os.path.join(GUIDES_DIR, 'guide-template.html')
+    
+    if not os.path.exists(template_path):
+        print(f"错误: 模板文件不存在 {template_path}")
+        return
+    
+    generated_count = 0
+    skipped_count = 0
     
     for article in articles:
         article_id = article.get('id', '')
@@ -616,22 +715,34 @@ def main():
             continue
         
         output_path = os.path.join(GUIDES_DIR, f"{article_id}.html")
+        
+        # 增量模式：检查文件是否已存在
+        if incremental and os.path.exists(output_path):
+            print(f"  ⊘ 跳过（已存在）: {article_id}.html")
+            skipped_count += 1
+            continue
+        
+        # 生成HTML
         html = generate_article_page(article, template_path, all_articles=articles, output_path=output_path)
         if html:
             save_file(output_path, html)
+            generated_count += 1
+    
+    print(f"\n   生成: {generated_count} 个文件")
+    if incremental:
+        print(f"   跳过: {skipped_count} 个已存在的文件")
     
     # 4. 更新sitemap
     print("\n3. 更新sitemap...")
-    update_sitemap(articles)
+    update_sitemap(articles, incremental=incremental)
     
     print("\n" + "=" * 50)
     print("更新完成！")
     print("=" * 50)
     print("\n下一步:")
     print("1. 检查生成的HTML文件")
-    print("2. 手动更新 sitemap.xml（或改进脚本自动更新）")
-    print("3. 上传到服务器")
-    print("4. 提交sitemap到搜索引擎")
+    print("2. 上传到服务器")
+    print("3. 提交sitemap到搜索引擎")
 
 if __name__ == '__main__':
     main()

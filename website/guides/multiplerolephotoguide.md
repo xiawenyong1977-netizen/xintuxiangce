@@ -71,7 +71,7 @@
     ![照片复制](/assets/Screenshots/PC/copyfile.png)
    - c. 在系统文件管理器中，**导航到您第二步创建的目标文件夹**。
    - d. 最后，执行 **一键粘贴**，即可完成批量归档。
-    ![照片粘贴](/assets/Screenshots/PC/照片复制到文件管理器.png)
+    ![照片粘贴](/assets/Screenshots/PC/filepasted.png)
 
 
 
@@ -83,7 +83,7 @@
 - 使用芯图相册提供的 **按颜色**、**按拍摄方向**、**按分辨率**、**按格式** 等多维分类功能辅助快速筛选。
 - **下一个版本将提供过滤矩阵**，支持多条件组合筛选，从而 **加速图片素材查找的效率**。
 
-    ![素材管理者](/assets/Screenshots/PC/照片分类目录设置和自定义显示分类维度.png)
+    ![素材管理者](/assets/Screenshots/PC/clipmanager.png)
 
 
 ## **摄影师的摄影参数分类指南**
@@ -93,7 +93,7 @@
 - 使用芯图相册提供的 **按焦距**、**按ISO**、**按光圈**、**按快门速度** 等多维分类功能辅助照片筛选。
 - **下一个版本将提供过滤矩阵**，实现更复杂的参数交叉筛选，进一步 **加速图片素材查找的效率**。
 
-    ![摄影者](/assets/Screenshots/PC/photoclassifydimensions.png)
+    ![摄影者](/assets/Screenshots/PC/phototaker.png)
 
 
 ---

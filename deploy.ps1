@@ -462,25 +462,43 @@ function Get-ChangedFiles {
         }
         
         # 过滤出需要部署的文件
+        # 注意：此时工作目录已经在目标目录（$TARGET_DIR）下了
         $files = $allChanged | Where-Object {
-            if (-not (Test-Path $_)) {
+            if (-not $_) {
                 return $false
             }
             
-            $ext = [System.IO.Path]::GetExtension($_).TrimStart('.')
+            # 将路径转换为当前工作目录下的路径（处理 / 和 \ 分隔符）
+            $filePath = $_.Replace("/", [System.IO.Path]::DirectorySeparatorChar)
+            
+            # 检查文件是否存在（相对于当前工作目录）
+            if (-not (Test-Path $filePath)) {
+                Write-Warning "文件不存在，跳过: $filePath"
+                return $false
+            }
+            
+            $ext = [System.IO.Path]::GetExtension($filePath).TrimStart('.')
             if ($ext -notin $DEPLOY_EXTENSIONS) {
                 return $false
             }
             
             $exclude = $false
             foreach ($pattern in $EXCLUDE_PATTERNS) {
-                if ($_ -like "*$pattern*") {
+                if ($filePath -like "*$pattern*") {
                     $exclude = $true
                     break
                 }
             }
             
-            return -not $exclude
+            if ($exclude) {
+                return $false
+            }
+            
+            # 返回相对于目标目录的路径（使用 / 分隔符，用于上传）
+            return $true
+        } | ForEach-Object {
+            # 确保返回的路径使用 / 分隔符（用于 scp 上传）
+            $_.Replace([System.IO.Path]::DirectorySeparatorChar, "/")
         }
         
         return $files

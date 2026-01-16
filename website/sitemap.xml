@@ -120,6 +120,14 @@
         <priority>0.8</priority>
     </url>
     
+    <!-- 博客页面 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/blog.html</loc>
+        <lastmod>2025-01-13</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
     <!-- 联系我们 -->
     <url>
         <loc>https://www.xintuxiangce.top/aifuture.html</loc>
@@ -366,5 +374,13 @@
         <lastmod>2026-01-05</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
+    </url>
+    
+    <!-- 为不同角色设计的智能照片分类管理指南 -->
+    <url>
+        <loc>https://www.xintuxiangce.top/guides/multiple-role-photo-guide.html</loc>
+        <lastmod>2026-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
 </urlset>
