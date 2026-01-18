@@ -441,93 +441,182 @@ __xt_log('script loaded');
         overlay.style.top = '0';
         overlay.style.right = '0';
         overlay.style.bottom = '0';
-        overlay.style.background = 'rgba(0,0,0,0.65)';
+        overlay.style.background = 'rgba(0,0,0,0.75)';
         overlay.style.display = 'none';
-        overlay.style.zIndex = '9999';
-        overlay.style.backdropFilter = 'blur(2px)';
+        overlay.style.zIndex = '99999'; // 提高 z-index，确保在最上层
+        overlay.style.backdropFilter = 'blur(4px)';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        overlay.style.padding = '20px';
+        overlay.style.overflow = 'auto'; // 确保内容可滚动
 
         const panel = document.createElement('div');
-        panel.style.position = 'absolute';
-        panel.style.left = '50%';
-        panel.style.top = '50%';
-        panel.style.transform = 'translate(-50%, -50%)';
-        panel.style.width = 'min(92%, 560px)';
+        panel.style.position = 'relative';
+        panel.style.width = 'min(92%, 400px)';
         panel.style.background = '#fff';
-        panel.style.borderRadius = '12px';
-        panel.style.boxShadow = '0 12px 32px rgba(0,0,0,0.2)';
-        panel.style.padding = '20px 20px 16px';
-        panel.style.textAlign = 'left';
+        panel.style.borderRadius = '16px';
+        panel.style.boxShadow = '0 20px 60px rgba(0,0,0,0.3)';
+        panel.style.padding = '32px 24px 24px';
+        panel.style.textAlign = 'center';
+        panel.style.maxWidth = '400px';
+
+        // 图标提示区域
+        const iconArea = document.createElement('div');
+        iconArea.style.marginBottom = '20px';
+        iconArea.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 12px;">🌐</div>
+            <div style="font-size: 32px; color: #2563eb; margin-bottom: 8px;">📱</div>
+        `;
 
         const title = document.createElement('div');
-        title.textContent = '在微信内下载可能被拦截';
-        title.style.fontSize = '18px';
+        title.textContent = '请在系统浏览器中打开';
+        title.style.fontSize = '20px';
         title.style.fontWeight = '600';
         title.style.color = '#111';
-        title.style.marginBottom = '8px';
+        title.style.marginBottom = '12px';
 
         const desc = document.createElement('div');
-        desc.innerHTML = '请点击右上角 ···，选择“在浏览器中打开”后再进行下载；或复制下载链接到浏览器打开。';
+        desc.innerHTML = `
+            <p style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 16px;">
+                微信浏览器无法直接下载文件，请使用系统浏览器打开下载链接。
+            </p>
+            <div style="background: #f0f7ff; border-left: 3px solid #2563eb; padding: 12px; margin-bottom: 20px; text-align: left; border-radius: 4px;">
+                <div style="font-size: 13px; color: #2563eb; font-weight: 600; margin-bottom: 6px;">操作步骤：</div>
+                <div style="font-size: 13px; color: #444; line-height: 1.8;">
+                    1. 点击下方"在浏览器中打开"按钮<br>
+                    2. 选择"在浏览器中打开"或"在Safari中打开"<br>
+                    3. 在浏览器中完成下载
+                </div>
+            </div>
+        `;
         desc.style.fontSize = '14px';
         desc.style.color = '#444';
         desc.style.lineHeight = '1.6';
-        desc.style.marginBottom = '14px';
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.readOnly = true;
-        input.style.width = '100%';
-        input.style.fontSize = '13px';
-        input.style.padding = '10px 12px';
-        input.style.border = '1px solid #e5e7eb';
-        input.style.borderRadius = '8px';
-        input.style.background = '#f9fafb';
-        input.style.color = '#111';
-        input.style.marginBottom = '12px';
 
         const actions = document.createElement('div');
         actions.style.display = 'flex';
-        actions.style.gap = '10px';
-        actions.style.justifyContent = 'flex-end';
+        actions.style.flexDirection = 'column';
+        actions.style.gap = '12px';
 
+        // 在浏览器中打开按钮（主要按钮）
+        const openInBrowserBtn = document.createElement('a');
+        openInBrowserBtn.textContent = '在浏览器中打开';
+        openInBrowserBtn.style.padding = '14px 24px';
+        openInBrowserBtn.style.border = 'none';
+        openInBrowserBtn.style.background = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+        openInBrowserBtn.style.color = '#fff';
+        openInBrowserBtn.style.borderRadius = '8px';
+        openInBrowserBtn.style.cursor = 'pointer';
+        openInBrowserBtn.style.fontSize = '16px';
+        openInBrowserBtn.style.fontWeight = '600';
+        openInBrowserBtn.style.textDecoration = 'none';
+        openInBrowserBtn.style.display = 'block';
+        openInBrowserBtn.style.transition = 'all 0.3s ease';
+        openInBrowserBtn.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
+        
+        // 悬停效果
+        openInBrowserBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 16px rgba(37, 99, 235, 0.4)';
+        });
+        openInBrowserBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
+        });
+
+        // 复制链接按钮（次要按钮）
         const copyBtn = document.createElement('button');
-        copyBtn.textContent = '复制链接';
-        copyBtn.style.padding = '10px 14px';
-        copyBtn.style.border = '1px solid #2563eb';
-        copyBtn.style.background = '#2563eb';
-        copyBtn.style.color = '#fff';
+        copyBtn.textContent = '复制下载链接';
+        copyBtn.style.padding = '12px 24px';
+        copyBtn.style.border = '1px solid #e5e7eb';
+        copyBtn.style.background = '#fff';
+        copyBtn.style.color = '#666';
         copyBtn.style.borderRadius = '8px';
         copyBtn.style.cursor = 'pointer';
+        copyBtn.style.fontSize = '14px';
+        copyBtn.style.transition = 'all 0.3s ease';
 
+        copyBtn.addEventListener('mouseenter', function() {
+            this.style.background = '#f9fafb';
+            this.style.borderColor = '#2563eb';
+            this.style.color = '#2563eb';
+        });
+        copyBtn.addEventListener('mouseleave', function() {
+            this.style.background = '#fff';
+            this.style.borderColor = '#e5e7eb';
+            this.style.color = '#666';
+        });
+
+        // 关闭按钮
         const closeBtn = document.createElement('button');
-        closeBtn.textContent = '关闭';
-        closeBtn.style.padding = '10px 14px';
-        closeBtn.style.border = '1px solid #e5e7eb';
-        closeBtn.style.background = '#fff';
-        closeBtn.style.color = '#111';
-        closeBtn.style.borderRadius = '8px';
+        closeBtn.textContent = '取消';
+        closeBtn.style.padding = '10px 20px';
+        closeBtn.style.border = 'none';
+        closeBtn.style.background = 'transparent';
+        closeBtn.style.color = '#999';
         closeBtn.style.cursor = 'pointer';
+        closeBtn.style.fontSize = '13px';
+        closeBtn.style.marginTop = '8px';
 
-        actions.appendChild(closeBtn);
+        actions.appendChild(openInBrowserBtn);
         actions.appendChild(copyBtn);
+        actions.appendChild(closeBtn);
 
+        panel.appendChild(iconArea);
         panel.appendChild(title);
         panel.appendChild(desc);
-        panel.appendChild(input);
         panel.appendChild(actions);
         overlay.appendChild(panel);
-        document.body.appendChild(overlay);
+        
+        // 确保 body 存在后再添加 overlay
+        function appendOverlay() {
+            if (document.body) {
+                document.body.appendChild(overlay);
+            } else {
+                // 如果 body 还不存在，等待 DOM 加载
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', appendOverlay);
+                } else {
+                    // 如果已经加载完成但 body 还不存在，延迟一下
+                    setTimeout(appendOverlay, 100);
+                }
+            }
+        }
+        appendOverlay();
 
         let currentDownloadHref = '';
 
         function openOverlay(href) {
             currentDownloadHref = href;
-            input.value = href;
-            overlay.style.display = 'block';
-            __xt_log('overlay open');
+            // 设置"在浏览器中打开"按钮的链接
+            openInBrowserBtn.href = href;
+            openInBrowserBtn.target = '_blank';
+            // 尝试添加 rel="external" 以提示浏览器在新窗口打开
+            openInBrowserBtn.setAttribute('rel', 'external');
+            
+            // 确保 overlay 存在且已添加到 DOM
+            if (!overlay.parentNode && document.body) {
+                document.body.appendChild(overlay);
+            }
+            
+            // 确保 overlay 显示在最上层
+            overlay.style.display = 'flex';
+            overlay.style.zIndex = '99999';
+            overlay.style.visibility = 'visible';
+            overlay.style.opacity = '1';
+            
+            // 防止 body 滚动
+            if (document.body) {
+                document.body.style.overflow = 'hidden';
+            }
+            
+            __xt_log('overlay open: ' + href);
         }
 
         function closeOverlay() {
             overlay.style.display = 'none';
+            // 恢复 body 滚动
+            document.body.style.overflow = '';
         }
 
         overlay.addEventListener('click', (e) => {
@@ -540,64 +629,164 @@ __xt_log('script loaded');
                 await (window.xintuxiangce && window.xintuxiangce.copyToClipboard
                     ? window.xintuxiangce.copyToClipboard(currentDownloadHref)
                     : navigator.clipboard.writeText(currentDownloadHref));
-                copyBtn.textContent = '已复制';
-                setTimeout(() => { copyBtn.textContent = '复制链接'; }, 1500);
+                copyBtn.textContent = '✓ 已复制';
+                copyBtn.style.color = '#10b981';
+                setTimeout(() => {
+                    copyBtn.textContent = '复制下载链接';
+                    copyBtn.style.color = '#666';
+                }, 2000);
             } catch (err) {
                 console.error(err);
                 copyBtn.textContent = '复制失败';
-                setTimeout(() => { copyBtn.textContent = '复制链接'; }, 1500);
+                copyBtn.style.color = '#ef4444';
+                setTimeout(() => {
+                    copyBtn.textContent = '复制下载链接';
+                    copyBtn.style.color = '#666';
+                }, 2000);
             }
         });
 
-        // 拦截所有下载按钮（直链、download.py、dist 文件等）
-        const candidates = document.querySelectorAll('a[href*="download.py"], a[href*="dist/"], a[href$=".exe"], a[href$=".zip"], a[href$=".apk"], a[download]');
-        __xt_log(`candidates=${candidates.length}`);
-
-        function interceptAnchor(a) {
-            function handler(e) {
-                const href = a.getAttribute('href') || '';
-                if (!href) return;
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                let absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
-                
-                // 如果是移动端（Android），且链接是下载链接，自动改为Android版本
-                const ua = navigator.userAgent || '';
-                const isAndroid = /android/i.test(ua);
-                if (isAndroid && absolute.includes('download.py')) {
-                    // 将 type 参数改为 android
-                    if (absolute.includes('type=')) {
-                        // 替换现有的 type 参数
-                        absolute = absolute.replace(/[?&]type=[^&]*/, '');
-                        // 确保有 ? 或 & 分隔符
-                        if (absolute.includes('?')) {
-                            absolute += '&type=android';
-                        } else {
-                            absolute += '?type=android';
-                        }
-                    } else {
-                        // 添加 type 参数
-                        if (absolute.includes('?')) {
-                            absolute += '&type=android';
-                        } else {
-                            absolute += '?type=android';
-                        }
-                    }
-                    __xt_log(`mobile detected, changed to android: ${absolute}`);
-                }
-                
-                openOverlay(absolute);
-                __xt_log(`intercept: ${absolute}`);
-                return false;
-            }
-            // 同时拦截 click 与 touchend，提升在微信内的可靠性
-            a.addEventListener('click', handler, { capture: true });
-            a.addEventListener('touchend', handler, { capture: true, passive: false });
-            a.addEventListener('pointerup', handler, { capture: true });
+        // 检查是否是下载链接
+        function isDownloadLink(href) {
+            if (!href) return false;
+            return href.includes('download.py') || 
+                   href.includes('dist/') || 
+                   /\.(exe|zip|apk)$/i.test(href) ||
+                   href.includes('download');
         }
 
-        candidates.forEach(interceptAnchor);
-        __xt_log('bind done');
+        // 处理下载链接点击
+        function handleDownloadClick(e, target) {
+            const href = target.getAttribute('href') || target.href || '';
+            if (!isDownloadLink(href)) {
+                __xt_log(`not a download link: ${href}`);
+                return false;
+            }
+            
+            // 彻底阻止默认行为和事件传播（必须在最开始就阻止）
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            e.cancelBubble = true; // IE 兼容
+            e.returnValue = false; // 阻止默认行为（IE 兼容）
+            
+            let absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
+            
+            // 如果是移动端（Android），且链接是下载链接，自动改为Android版本
+            const ua = navigator.userAgent || '';
+            const isAndroid = /android/i.test(ua);
+            if (isAndroid && absolute.includes('download.py')) {
+                // 将 type 参数改为 android
+                if (absolute.includes('type=')) {
+                    absolute = absolute.replace(/[?&]type=[^&]*/, '');
+                    absolute += (absolute.includes('?') ? '&' : '?') + 'type=android';
+                } else {
+                    absolute += (absolute.includes('?') ? '&' : '?') + 'type=android';
+                }
+                __xt_log(`mobile detected, changed to android: ${absolute}`);
+            }
+            
+            openOverlay(absolute);
+            __xt_log(`intercept: ${absolute}`);
+            return false;
+        }
+
+        // 事件委托：在 document 级别拦截所有下载链接的点击
+        function setupEventDelegation() {
+            // 拦截所有可能触发下载的事件，按优先级排序
+            // touchstart 和 mousedown 在最前面，可以最早拦截
+            const events = ['touchstart', 'mousedown', 'click', 'touchend', 'pointerup'];
+            
+            events.forEach(eventType => {
+                document.addEventListener(eventType, function(e) {
+                    // 查找点击的目标元素及其父元素
+                    let target = e.target;
+                    let attempts = 0;
+                    const maxAttempts = 10; // 增加查找层数
+                    
+                    while (target && target !== document && attempts < maxAttempts) {
+                        // 检查是否是链接元素
+                        if (target.tagName === 'A') {
+                            const href = target.getAttribute('href') || target.href || '';
+                            if (isDownloadLink(href)) {
+                                __xt_log(`intercept ${eventType} on ${href}`);
+                                handleDownloadClick(e, target);
+                                return;
+                            }
+                        }
+                        target = target.parentElement;
+                        attempts++;
+                    }
+                }, { capture: true, passive: false });
+            });
+            
+            __xt_log('event delegation setup done');
+        }
+
+        // 拦截已存在的下载按钮
+        function interceptExistingLinks() {
+            const candidates = document.querySelectorAll('a[href*="download.py"], a[href*="dist/"], a[href$=".exe"], a[href$=".zip"], a[href$=".apk"], a[download]');
+            __xt_log(`existing candidates=${candidates.length}`);
+            
+            candidates.forEach(a => {
+                // 移除可能存在的旧事件监听器，添加新的
+                const events = ['click', 'touchend', 'touchstart', 'pointerup'];
+                events.forEach(eventType => {
+                    a.addEventListener(eventType, function(e) {
+                        handleDownloadClick(e, a);
+                    }, { capture: true, passive: false });
+                });
+            });
+        }
+
+        // 使用 MutationObserver 监听 DOM 变化，拦截动态添加的下载按钮
+        function setupMutationObserver() {
+            const observer = new MutationObserver(function(mutations) {
+                let shouldIntercept = false;
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1) { // Element node
+                            // 检查新添加的节点是否是下载链接
+                            if (node.tagName === 'A' && isDownloadLink(node.href)) {
+                                shouldIntercept = true;
+                            }
+                            // 检查新添加的节点内部是否有下载链接
+                            const links = node.querySelectorAll && node.querySelectorAll('a[href*="download.py"], a[href*="dist/"], a[href$=".exe"], a[href$=".zip"], a[href$=".apk"], a[download]');
+                            if (links && links.length > 0) {
+                                shouldIntercept = true;
+                            }
+                        }
+                    });
+                });
+                
+                if (shouldIntercept) {
+                    setTimeout(interceptExistingLinks, 100);
+                }
+            });
+
+            observer.observe(document.body || document.documentElement, {
+                childList: true,
+                subtree: true
+            });
+            
+            __xt_log('mutation observer setup done');
+        }
+
+        // 初始化拦截
+        setupEventDelegation();
+        
+        // 等待 DOM 加载完成后拦截已存在的链接
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                interceptExistingLinks();
+                setupMutationObserver();
+            });
+        } else {
+            interceptExistingLinks();
+            setupMutationObserver();
+        }
+        
+        __xt_log('intercept init done');
     } catch (e) {
         console.error('WeChat download intercept failed:', e);
         __xt_log('intercept init error');
