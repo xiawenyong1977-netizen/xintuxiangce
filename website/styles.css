@@ -146,7 +146,9 @@ a {
     max-height: none !important;
     right: auto !important;
     top: auto !important;
+    margin-left: auto;
 }
+
 
 .nav-links a {
     color: var(--text-primary) !important;
@@ -1221,7 +1223,7 @@ section {
     }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 1023px) {
     /* 移动端导航栏高度调整 */
     .navbar {
         min-height: auto;
@@ -1275,6 +1277,7 @@ section {
     }
     
     .mobile-menu-toggle {
+        display: flex !important;
         padding: 4px;
         flex-shrink: 0;
         order: 3;
@@ -1427,7 +1430,7 @@ section {
     }
     
     .mobile-menu-toggle {
-        display: flex;
+        display: flex !important;
         order: 3;
     }
     
@@ -1554,3 +1557,74 @@ section {
     animation: fadeInUp 0.6s ease-out;
 }
 
+/* PC端确保导航链接显示（放在最后，优先级最高） */
+/* 使用更大的断点确保覆盖所有移动端样式 */
+/* PC端样式 - 确保在移动端媒体查询之后，优先级更高 */
+@media screen and (min-width: 1024px) {
+    .nav-links {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        width: auto !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        gap: 32px !important;
+        right: auto !important;
+        top: auto !important;
+        left: auto !important;
+        bottom: auto !important;
+    }
+    
+    /* 覆盖移动端的 :not(.active) 规则 */
+    .nav-links:not(.active) {
+        right: auto !important;
+        position: static !important;
+        display: flex !important;
+    }
+    
+    .nav-links.active {
+        position: static !important;
+        display: flex !important;
+        right: auto !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    .mobile-download-btn {
+        display: none !important;
+    }
+    
+    .nav-content {
+        justify-content: space-between !important;
+        padding: 16px 0 !important;
+        gap: 24px !important;
+        width: auto !important;
+        min-height: auto !important;
+    }
+    
+    .logo {
+        font-size: 20px !important;
+        gap: 12px !important;
+    }
+    
+    .logo img {
+        width: 40px !important;
+        height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+    }
+    
+    .navbar .container {
+        padding: 16px 24px !important;
+    }
+    
+    .nav-overlay {
+        display: none !important;
+    }
+}

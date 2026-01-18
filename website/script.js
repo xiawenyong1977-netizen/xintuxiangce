@@ -1,3 +1,198 @@
+// 检测设备类型（PC端 vs 移动端）
+(function() {
+    function detectDeviceType() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua.toLowerCase());
+        const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const isSmallScreen = screenWidth < 768 || screenHeight < 600;
+        
+        // 综合判断：如果满足多个移动端特征，则判定为移动端
+        let deviceType = 'pc';
+        let confidence = 0;
+        
+        if (isMobile) {
+            confidence += 3; // UA检测权重最高
+        }
+        if (hasTouch && isSmallScreen) {
+            confidence += 2; // 触摸+小屏幕
+        }
+        if (isSmallScreen && !hasTouch) {
+            confidence += 1; // 仅小屏幕（可能是平板）
+        }
+        
+        if (confidence >= 3) {
+            deviceType = 'mobile';
+        } else if (confidence >= 1) {
+            deviceType = 'tablet';
+        }
+        
+        return {
+            type: deviceType,
+            confidence: confidence,
+            isMobile: isMobile,
+            hasTouch: hasTouch,
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
+            isSmallScreen: isSmallScreen
+        };
+    }
+    
+    function debugNavbarStyles() {
+        const navLinks = document.querySelector('.nav-links');
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileBtn = document.querySelector('.mobile-download-btn');
+        const navContent = document.querySelector('.nav-content');
+        
+        if (!navLinks) {
+            console.warn('⚠️ .nav-links 元素未找到');
+            return;
+        }
+        
+        const deviceInfo = detectDeviceType();
+        const width = window.innerWidth;
+        const screenWidth = window.screen.width;
+        const outerWidth = window.outerWidth;
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        
+        // 使用 matchMedia 检测实际的媒体查询匹配情况（更准确）
+        const mobileQuery = window.matchMedia('(max-width: 1023px)');
+        const pcQuery = window.matchMedia('(min-width: 1024px)');
+        
+        const computedStyle = window.getComputedStyle(navLinks);
+        const display = computedStyle.display;
+        const position = computedStyle.position;
+        const flexDirection = computedStyle.flexDirection;
+        
+        console.log('========================================');
+        console.log('🔍 导航栏样式调试信息');
+        console.log('========================================');
+        console.log(`设备类型检测:`);
+        console.log(`  检测结果: ${deviceInfo.type.toUpperCase()} (置信度: ${deviceInfo.confidence}/5)`);
+        console.log(`  User Agent检测: ${deviceInfo.isMobile ? '✅ 移动设备' : '❌ PC设备'}`);
+        console.log(`  触摸支持: ${deviceInfo.hasTouch ? '✅ 支持' : '❌ 不支持'}`);
+        console.log(`  屏幕尺寸: ${deviceInfo.screenWidth}x${deviceInfo.screenHeight}px`);
+        console.log(`  小屏幕判断: ${deviceInfo.isSmallScreen ? '✅ 是' : '❌ 否'}`);
+        console.log(`窗口宽度信息:`);
+        console.log(`  window.innerWidth: ${width}px (CSS像素，用于媒体查询)`);
+        console.log(`  window.outerWidth: ${outerWidth}px (浏览器窗口总宽度)`);
+        console.log(`  window.screen.width: ${screenWidth}px (屏幕物理宽度)`);
+        console.log(`  devicePixelRatio: ${devicePixelRatio}`);
+        console.log(`  viewport宽度: ${document.documentElement.clientWidth}px`);
+        const zoomLevel = Math.round((window.outerWidth / window.innerWidth) * 100) / 100;
+        const browserZoom = Math.round((screenWidth / width) * 100);
+        console.log(`  估算缩放比例: ${zoomLevel}x (outerWidth/innerWidth)`);
+        console.log(`  浏览器缩放估算: ${browserZoom}% (screen.width/innerWidth)`);
+        console.log(`媒体查询匹配（使用 matchMedia，更准确）:`);
+        console.log(`  - max-width: 1023px → ${mobileQuery.matches ? '✅ 匹配（移动端/平板）' : '❌ 不匹配'}`);
+        console.log(`  - min-width: 1024px → ${pcQuery.matches ? '✅ 匹配（PC端）' : '❌ 不匹配'}`);
+        console.log(`  ⚠️ 注意：媒体查询使用CSS像素，浏览器缩放会影响匹配结果`);
+        console.log('');
+        console.log('.nav-links 计算样式:');
+        console.log(`  display: ${display}`);
+        console.log(`  position: ${position}`);
+        console.log(`  flex-direction: ${flexDirection}`);
+        console.log(`  width: ${computedStyle.width}`);
+        console.log(`  right: ${computedStyle.right}`);
+        console.log('');
+        console.log('元素可见性:');
+        console.log(`  .nav-links: ${navLinks.offsetParent !== null ? '✅ 可见' : '❌ 隐藏'}`);
+        console.log(`  .mobile-menu-toggle: ${mobileToggle ? (mobileToggle.offsetParent !== null ? '✅ 可见' : '❌ 隐藏') : '未找到'}`);
+        console.log(`  .mobile-download-btn: ${mobileBtn ? (mobileBtn.offsetParent !== null ? '✅ 可见' : '❌ 隐藏') : '未找到'}`);
+        console.log('');
+        console.log('预期行为:');
+        // 根据设备类型和宽度综合判断
+        const shouldShowPC = deviceInfo.type === 'pc' || (width >= 1024 && !deviceInfo.isMobile);
+        if (shouldShowPC) {
+            console.log(`  ✅ PC端（设备类型: ${deviceInfo.type}, 宽度: ${width}px）`);
+            console.log(`    - .nav-links 应该: display=flex, position=static`);
+            console.log(`    - .mobile-menu-toggle 应该: display=none`);
+            console.log(`    - .mobile-download-btn 应该: display=none`);
+            if (display === 'none') {
+                console.log('  ❌ 问题：.nav-links 被隐藏了！');
+                console.log('  💡 建议：根据设备类型强制应用PC端样式');
+            }
+            if (mobileToggle && window.getComputedStyle(mobileToggle).display !== 'none') {
+                console.log('  ❌ 问题：.mobile-menu-toggle 应该隐藏但显示了！');
+            }
+            if (mobileBtn && window.getComputedStyle(mobileBtn).display !== 'none') {
+                console.log('  ❌ 问题：.mobile-download-btn 应该隐藏但显示了！');
+            }
+        } else {
+            console.log(`  ✅ 移动端/平板（设备类型: ${deviceInfo.type}, 宽度: ${width}px）`);
+            console.log(`    - .nav-links 应该: display=none`);
+            console.log(`    - .mobile-menu-toggle 应该: display=flex`);
+        }
+        console.log('========================================');
+    }
+    
+    // 根据设备类型强制应用PC端样式（如果检测到是PC但媒体查询显示移动端）
+    function forcePCStylesIfNeeded() {
+        const deviceInfo = detectDeviceType();
+        const navLinks = document.querySelector('.nav-links');
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileBtn = document.querySelector('.mobile-download-btn');
+        const navContent = document.querySelector('.nav-content');
+        
+        if (!navLinks) return;
+        
+        // 如果检测到是PC设备，但媒体查询显示移动端样式，强制应用PC端样式
+        if (deviceInfo.type === 'pc') {
+            const computedStyle = window.getComputedStyle(navLinks);
+            if (computedStyle.display === 'none') {
+                console.log('🔧 检测到PC设备，强制应用PC端样式');
+                navLinks.style.setProperty('display', 'flex', 'important');
+                navLinks.style.setProperty('position', 'static', 'important');
+                navLinks.style.setProperty('flex-direction', 'row', 'important');
+                navLinks.style.setProperty('right', 'auto', 'important');
+                
+                if (mobileToggle) {
+                    mobileToggle.style.setProperty('display', 'none', 'important');
+                }
+                if (mobileBtn) {
+                    mobileBtn.style.setProperty('display', 'none', 'important');
+                }
+                if (navContent) {
+                    navContent.style.setProperty('justify-content', 'space-between', 'important');
+                }
+            }
+        }
+    }
+    
+    // 页面加载后检查（等待组件加载完成）
+    function waitForNavbar() {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks) {
+            debugNavbarStyles();
+            forcePCStylesIfNeeded();
+        } else {
+            // 如果导航栏还没加载，继续等待
+            setTimeout(waitForNavbar, 100);
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(waitForNavbar, 500);
+        });
+    } else {
+        setTimeout(waitForNavbar, 500);
+    }
+    
+    // 窗口大小改变时检查
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(debugNavbarStyles, 300);
+    });
+    
+    // 监听组件加载完成事件（如果 components-loader.js 有的话）
+    window.addEventListener('componentsLoaded', function() {
+        setTimeout(debugNavbarStyles, 100);
+    });
+})();
+
 // 平滑滚动
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -571,7 +766,7 @@ __xt_log('script loaded');
         // 确保 body 存在后再添加 overlay
         function appendOverlay() {
             if (document.body) {
-                document.body.appendChild(overlay);
+        document.body.appendChild(overlay);
             } else {
                 // 如果 body 还不存在，等待 DOM 加载
                 if (document.readyState === 'loading') {
@@ -664,32 +859,32 @@ __xt_log('script loaded');
             }
             
             // 彻底阻止默认行为和事件传播（必须在最开始就阻止）
-            e.preventDefault();
+                e.preventDefault();
             e.stopPropagation();
-            e.stopImmediatePropagation();
+                e.stopImmediatePropagation();
             e.cancelBubble = true; // IE 兼容
             e.returnValue = false; // 阻止默认行为（IE 兼容）
             
-            let absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
-            
-            // 如果是移动端（Android），且链接是下载链接，自动改为Android版本
-            const ua = navigator.userAgent || '';
-            const isAndroid = /android/i.test(ua);
-            if (isAndroid && absolute.includes('download.py')) {
-                // 将 type 参数改为 android
-                if (absolute.includes('type=')) {
-                    absolute = absolute.replace(/[?&]type=[^&]*/, '');
+                let absolute = href.startsWith('http') ? href : (new URL(href, window.location.href)).href;
+                
+                // 如果是移动端（Android），且链接是下载链接，自动改为Android版本
+                const ua = navigator.userAgent || '';
+                const isAndroid = /android/i.test(ua);
+                if (isAndroid && absolute.includes('download.py')) {
+                    // 将 type 参数改为 android
+                    if (absolute.includes('type=')) {
+                        absolute = absolute.replace(/[?&]type=[^&]*/, '');
                     absolute += (absolute.includes('?') ? '&' : '?') + 'type=android';
-                } else {
+                        } else {
                     absolute += (absolute.includes('?') ? '&' : '?') + 'type=android';
+                    }
+                    __xt_log(`mobile detected, changed to android: ${absolute}`);
                 }
-                __xt_log(`mobile detected, changed to android: ${absolute}`);
+                
+                openOverlay(absolute);
+                __xt_log(`intercept: ${absolute}`);
+                return false;
             }
-            
-            openOverlay(absolute);
-            __xt_log(`intercept: ${absolute}`);
-            return false;
-        }
 
         // 事件委托：在 document 级别拦截所有下载链接的点击
         function setupEventDelegation() {

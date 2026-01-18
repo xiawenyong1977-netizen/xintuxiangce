@@ -98,9 +98,9 @@ const Hero: React.FC = () => {
           <Check className="w-4 h-4" />
           <span>本地智能整理 · 还原纯净相册</span>
         </div>
-        <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight text-slate-900 leading-tight">
+        <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight text-slate-900 leading-tight">
           让相册回归有序<br/><span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600">让每一刻都有迹可循</span>
-        </h1>
+        </h2>
         <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
           芯图是一款简单且纯净的本地管理工具。它能自动将海量照片按时间、内容、色彩等12个维度分门别类，并精准排除广告和垃圾图的干扰。
         </p>
