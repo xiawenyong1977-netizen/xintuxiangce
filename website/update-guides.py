@@ -671,14 +671,14 @@ def main():
     """主函数"""
     # 解析命令行参数
     parser = argparse.ArgumentParser(description='使用指南更新脚本')
-    parser.add_argument('--incremental', action='store_true', 
-                       help='增量模式：只生成新增的文章（跳过已存在的HTML文件）')
     parser.add_argument('--full', action='store_true',
-                       help='全量模式：重新生成所有文章（默认）')
+                       help='全量模式：重新生成所有文章（覆盖已存在的文件）')
+    parser.add_argument('--incremental', action='store_true', 
+                       help='增量模式：只生成新增的文章（跳过已存在的HTML文件，默认）')
     args = parser.parse_args()
     
-    # 确定模式
-    incremental = args.incremental and not args.full
+    # 确定模式：默认是增量模式（跳过已存在的文件）
+    incremental = not args.full
     
     print("=" * 50)
     print("使用指南更新脚本")

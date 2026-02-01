@@ -497,14 +497,7 @@
 <p>---</p>
 <h2>高并发性能指标</h2>
 <h3>理论性能</h3>
-<p>| 指标 | 数值 | 说明 |</p>
-<p>|------|------|------|</p>
-<p>| <strong>单worker并发</strong> | 1000+ | 异步I/O支持高并发 |</p>
-<p>| <strong>4 workers总并发</strong> | 4000+ | 多进程架构 |</p>
-<p>| <strong>缓存命中响应</strong> | < 50ms | 数据库查询 + 网络延迟 |</p>
-<p>| <strong>大模型调用响应</strong> | 1-3秒 | 取决于API响应时间 |</p>
-<p>| <strong>本地推理响应</strong> | 100-500ms | ONNX模型推理 |</p>
-<h3>实际测试数据</h3>
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">指标</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">数值</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">说明</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>单worker并发</strong></td><td style="border: 1px solid #ddd; padding: 8px;">1000+</td><td style="border: 1px solid #ddd; padding: 8px;">异步I/O支持高并发</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>4 workers总并发</strong></td><td style="border: 1px solid #ddd; padding: 8px;">4000+</td><td style="border: 1px solid #ddd; padding: 8px;">多进程架构</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>缓存命中响应</strong></td><td style="border: 1px solid #ddd; padding: 8px;">< 50ms</td><td style="border: 1px solid #ddd; padding: 8px;">数据库查询 + 网络延迟</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>大模型调用响应</strong></td><td style="border: 1px solid #ddd; padding: 8px;">1-3秒</td><td style="border: 1px solid #ddd; padding: 8px;">取决于API响应时间</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;"><strong>本地推理响应</strong></td><td style="border: 1px solid #ddd; padding: 8px;">100-500ms</td><td style="border: 1px solid #ddd; padding: 8px;">ONNX模型推理</td></tr></tbody></table>### 实际测试数据
 <pre><code></code></pre>
 <p>---</p>
 <h2>总结</h2>

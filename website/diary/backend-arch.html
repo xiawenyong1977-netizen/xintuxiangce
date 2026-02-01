@@ -456,13 +456,7 @@
 <p>5. <strong>payment_records</strong> - 支付记录表</p>
 <p>6. <strong>user_credits</strong> - 用户额度表</p>
 <h3>2. 存储策略</h3>
-<p>| 数据类型 | 存储方式 | 保留时长 | 说明 |</p>
-<p>|---------|---------|---------|------|</p>
-<p>| 原始图片 | ❌ 不存储 | - | 隐私保护 |</p>
-<p>| 图片哈希 | MySQL | 永久 | 用于去重缓存 |</p>
-<p>| 分类结果 | MySQL | 永久 | 全局共享缓存 |</p>
-<p>| 请求日志 | MySQL | 可配置（默认90天） | 统计分析用 |</p>
-<p>---</p>
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">数据类型</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">存储方式</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">保留时长</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">说明</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">原始图片</td><td style="border: 1px solid #ddd; padding: 8px;">❌ 不存储</td><td style="border: 1px solid #ddd; padding: 8px;">-</td><td style="border: 1px solid #ddd; padding: 8px;">隐私保护</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">图片哈希</td><td style="border: 1px solid #ddd; padding: 8px;">MySQL</td><td style="border: 1px solid #ddd; padding: 8px;">永久</td><td style="border: 1px solid #ddd; padding: 8px;">用于去重缓存</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">分类结果</td><td style="border: 1px solid #ddd; padding: 8px;">MySQL</td><td style="border: 1px solid #ddd; padding: 8px;">永久</td><td style="border: 1px solid #ddd; padding: 8px;">全局共享缓存</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">请求日志</td><td style="border: 1px solid #ddd; padding: 8px;">MySQL</td><td style="border: 1px solid #ddd; padding: 8px;">可配置（默认90天）</td><td style="border: 1px solid #ddd; padding: 8px;">统计分析用</td></tr></tbody></table>---
 <h2>⚡ 性能优化策略</h2>
 <h3>1. 带宽优化</h3>
 <p>#### 优化方案</p>

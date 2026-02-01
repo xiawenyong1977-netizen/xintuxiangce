@@ -286,7 +286,10 @@
             </header>
             
             <div class="article-content">
-                <h2>一、大模型服务分层架构</h2>
+                <h2>摘要</h2>
+<p>V2接口采用三层分层架构（基础服务层/Provider层/业务层），提供图像分类、颜色识别、构图分析、图像编辑、文本生成5大功能。统一缓存架构支持多模型结果集合和批量查询。位置服务实现智能降级（本地DB→外部API→v1查询）和中国/海外坐标自动路由。技术栈：FastAPI + MySQL + 全异步架构，支持多提供商（阿里云/OpenAI/Claude/Deepseek）。</p>
+<p>---</p>
+<h2>一、大模型服务分层架构</h2>
 <h3>1.1 架构概览</h3>
 <p>V2接口采用分架构设计，实现了清晰的职责分离和统一的接口抽象：</p>
 <img src="/assets/diary/layeredarch/layered-arch.png" alt="分层技术架构" style="max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;">

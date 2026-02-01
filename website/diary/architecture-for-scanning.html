@@ -286,7 +286,22 @@
             </header>
             
             <div class="article-content">
-                <h2>目录</h2>
+                <h2>摘要</h2>
+<p>本文档详细梳理了芯图相册PC端和移动端的扫描服务架构，涵盖状态管理、进度更新、数据读写、界面刷新等核心机制。</p>
+<h3>核心架构差异</h3>
+<p><strong>PC端</strong>：纯JS实现，Electron主进程执行，无后台限制，数据刷新直接执行。</p>
+<p><strong>移动端</strong>：三层架构（前台服务 + 原生层 + JS层），使用前台服务和WakeLock确保后台执行，数据刷新采用防抖机制（500ms）。</p>
+<h3>关键特性</h3>
+<p>1. <strong>统一接口</strong>：两端都使用 <code>GalleryScannerService</code> 和 <code>UnifiedDataService</code> 统一接口</p>
+<p>2. <strong>进度回调</strong>：通过 <code>onProgress</code> 回调更新UI，支持国际化消息</p>
+<p>3. <strong>缓存机制</strong>：使用内存缓存（精简信息）优化性能，按需加载详细信息</p>
+<p>4. <strong>多维度分类</strong>：支持11个分类维度（AI分类、城市、颜色、目录、格式、分辨率、方向、ISO、光圈、快门、焦距）</p>
+<p>5. <strong>流水线架构</strong>：移动端位置信息补全采用流水线并行处理，平衡CPU和IO任务</p>
+<h3>数据流程</h3>
+<p><strong>PC端</strong>：文件系统 → JS层扫描 → IndexedDB → 缓存 → 界面</p>
+<p><strong>移动端</strong>：MediaStore → 原生层扫描 → SQLite → JS层处理 → 缓存 → 界面</p>
+<p>---</p>
+<h2>目录</h2>
 <p>1. <a href="#pc端扫描服务架构">PC端扫描服务架构</a></p>
 <p>2. <a href="#移动端扫描服务架构">移动端扫描服务架构</a></p>
 <p>3. <a href="#关键机制对比">关键机制对比</a></p>
@@ -476,47 +491,12 @@
 <p>---</p>
 <h2>关键机制对比</h2>
 <h3>1. 扫描状态管理</h3>
-<p>| 特性 | PC端 | 移动端 |</p>
-<p>|------|------|--------|</p>
-<p>| 状态变量 | <code>isScanning</code>, <code>window.isScanning</code> | <code>isScanning</code>, <code>window.isScanning</code> |</p>
-<p>| 状态设置时机 | 扫描开始时 | 扫描开始时 |</p>
-<p>| 状态清除时机 | 扫描完成/失败时 | 扫描完成/失败时 |</p>
-<p>| 全局状态 | <code>window.isScanning</code> | <code>window.isScanning</code> |</p>
-<h3>2. 进度消息更新</h3>
-<p>| 特性 | PC端 | 移动端 |</p>
-<p>|------|------|--------|</p>
-<p>| 消息生成 | JS层 <code>processProgressData()</code> | JS层 <code>processProgressData()</code> |</p>
-<p>| 消息去重 | 有（基于消息键值） | 无（原生层已控制频率） |</p>
-<p>| 通知更新 | 无（PC端不需要） | 有（前台服务通知） |</p>
-<p>| 更新频率 | 每个阶段更新 | 原生层控制频率 |</p>
-<h3>3. 数据读写</h3>
-<p>| 特性 | PC端 | 移动端 |</p>
-<p>|------|------|--------|</p>
-<p>| 扫描实现 | JS层实现 | 原生层实现 |</p>
-<p>| 数据库操作 | JS层直接操作 | 原生层批量操作 |</p>
-<p>| 数据刷新 | 直接刷新 | 防抖刷新（500ms） |</p>
-<p>| 刷新触发 | <code>shouldRefresh</code> 标志 | <code>shouldRefresh</code> 标志 |</p>
-<h3>4. 界面刷新</h3>
-<p>| 特性 | PC端 | 移动端 |</p>
-<p>|------|------|--------|</p>
-<p>| 刷新方式 | 直接调用 <code>loadData()</code> | 防抖调用 <code>loadAllDataDebounced()</code> |</p>
-<p>| 刷新时机 | 扫描完成、位置补全 | 扫描完成、位置补全、相似度检测 |</p>
-<p>| 防抖机制 | 无 | 有（500ms延迟） |</p>
-<h3>5. 新增分类处理</h3>
-<p>| 特性 | PC端 | 移动端 |</p>
-<p>|------|------|--------|</p>
-<p>| AI分类实现 | JS层MobileNetV3 | 原生层MobileNetV3 |</p>
-<p>| 批量处理 | JS层批次处理 | 原生层批次处理 |</p>
-<p>| 后续处理 | 位置补全、相似度检测 | 位置补全、相似度检测 |</p>
-<p>| 数据更新 | 直接更新数据库 | 原生层批量更新数据库 |</p>
-<h3>6. 后台执行能力</h3>
-<p>| 特性 | PC端 | 移动端 |</p>
-<p>|------|------|--------|</p>
-<p>| 后台扫描 | 支持（Electron主进程） | 支持（前台服务） |</p>
-<p>| 进程保活 | 不需要 | WakeLock + 前台服务 |</p>
-<p>| 通知显示 | 不需要 | 前台服务通知 |</p>
-<p>| 心跳机制 | 不需要 | 10秒心跳更新通知 |</p>
-<p>---</p>
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">特性</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">PC端</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">移动端</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">状态变量</td><td style="border: 1px solid #ddd; padding: 8px;"><code>isScanning</code>, <code>window.isScanning</code></td><td style="border: 1px solid #ddd; padding: 8px;"><code>isScanning</code>, <code>window.isScanning</code></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">状态设置时机</td><td style="border: 1px solid #ddd; padding: 8px;">扫描开始时</td><td style="border: 1px solid #ddd; padding: 8px;">扫描开始时</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">状态清除时机</td><td style="border: 1px solid #ddd; padding: 8px;">扫描完成/失败时</td><td style="border: 1px solid #ddd; padding: 8px;">扫描完成/失败时</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">全局状态</td><td style="border: 1px solid #ddd; padding: 8px;"><code>window.isScanning</code></td><td style="border: 1px solid #ddd; padding: 8px;"><code>window.isScanning</code></td></tr></tbody></table>### 2. 进度消息更新
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">特性</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">PC端</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">移动端</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">消息生成</td><td style="border: 1px solid #ddd; padding: 8px;">JS层 <code>processProgressData()</code></td><td style="border: 1px solid #ddd; padding: 8px;">JS层 <code>processProgressData()</code></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">消息去重</td><td style="border: 1px solid #ddd; padding: 8px;">有（基于消息键值）</td><td style="border: 1px solid #ddd; padding: 8px;">无（原生层已控制频率）</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">通知更新</td><td style="border: 1px solid #ddd; padding: 8px;">无（PC端不需要）</td><td style="border: 1px solid #ddd; padding: 8px;">有（前台服务通知）</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">更新频率</td><td style="border: 1px solid #ddd; padding: 8px;">每个阶段更新</td><td style="border: 1px solid #ddd; padding: 8px;">原生层控制频率</td></tr></tbody></table>### 3. 数据读写
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">特性</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">PC端</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">移动端</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">扫描实现</td><td style="border: 1px solid #ddd; padding: 8px;">JS层实现</td><td style="border: 1px solid #ddd; padding: 8px;">原生层实现</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">数据库操作</td><td style="border: 1px solid #ddd; padding: 8px;">JS层直接操作</td><td style="border: 1px solid #ddd; padding: 8px;">原生层批量操作</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">数据刷新</td><td style="border: 1px solid #ddd; padding: 8px;">直接刷新</td><td style="border: 1px solid #ddd; padding: 8px;">防抖刷新（500ms）</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">刷新触发</td><td style="border: 1px solid #ddd; padding: 8px;"><code>shouldRefresh</code> 标志</td><td style="border: 1px solid #ddd; padding: 8px;"><code>shouldRefresh</code> 标志</td></tr></tbody></table>### 4. 界面刷新
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">特性</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">PC端</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">移动端</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">刷新方式</td><td style="border: 1px solid #ddd; padding: 8px;">直接调用 <code>loadData()</code></td><td style="border: 1px solid #ddd; padding: 8px;">防抖调用 <code>loadAllDataDebounced()</code></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">刷新时机</td><td style="border: 1px solid #ddd; padding: 8px;">扫描完成、位置补全</td><td style="border: 1px solid #ddd; padding: 8px;">扫描完成、位置补全、相似度检测</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">防抖机制</td><td style="border: 1px solid #ddd; padding: 8px;">无</td><td style="border: 1px solid #ddd; padding: 8px;">有（500ms延迟）</td></tr></tbody></table>### 5. 新增分类处理
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">特性</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">PC端</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">移动端</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">AI分类实现</td><td style="border: 1px solid #ddd; padding: 8px;">JS层MobileNetV3</td><td style="border: 1px solid #ddd; padding: 8px;">原生层MobileNetV3</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">批量处理</td><td style="border: 1px solid #ddd; padding: 8px;">JS层批次处理</td><td style="border: 1px solid #ddd; padding: 8px;">原生层批次处理</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">后续处理</td><td style="border: 1px solid #ddd; padding: 8px;">位置补全、相似度检测</td><td style="border: 1px solid #ddd; padding: 8px;">位置补全、相似度检测</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">数据更新</td><td style="border: 1px solid #ddd; padding: 8px;">直接更新数据库</td><td style="border: 1px solid #ddd; padding: 8px;">原生层批量更新数据库</td></tr></tbody></table>### 6. 后台执行能力
+<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;"><thead><tr style="background-color: #f2f2f2;"><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">特性</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">PC端</th><th style="border: 1px solid #ddd; padding: 8px; text-align: left;">移动端</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">后台扫描</td><td style="border: 1px solid #ddd; padding: 8px;">支持（Electron主进程）</td><td style="border: 1px solid #ddd; padding: 8px;">支持（前台服务）</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">进程保活</td><td style="border: 1px solid #ddd; padding: 8px;">不需要</td><td style="border: 1px solid #ddd; padding: 8px;">WakeLock + 前台服务</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">通知显示</td><td style="border: 1px solid #ddd; padding: 8px;">不需要</td><td style="border: 1px solid #ddd; padding: 8px;">前台服务通知</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">心跳机制</td><td style="border: 1px solid #ddd; padding: 8px;">不需要</td><td style="border: 1px solid #ddd; padding: 8px;">10秒心跳更新通知</td></tr></tbody></table>---
 <h2>总结</h2>
 <h3>PC端特点</h3>
 <p>1. <strong>纯JS实现</strong>: 所有扫描逻辑在JS层实现</p>
