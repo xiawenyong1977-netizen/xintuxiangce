@@ -332,6 +332,8 @@ def markdown_to_html(markdown_text, html_relative_path=''):
     # 先处理表格（必须在其他规则之前，避免被误处理）
     def process_table(match):
         table_content = match.group(0)
+        # 移除末尾的换行符，避免影响后续处理
+        table_content = table_content.rstrip('\n')
         lines = [line.strip() for line in table_content.split('\n') if line.strip()]
         
         if len(lines) < 2:
@@ -376,10 +378,12 @@ def markdown_to_html(markdown_text, html_relative_path=''):
                 body_html += '<tr>' + ''.join([f'<td style="border: 1px solid #ddd; padding: 8px;">{cell}</td>' for cell in cells]) + '</tr>'
         body_html += '</tbody>'
         
-        return f'__TABLE_TAG__<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;">{header_html}{body_html}</table>__TABLE_TAG__'
+        return f'__TABLE_TAG__<table style="border-collapse: collapse; width: 100%; margin: 20px 0; border: 1px solid #ddd;">{header_html}{body_html}</table>__TABLE_TAG__\n'
     
     # 匹配表格：以 | 开头和结尾的行，至少3行（表头、分隔符、至少一行数据）
     # 支持引用块内的表格（每行可能以 > 开头）
+    # 使用更精确的正则表达式，确保只匹配表格本身，不匹配后面的内容
+    # 表格必须以 | 开头的行开始，遇到非表格行（不以 | 开头）时停止
     html = re.sub(r'(?:^> )?\|.+\|\s*\n(?:^> )?\|[:\-| ]+\|\s*\n(?:(?:^> )?\|.+\|\s*\n?)+', process_table, html, flags=re.MULTILINE)
     
     # 粗体
@@ -426,9 +430,32 @@ def markdown_to_html(markdown_text, html_relative_path=''):
     html = re.sub(r'^> (.*)$', process_quote, html, flags=re.MULTILINE)
     
     # 标题（必须在列表之前处理）
-    html = re.sub(r'^### (.*)$', r'__H3_TAG__<h3>\1</h3>__H3_TAG__', html, flags=re.MULTILINE)
-    html = re.sub(r'^## (.*)$', r'__H2_TAG__<h2>\1</h2>__H2_TAG__', html, flags=re.MULTILINE)
-    html = re.sub(r'^# (.*)$', r'__H1_TAG__<h1>\1</h1>__H1_TAG__', html, flags=re.MULTILINE)
+    # 注意：标题处理需要在表格处理之后，但要确保能匹配表格后面的标题
+    # 使用更精确的正则表达式，确保只匹配真正的标题行（不以表格标记开头）
+    def process_h3(match):
+        line = match.group(0)
+        # 如果这行包含表格标记，不处理（避免重复处理）
+        if '__TABLE_TAG__' in line:
+            return line
+        return f'__H3_TAG__<h3>{match.group(1)}</h3>__H3_TAG__'
+    
+    def process_h2(match):
+        line = match.group(0)
+        # 如果这行包含表格标记，不处理（避免重复处理）
+        if '__TABLE_TAG__' in line:
+            return line
+        return f'__H2_TAG__<h2>{match.group(1)}</h2>__H2_TAG__'
+    
+    def process_h1(match):
+        line = match.group(0)
+        # 如果这行包含表格标记，不处理（避免重复处理）
+        if '__TABLE_TAG__' in line:
+            return line
+        return f'__H1_TAG__<h1>{match.group(1)}</h1>__H1_TAG__'
+    
+    html = re.sub(r'^### (.*)$', process_h3, html, flags=re.MULTILINE)
+    html = re.sub(r'^## (.*)$', process_h2, html, flags=re.MULTILINE)
+    html = re.sub(r'^# (.*)$', process_h1, html, flags=re.MULTILINE)
     
     # 恢复代码块
     for i, code_block in enumerate(code_blocks):
