@@ -91,6 +91,12 @@
         <ns0:priority>0.8</ns0:priority>
     </ns0:url>
     <ns0:url>
+        <ns0:loc>https://www.xintuxiangce.top/privacy-policy.html</ns0:loc>
+        <ns0:lastmod>2026-01-18</ns0:lastmod>
+        <ns0:changefreq>yearly</ns0:changefreq>
+        <ns0:priority>0.7</ns0:priority>
+    </ns0:url>
+    <ns0:url>
         <ns0:loc>https://www.xintuxiangce.top/blog.html</ns0:loc>
         <ns0:lastmod>2026-01-18</ns0:lastmod>
         <ns0:changefreq>weekly</ns0:changefreq>
@@ -261,6 +267,12 @@
     <ns0:url>
         <ns0:loc>https://www.xintuxiangce.top/diary/v2-architecture.html</ns0:loc>
         <ns0:lastmod>2026-01-06</ns0:lastmod>
+        <ns0:changefreq>monthly</ns0:changefreq>
+        <ns0:priority>0.8</ns0:priority>
+    </ns0:url>
+    <ns0:url>
+        <ns0:loc>https://www.xintuxiangce.top/diary/ai-mainkind-evolve.html</ns0:loc>
+        <ns0:lastmod>2026-02-01</ns0:lastmod>
         <ns0:changefreq>monthly</ns0:changefreq>
         <ns0:priority>0.8</ns0:priority>
     </ns0:url>
