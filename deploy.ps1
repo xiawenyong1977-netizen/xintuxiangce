@@ -423,13 +423,13 @@ function Get-ChangedFiles {
             
             $allChanged = $allChanged | ForEach-Object {
                 try {
-                    # Git返回的路径是相对于Git根目录的
-                    $gitRelativePath = $_.Trim()
+                    # Git返回的路径是相对于Git根目录的（Windows 下可能是反斜杠，统一为正斜杠便于后续匹配）
+                    $gitRelativePath = ($_.Trim() -replace '\\', '/')
                     if (-not $gitRelativePath) {
                         return $null
                     }
                     
-                    # 只处理目标目录下的文件
+                    # 只处理目标目录下的文件（路径已统一为正斜杠）
                     if ($gitRelativePath -notlike "$targetDirName/*" -and $gitRelativePath -ne $targetDirName) {
                         return $null
                     }
