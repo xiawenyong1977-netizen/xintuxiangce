@@ -358,46 +358,85 @@ const App: React.FC = () => {
       <Dimensions />
       <Comparison />
       
-      {/* Download Section */}
+      {/* Download Section：官网下载 + 应用市场下载 */}
       <section id="download" className="py-24 bg-emerald-600 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-500/20 -skew-x-12 translate-x-1/2"></div>
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center text-white">
           <h2 className="text-4xl font-black mb-8">开始体验纯净有序的相册</h2>
-          <p className="text-emerald-100 mb-12 text-lg font-medium">无需注册，即下即用，让你的照片焕然一新</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <a 
+          <p className="text-emerald-100 mb-14 text-lg font-medium">无需注册，即下即用，让你的照片焕然一新</p>
+
+          {/* 官网下载 */}
+          <h3 className="text-xl font-bold text-emerald-100 mb-6">官网下载</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-14">
+            <a
               href="/download.py?type=portable"
-              className="group px-8 py-6 bg-white text-emerald-600 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-all flex flex-col items-center justify-center active:scale-95"
+              className="group px-6 py-5 bg-white text-emerald-600 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-all flex flex-col items-center justify-center active:scale-95"
             >
-              <Download className="mb-3 w-8 h-8 group-hover:animate-bounce" />
-              <span className="text-lg">下载便携版 (Windows)</span>
-              <span className="text-sm text-emerald-500 mt-1">便携版 · 无需安装</span>
+              <Download className="mb-2 w-7 h-7 group-hover:animate-bounce" />
+              <span className="text-base">便携版 (Windows)</span>
+              <span className="text-xs text-emerald-500 mt-0.5">无需安装</span>
             </a>
-            <a 
+            <a
               href="/download.py?type=setup"
-              className="group px-8 py-6 bg-white text-emerald-600 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-all flex flex-col items-center justify-center active:scale-95"
+              className="group px-6 py-5 bg-white text-emerald-600 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-all flex flex-col items-center justify-center active:scale-95"
             >
-              <Monitor className="mb-3 w-8 h-8 group-hover:animate-pulse" />
-              <span className="text-lg">下载安装版 (Windows)</span>
-              <span className="text-sm text-emerald-500 mt-1">安装版 · 自动安装</span>
+              <Monitor className="mb-2 w-7 h-7 group-hover:animate-pulse" />
+              <span className="text-base">安装版 (Windows)</span>
+              <span className="text-xs text-emerald-500 mt-0.5">自动安装</span>
             </a>
-            <a 
+            <a
               href="/download.py?type=android"
-              className="group px-8 py-6 bg-emerald-800 text-white rounded-2xl font-bold shadow-2xl hover:bg-emerald-900 transition-all border border-emerald-400/30 flex flex-col items-center justify-center active:scale-95"
+              className="group px-6 py-5 bg-white text-emerald-600 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-all flex flex-col items-center justify-center active:scale-95"
             >
-              <Smartphone className="mb-3 w-8 h-8 group-hover:animate-bounce" />
-              <span className="text-lg">下载 Android 版</span>
-              <span className="text-sm text-emerald-200 mt-1">Android · 即装即用</span>
+              <Smartphone className="mb-2 w-7 h-7 group-hover:animate-bounce" />
+              <span className="text-base">Android 版</span>
+              <span className="text-xs text-emerald-500 mt-0.5">即装即用</span>
             </a>
-            <a 
+            <a
+              href="https://m.xintuxiangce.top/mac/XinTuAlbum-mac-arm-1.1.4.dmg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-6 py-5 bg-white text-emerald-600 rounded-2xl font-bold shadow-2xl hover:scale-105 transition-all flex flex-col items-center justify-center active:scale-95"
+            >
+              <Download className="mb-2 w-7 h-7 group-hover:animate-bounce" />
+              <span className="text-base">Mac 版 (ARM)</span>
+              <span className="text-xs text-emerald-500 mt-0.5">macOS</span>
+            </a>
+          </div>
+
+          {/* 应用市场下载 */}
+          <h3 className="text-xl font-bold text-emerald-100 mb-6">应用市场下载</h3>
+          <p className="text-emerald-200/90 text-sm mb-6 max-w-2xl mx-auto">从应用市场安装可享受自动更新与商店安全检测</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <a
               href="https://apps.microsoft.com/detail/9MV2DHVG8952?hl=zh-cn&gl=cn"
               target="_blank"
               rel="noopener noreferrer"
-              className="group px-8 py-6 bg-emerald-800 text-white rounded-2xl font-bold shadow-2xl hover:bg-emerald-900 transition-all border border-emerald-400/30 flex flex-col items-center justify-center active:scale-95"
+              className="group px-6 py-5 bg-emerald-800 text-white rounded-2xl font-bold shadow-2xl hover:bg-emerald-900 transition-all border border-emerald-400/30 flex flex-col items-center justify-center active:scale-95"
             >
-              <Monitor className="mb-3 w-8 h-8 group-hover:animate-pulse" />
-              <span className="text-lg">微软应用市场下载</span>
-              <span className="text-sm text-emerald-200 mt-1">自动更新 · 安全可靠</span>
+              <Monitor className="mb-2 w-7 h-7 group-hover:animate-pulse" />
+              <span className="text-base">微软应用市场</span>
+              <span className="text-xs text-emerald-200 mt-0.5">Windows PC</span>
+            </a>
+            <a
+              href="https://consumer.huawei.com/cn/mobileservices/appgallery/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-6 py-5 bg-emerald-800 text-white rounded-2xl font-bold shadow-2xl hover:bg-emerald-900 transition-all border border-emerald-400/30 flex flex-col items-center justify-center active:scale-95"
+            >
+              <Monitor className="mb-2 w-7 h-7 group-hover:animate-pulse" />
+              <span className="text-base">华为应用市场</span>
+              <span className="text-xs text-emerald-200 mt-0.5">PC 端 · 打开后搜索「芯图相册」</span>
+            </a>
+            <a
+              href="https://consumer.huawei.com/cn/mobileservices/appgallery/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group px-6 py-5 bg-emerald-800 text-white rounded-2xl font-bold shadow-2xl hover:bg-emerald-900 transition-all border border-emerald-400/30 flex flex-col items-center justify-center active:scale-95"
+            >
+              <Smartphone className="mb-2 w-7 h-7 group-hover:animate-bounce" />
+              <span className="text-base">华为应用市场</span>
+              <span className="text-xs text-emerald-200 mt-0.5">Android · 打开后搜索「芯图相册」</span>
             </a>
           </div>
         </div>

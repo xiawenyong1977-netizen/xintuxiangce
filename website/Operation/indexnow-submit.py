@@ -8,10 +8,12 @@ IndexNow API 提交工具
   python indexnow-submit.py              # 提交重要页面（5个）
   python indexnow-submit.py --all        # 提交所有页面（从 sitemap.xml 读取）
   python indexnow-submit.py --all --yes  # 自动提交所有页面（非交互模式）
+  python indexnow-submit.py URL1 URL2 ...  # 仅提交指定的完整 URL（用于 meta 更新后通知 Bing）
   
 参数说明:
   --all, -a    : 从 sitemap.xml 读取所有 URL 并提交
   --yes, -y    : 非交互模式，自动确认提交
+  URL1 URL2... : 要提交的完整 URL（需以 https:// 开头），用于只通知部分页面更新
 """
 
 import requests
@@ -193,9 +195,14 @@ def main():
     # 检查命令行参数
     use_all = '--all' in sys.argv or '-a' in sys.argv
     auto_confirm = '--yes' in sys.argv or '-y' in sys.argv
+    # 从命令行提取以 https:// 开头的 URL（仅提交指定页面）
+    arg_urls = [a for a in sys.argv[1:] if a.startswith('https://') and a not in ('--all', '-a', '--yes', '-y')]
     
     # 获取要提交的 URL
-    if use_all:
+    if arg_urls:
+        print("📋 模式: 仅提交命令行指定的 URL")
+        urls = arg_urls
+    elif use_all:
         print("📋 模式: 提交所有 URL（从 sitemap.xml 读取）")
         urls = get_urls_from_sitemap()
         if not urls:
