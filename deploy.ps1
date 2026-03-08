@@ -452,17 +452,18 @@ function Get-ChangedFiles {
                     }
                     
                     if ($exists) {
-                        # 检查文件是否在目标目录下
-                        if ($fullPath -notlike "$targetDirFullPath\*") {
-                            # 文件不在目标目录下，跳过
+                        # 检查文件是否在目标目录下（兼容 / 和 \）
+                        $fullPathNorm = $fullPath -replace '\\', '/'
+                        $targetNorm = ($targetDirFullPath -replace '\\', '/').TrimEnd('/') + '/'
+                        if (-not $fullPathNorm.StartsWith($targetNorm)) {
                             return $null
                         }
                         
-                        # 转换为相对于目标目录的路径
-                        $relativePath = $fullPath.Replace($targetDirFullPath + "\", "").Replace("\", "/")
+                        # 转换为相对于目标目录的路径（统一为正斜杠）
+                        $relativePath = $fullPathNorm.Replace($targetNorm, "").Replace("\", "/")
                         
                         # 如果路径仍然包含绝对路径（说明转换失败），跳过
-                        if ($relativePath -match '^[A-Z]:') {
+                        if ($relativePath -match '^[A-Za-z]:') {
                             return $null
                         }
                         
@@ -489,18 +490,19 @@ function Get-ChangedFiles {
             }
         }
         
-        # 过滤出需要部署的文件
-        # 注意：此时工作目录已经在目标目录（$TARGET_DIR）下了
+        # 过滤出需要部署的文件（路径为相对于目标目录；当前工作目录在 Git 根）
+        $targetDirFullPath = Join-Path $gitRoot $TARGET_DIR
         $files = $allChanged | Where-Object {
             if (-not $_) {
                 return $false
             }
             
-            # 将路径转换为当前工作目录下的路径（处理 / 和 \ 分隔符）
+            # 将路径转换为目标目录下的本地路径（处理 / 和 \ 分隔符）
             $filePath = $_.Replace("/", [System.IO.Path]::DirectorySeparatorChar)
+            $fullPathForTest = Join-Path $targetDirFullPath $filePath
             
-            # 检查文件是否存在（相对于当前工作目录）
-            if (-not (Test-Path $filePath)) {
+            # 检查文件是否存在（在目标目录下）
+            if (-not (Test-Path -LiteralPath $fullPathForTest)) {
                 Write-Warning "文件不存在，跳过: $filePath"
                 return $false
             }

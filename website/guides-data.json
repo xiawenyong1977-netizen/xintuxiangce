@@ -212,6 +212,19 @@
       "category": "使用指南",
       "cover": "/assets/Screenshots/PC/classifybyAI.png",
       "readTime": "15分钟"
+    },
+    {
+      "id": "xintu-album-rel-1-1-4",
+      "type": "article",
+      "title": "芯图相册 REL 1.1.4 新版本功能说明",
+      "description": "芯图相册 1.1.4 版本发布说明：新功能包括按时间分类（本周/本月/本年等 8 个时间维度）、照片详情页缩放与平移（PC 滚轮与移动端手势）、相似度检测阈值可配置（80%/85%/90%/95%）；功能优化包括首页展示优化（按颜色合并到按内容、卡片与芯片流布局）、按城市/相似度「更多/收起」、按城市分类新算法（全球地址更快更稳）、设置页精简。",
+      "content": "guides/XintuAlbum-REL-1.1.4.md",
+      "author": "芯图团队",
+      "date": "2026-03-08",
+      "tags": ["版本发布", "1.1.4", "新功能", "按时间分类", "详情页缩放", "相似度阈值", "首页优化", "按城市分类"],
+      "category": "使用指南",
+      "cover": "/assets/rel-1.1.4/homescreen-bytime-pc.png",
+      "readTime": "5分钟"
     }
   ]
 }

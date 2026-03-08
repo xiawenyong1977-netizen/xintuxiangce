@@ -393,7 +393,20 @@
       "cover": "/assets/diary/backend-arch/cover.png",
       "readTime": "30分钟",
       "related": ["backend-arch", "async-arch", "deploy-arch"]
+    },
+    {
+      "id": "llm-photo-classification-by-address",
+      "type": "article",
+      "title": "芯图相册如何用大模型实现「按地址」照片分类",
+      "description": "介绍芯图相册在照片分类中「按城市」能力背后的逆地址编码实现：从 V2（高德/Nominatim）到 V3（大模型 + DBSCAN 聚类 + 本地缓存）的演进，为何选择大模型方案，以及 DBSCAN 聚类、批量查询、成本与性能评估等完整技术方案。",
+      "content": "diary/llm-photo-classification-by-address.md",
+      "author": "芯图团队",
+      "date": "2026-03-08",
+      "tags": ["照片分类", "按城市", "逆地址编码", "大模型", "LLM", "芯图相册", "DBSCAN", "研发经验"],
+      "category": "研发经验",
+      "cover": "/assets/rel-1.1.4/homescreen-bytime-pc.png",
+      "readTime": "28分钟",
+      "related": ["backend-arch", "v2-architecture", "architecture-for-scanning"]
     }
   ]
 }
-
