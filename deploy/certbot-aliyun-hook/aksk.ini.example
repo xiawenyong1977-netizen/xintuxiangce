@@ -1,0 +1,6 @@
+# 阿里云 RAM 子账号 AccessKey，用于 DNS API 添加/删除 TXT 记录
+# 复制为服务器上的 /etc/letsencrypt/aksk.ini 并填入真实值，chmod 600
+# 申请：https://ram.console.aliyun.com/ → 用户 → 创建用户 → 勾选 OpenAPI → 添加权限 AliyunDNSFullAccess
+
+ALY_KEY=你的AccessKeyId
+ALY_TOKEN=你的AccessKeySecret
